@@ -1,13 +1,11 @@
 namespace MAUI_GymApp.Views;
 
-// First screen in the sketch: "Start Empty Workout" / "Create New Workout"
-// boxes on top, and a rounded "Routine" card with edit + play buttons.
 public class WorkoutTab : ContentView
 {
     public WorkoutTab()
     {
-        Button startEmpty = MakeBoxButton("Start Empty Workout");
-        Button createNew = MakeBoxButton("Create New Workout");
+        Button startEmpty = Controls.MakeButton("Start Empty Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 18, new Thickness(8));
+        Button createNew = Controls.MakeButton("Create New Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 18, new Thickness(8));
         Grid.SetColumn(createNew, 1);
 
         Grid topRow = new Grid
@@ -31,69 +29,13 @@ public class WorkoutTab : ContentView
         };
     }
 
-    private static Button MakeBoxButton(string text) => new()
-    {
-        Text = text,
-        TextColor = Colors.Black,
-        BackgroundColor = Colors.White,
-        BorderColor = Colors.Black,
-        BorderWidth = 2,
-        CornerRadius = 6,
-        FontSize = 18,
-        Padding = new Thickness(8)
-    };
-
     private static View BuildRoutineCard()
     {
-        Label routineLabel = new Label
-        {
-            Text = "Routine 1",
-            FontSize = 28,
-            TextColor = Colors.Black,
-            VerticalOptions = LayoutOptions.Center
-        };
+        Label routineLabel = Controls.MakeLabel("Routine 1", 24, Colors.Black, LayoutOptions.Center);
 
-        Button deleteButton = new Button()
-        {
-            Text = "🗑",
-            FontSize = 22,
-            TextColor = Colors.Black,
-            BackgroundColor = Colors.Red,
-            BorderColor = Colors.Black,
-            BorderWidth = 2,
-            CornerRadius = 6,
-            WidthRequest = 48,
-            HeightRequest = 48,
-            Padding = 0
-        };
-
-        Button editButton = new Button
-        {
-            Text = "✎",
-            FontSize = 22,
-            TextColor = Colors.Black,
-            BackgroundColor = Colors.White,
-            BorderColor = Colors.Black,
-            BorderWidth = 2,
-            CornerRadius = 6,
-            WidthRequest = 48,
-            HeightRequest = 48,
-            Padding = 0
-        };
-
-        Button playButton = new Button
-        {
-            Text = "▶", // play triangle
-            FontSize = 22,
-            TextColor = Colors.Black,
-            BackgroundColor = Colors.Green,
-            BorderColor = Colors.Black,
-            BorderWidth = 2,
-            CornerRadius = 6,
-            WidthRequest = 48,
-            HeightRequest = 48,
-            Padding = 0
-        };
+        Button deleteButton = Controls.MakeButton("🗑", Colors.Black, Colors.White, Colors.White, 2, 6, 22, 48, 48, 0);
+        Button editButton = Controls.MakeButton("✎", Colors.Black, Colors.White, Colors.White, 2, 6, 22, 48, 48, 0);
+        Button playButton = Controls.MakeButton("▶", Colors.Black, Colors.White, Colors.White, 2, 6, 22, 48, 48, 0);
 
         Grid inner = new Grid
         {
@@ -110,15 +52,12 @@ public class WorkoutTab : ContentView
 
         inner.Add(routineLabel, 0);
         inner.Add(editButton, 1);
-        inner.Add(playButton, 2);
-        inner.Add(deleteButton, 3);
+        inner.Add(deleteButton, 2);
+        inner.Add(playButton, 3);
 
         return new Border
         {
-            StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 28 },
-            Stroke = Colors.Black,
-            StrokeThickness = 2,
-            BackgroundColor = Colors.White,
+            BackgroundColor = Colors.LightGray,
             Content = inner
         };
     }

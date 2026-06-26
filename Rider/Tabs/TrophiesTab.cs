@@ -2,8 +2,6 @@ using Microsoft.Maui.Controls.Shapes;
 
 namespace MAUI_GymApp.Views;
 
-// Second screen in the sketch: search bar with Filter / Sort on the right,
-// then a table of Trophy / Name / 1RM.
 public class TrophiesTab : ContentView
 {
     public TrophiesTab()
@@ -40,6 +38,7 @@ public class TrophiesTab : ContentView
                     new Entry
                     {
                         Placeholder = "Search",
+                        FontFamily = "OrbitronBold",
                         BackgroundColor = Colors.Transparent,
                         TextColor = Colors.Black,
                         WidthRequest = 180,
@@ -48,9 +47,9 @@ public class TrophiesTab : ContentView
                 }
             }
         };
-
-        var filterButton = MakeSmallButton("Filter");
-        var sortButton = MakeSmallButton("Sort");
+        
+        Button filterButton = Controls.MakeButton("Filter", Colors.Black, Colors.White, Colors.Black, 2, 0, 16, new Thickness(0, 2));
+        Button sortButton = Controls.MakeButton("Sort", Colors.Black, Colors.White, Colors.Black, 2, 0, 16, new Thickness(0, 2));
         Grid.SetRow(sortButton, 1);
 
         var rightColumn = new Grid
@@ -80,18 +79,6 @@ public class TrophiesTab : ContentView
         return grid;
     }
 
-    private static Button MakeSmallButton(string text) => new()
-    {
-        Text = text,
-        TextColor = Colors.Black,
-        BackgroundColor = Colors.White,
-        BorderColor = Colors.Black,
-        BorderWidth = 2,
-        CornerRadius = 0,
-        FontSize = 16,
-        Margin = new Thickness(0, 2)
-    };
-
     private static View BuildTable()
     {
         Grid table = new Grid
@@ -108,13 +95,11 @@ public class TrophiesTab : ContentView
                 new RowDefinition { Height = GridLength.Auto }
             }
         };
-
-        // Header row
+        
         table.Add(Cell("Trophy", bold: true), 0, 0);
         table.Add(Cell("Name", bold: true), 1, 0);
         table.Add(Cell("1RM", bold: true), 2, 0);
-
-        // Data row
+        
         table.Add(Cell("Gold"), 0, 1);
         table.Add(Cell("Bench Press"), 1, 1);
         table.Add(Cell("100 kg"), 2, 1);
@@ -139,6 +124,7 @@ public class TrophiesTab : ContentView
         {
             Text = text,
             FontSize = 18,
+            FontFamily = "OrbitronBold",
             TextColor = Colors.Black,
             FontAttributes = bold ? FontAttributes.Bold : FontAttributes.None,
             HorizontalOptions = LayoutOptions.Center,
