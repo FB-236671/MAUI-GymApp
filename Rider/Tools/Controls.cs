@@ -38,4 +38,24 @@ public class Controls
         VerticalOptions = layout,
         FontFamily = "OrbitronBold"
     };
+    
+    public static Label MakeLabel(string text, int fontSize) => new()
+    {
+        Text = text,
+        FontSize = fontSize,
+        TextColor = Colors.Black,
+        VerticalOptions = LayoutOptions.Center,
+        FontFamily = "OrbitronBold"
+    };
+
+    public static Entry MakeTextBox(string placeHolder, Color textColor, int fontSize, int width, LayoutOptions layout) => new()
+    {
+        Placeholder = placeHolder,
+        FontFamily = "OrbitronBold",
+        BackgroundColor = Colors.Transparent,
+        TextColor = textColor,
+        FontSize = fontSize,
+        WidthRequest = width,
+        VerticalOptions = layout
+    };
 }

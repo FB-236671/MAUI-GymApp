@@ -21,10 +21,7 @@ public class ExercisePasser
 {
     public int ExerciseId { get; set; }
     public string Name { get; set; }
-    public int BronzeTrophy { get; set; }
-    public int SilverTrophy { get; set; }
-    public int GoldTrophy { get; set; }
-    public int PlatinumTrophy { get; set; }
+    public int MuscleId { get; set; }
 }
 
 public class ExercisesPasser
@@ -66,7 +63,7 @@ public class SessionPasser
 
 public class UserPasser
 {
-    public static int UserId { get; set; }
+    public int UserId { get; set; }
     public string Name { get; set; }
     public int Age { get; set; }
     public int Weight { get; set; }

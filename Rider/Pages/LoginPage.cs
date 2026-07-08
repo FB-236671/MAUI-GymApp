@@ -1,4 +1,7 @@
-﻿namespace MAUI_GymApp;
+﻿using MAUI_GymApp.Database.Passers;
+using MAUI_GymApp.Rider.Database.Queries;
+
+namespace MAUI_GymApp;
 
 public class LoginPage : ContentPage
 {
@@ -6,31 +9,38 @@ public class LoginPage : ContentPage
     {
         BackgroundColor = Colors.White;
         Button createProfileButton = Controls.MakeButton("Create New Profile", Colors.Black, Colors.White, Colors.Black, 2, 6, 18, 0);
-        Button testButton = Controls.MakeButton("Finlay", Colors.Black, Colors.White, Colors.Black, 2, 6, 18, 0);
-
+        
         VerticalStackLayout layout = new VerticalStackLayout
         {
             VerticalOptions = LayoutOptions.Center,
             HorizontalOptions = LayoutOptions.Center,
         };
-
-        testButton.Clicked += OnLoginClick;
+        
+        List<UserPasser> userList = UserQueries.GetUsers();
+        foreach (UserPasser userObject in userList)
+        {
+            Button button = Controls.MakeButton(userObject.Name, Colors.Black, Colors.White, Colors.Black, 2, 6, 18, 0);
+            button.Clicked += (sender, e) => OnLoginClick(userObject);
+            layout.Add(button);
+        }
+        
         createProfileButton.Clicked += OnCreateProfileClick;
-
         layout.Add(createProfileButton);
-        layout.Add(testButton);
-
         Content = layout;
-
     }
     
-    private void OnLoginClick(object? sender, EventArgs e)
+    private void OnLoginClick(UserPasser userObject)
     {
-        Application.Current!.MainPage = new MainPage();
+        MainPage.User = userObject;
+        Application.Current!.MainPage = new NavigationPage(new MainPage())
+        {
+            BarBackgroundColor = Colors.White,
+            BarTextColor = Colors.Black,
+        };
     }
 
-    private void OnCreateProfileClick(object? sender, EventArgs e)
+    private async void OnCreateProfileClick(object? sender, EventArgs e)
     {
-        Navigation.PushAsync(new CreateProfilePage());
+        await Navigation.PushAsync(new CreateProfilePage());
     }
 }

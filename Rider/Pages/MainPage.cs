@@ -13,6 +13,7 @@ public class MainPage : ContentPage
     public MainPage()
     {
         BackgroundColor = Colors.White;
+        NavigationPage.SetHasNavigationBar(this, false);
         _contentHost = new ContentView();
 
         TabButton workoutTab = new TabButton("🏋", "Workout", () => Show(0, new WorkoutTab()));

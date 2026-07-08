@@ -10,12 +10,7 @@ public class TrophiesTab : ContentView
         {
             Padding = new Thickness(16, 16, 16, 0),
             Spacing = 0,
-            Children =
-            {
-                BuildSearchRow(),
-                BuildTable()
-            }
-        };
+            Children = { BuildSearchRow(), BuildTable() } };
     }
 
     private static View BuildSearchRow()
@@ -35,15 +30,7 @@ public class TrophiesTab : ContentView
                 Children =
                 {
                     new Label { Text = "🔍", FontSize = 16, VerticalOptions = LayoutOptions.Center },
-                    new Entry
-                    {
-                        Placeholder = "Search",
-                        FontFamily = "OrbitronBold",
-                        BackgroundColor = Colors.Transparent,
-                        TextColor = Colors.Black,
-                        WidthRequest = 180,
-                        VerticalOptions = LayoutOptions.Center
-                    }
+                    Controls.MakeTextBox("Search", Colors.Black, 16, 180, LayoutOptions.Center)
                 }
             }
         };

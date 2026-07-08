@@ -4,9 +4,11 @@ public class WorkoutTab : ContentView
 {
     public WorkoutTab()
     {
-        Button startEmpty = Controls.MakeButton("Start Empty Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 18, new Thickness(8));
-        Button createNew = Controls.MakeButton("Create New Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 18, new Thickness(8));
+        Button startEmpty = Controls.MakeButton("Start Empty Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 12, new Thickness(8));
+        Button createNew = Controls.MakeButton("Create New Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 12, new Thickness(8));
         Grid.SetColumn(createNew, 1);
+        
+        createNew.Clicked += OnCreateClick;
 
         Grid topRow = new Grid
         {
@@ -28,15 +30,14 @@ public class WorkoutTab : ContentView
             Children = { topRow, routineCard }
         };
     }
+    
+    private async void OnCreateClick(object? sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new CreateWorkoutPage());
+    }
 
     private static View BuildRoutineCard()
     {
-        Label routineLabel = Controls.MakeLabel("Routine 1", 24, Colors.Black, LayoutOptions.Center);
-
-        Button deleteButton = Controls.MakeButton("🗑", Colors.Black, Colors.White, Colors.White, 2, 6, 22, 48, 48, 0);
-        Button editButton = Controls.MakeButton("✎", Colors.Black, Colors.White, Colors.White, 2, 6, 22, 48, 48, 0);
-        Button playButton = Controls.MakeButton("▶", Colors.Black, Colors.White, Colors.White, 2, 6, 22, 48, 48, 0);
-
         Grid inner = new Grid
         {
             ColumnDefinitions =
@@ -50,10 +51,9 @@ public class WorkoutTab : ContentView
             Padding = new Thickness(20, 14)
         };
 
-        inner.Add(routineLabel, 0);
-        inner.Add(editButton, 1);
-        inner.Add(deleteButton, 2);
-        inner.Add(playButton, 3);
+        inner.Add(Controls.MakeLabel("Routine 1", 24), 0);
+        inner.Add(Controls.MakeButton("✎", Colors.Black, Colors.White, Colors.White, 2, 6, 22, 48, 48, 0), 1);
+        inner.Add(Controls.MakeButton("▶", Colors.Black, Colors.White, Colors.White, 2, 6, 22, 48, 48, 0), 3);
 
         return new Border
         {

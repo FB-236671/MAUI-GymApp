@@ -20,16 +20,11 @@ public class CreateProfilePage : ContentPage
         Label weightLabel = Controls.MakeLabel("Weight:", 18, Colors.Black, LayoutOptions.Center);
         Label sexLabel = Controls.MakeLabel("Sex:", 18, Colors.Black, LayoutOptions.Center);
 
-        _nameEntry   = new Entry { Placeholder = "Text", FontFamily = "OrbitronBold", BackgroundColor = Colors.Transparent, TextColor = Colors.Black, WidthRequest = 140, VerticalOptions = LayoutOptions.Center };
-        _ageEntry    = new Entry { Placeholder = "Text", FontFamily = "OrbitronBold", BackgroundColor = Colors.Transparent, TextColor = Colors.Black, WidthRequest = 140, VerticalOptions = LayoutOptions.Center };
-        _weightEntry = new Entry { Placeholder = "Text", FontFamily = "OrbitronBold", BackgroundColor = Colors.Transparent, TextColor = Colors.Black, WidthRequest = 140, VerticalOptions = LayoutOptions.Center };
-        _sexEntry    = new Entry { Placeholder = "Text", FontFamily = "OrbitronBold", BackgroundColor = Colors.Transparent, TextColor = Colors.Black, WidthRequest = 140, VerticalOptions = LayoutOptions.Center };
-
-        View nameCard   = BuildProfileCard(nameLabel,   _nameEntry);
-        View ageCard    = BuildProfileCard(ageLabel,    _ageEntry);
-        View weightCard = BuildProfileCard(weightLabel, _weightEntry);
-        View sexCard    = BuildProfileCard(sexLabel,    _sexEntry);
-
+        _nameEntry = Controls.MakeTextBox("Text", Colors.Black, 18, 180, LayoutOptions.Center);
+        _ageEntry = Controls.MakeTextBox("Text", Colors.Black, 18, 180, LayoutOptions.Center);
+        _weightEntry = Controls.MakeTextBox("Text", Colors.Black, 18, 180, LayoutOptions.Center);
+        _sexEntry = Controls.MakeTextBox("Text", Colors.Black, 18, 180, LayoutOptions.Center);
+        
         VerticalStackLayout layout = new VerticalStackLayout
         {
             VerticalOptions = LayoutOptions.Center,
@@ -38,10 +33,10 @@ public class CreateProfilePage : ContentPage
 
         createButton.Clicked += OnLoginClick;
         
-        layout.Add(nameCard);
-        layout.Add(ageCard);
-        layout.Add(weightCard);
-        layout.Add(sexCard);
+        layout.Add(BuildProfileCard(nameLabel, _nameEntry));
+        layout.Add(BuildProfileCard(ageLabel, _ageEntry));
+        layout.Add(BuildProfileCard(weightLabel, _weightEntry));
+        layout.Add(BuildProfileCard(sexLabel, _sexEntry));
         layout.Add(createButton);
 
         Content = layout;
@@ -50,16 +45,18 @@ public class CreateProfilePage : ContentPage
     private void OnLoginClick(object? sender, EventArgs e)
     {
         UserPasser userObject = new UserPasser();
-
         userObject.Name = _nameEntry.Text;
         userObject.Age = Convert.ToInt32(_ageEntry.Text);
         userObject.Weight = Convert.ToInt32(_weightEntry.Text);
         userObject.Sex = _sexEntry.Text;
-        
         UserQueries.CreateUser(userObject);
         MainPage.User = userObject;
         
-        Application.Current!.MainPage = new MainPage();
+        Application.Current!.MainPage = new NavigationPage(new MainPage())
+        {
+            BarBackgroundColor = Colors.White,
+            BarTextColor = Colors.Black,
+        };
     }
     
     private static View BuildProfileCard(Label label, Entry entry)

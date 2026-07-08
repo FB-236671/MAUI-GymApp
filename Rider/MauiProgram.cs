@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using CommunityToolkit.Maui.Markup;
+﻿using CommunityToolkit.Maui.Markup;
 using MAUI_GymApp.Database;
 
 namespace MAUI_GymApp;
@@ -19,6 +18,10 @@ public static class MauiProgram
             });
 
         Tables.CreateTables();
+        Tables.CategoryPrepopulation();
+        Tables.ExercisePrepopulation();
+        Tables.MusclePrepopulation();
+        Tables.EquipmentPrepopulation();
         
         return builder.Build();
     }
