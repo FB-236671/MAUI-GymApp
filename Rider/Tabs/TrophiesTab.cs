@@ -30,7 +30,7 @@ public class TrophiesTab : ContentView
                 Children =
                 {
                     new Label { Text = "🔍", FontSize = 16, VerticalOptions = LayoutOptions.Center },
-                    Controls.MakeTextBox("Search", Colors.Black, 16, 180, LayoutOptions.Center)
+                    Controls.MakeTextBox("Search", Colors.Gray, Colors.Black, 16, 180, LayoutOptions.Center)
                 }
             }
         };

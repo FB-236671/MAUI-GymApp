@@ -48,14 +48,25 @@ public class Controls
         FontFamily = "OrbitronBold"
     };
 
-    public static Entry MakeTextBox(string placeHolder, Color textColor, int fontSize, int width, LayoutOptions layout) => new()
+    public static Entry MakeTextBox(string placeHolder, Color placeHolderColor, Color textColor, int fontSize, int width, LayoutOptions layout) => new()
     {
         Placeholder = placeHolder,
         FontFamily = "OrbitronBold",
         BackgroundColor = Colors.Transparent,
+        PlaceholderColor = placeHolderColor,
         TextColor = textColor,
         FontSize = fontSize,
         WidthRequest = width,
         VerticalOptions = layout
+    };
+
+    public static Picker MakeSelector(string title, List<string> list, int fontSize) => new()
+    {
+        Title = title,
+        ItemsSource = list,
+        TextColor = Colors.Black,
+        FontFamily = "OrbitronBold",
+        TitleColor = Colors.Black,
+        FontSize = fontSize
     };
 }

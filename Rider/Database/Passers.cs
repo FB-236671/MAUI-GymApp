@@ -30,6 +30,7 @@ public class ExercisesPasser
     public int ExerciseId { get; set; }
     public int Sets { get; set; }
     public int Rest { get; set; }
+    public int EquipmentId { get; set; }
 }
 
 public class MusclePasser
@@ -51,6 +52,7 @@ public class RoutinePasser
 {
     public int RoutineId { get; set; }
     public int UserId { get; set; }
+    public string Name { get; set; }
 }
 
 public class SessionPasser

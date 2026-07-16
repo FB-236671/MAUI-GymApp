@@ -21,8 +21,8 @@ public class Tables
 
             "session (sessionId integer primary key autoincrement, userId integer, duration integer, volume integer)",
             "workout (sessionId integer, exerciseId integer, weight integer, sets integer, reps integer, PRIMARY KEY (sessionId, exerciseId))",
-            "routine (routineId integer primary key autoincrement, userId integer)",
-            "exercises (routineId integer, exerciseId integer, sets integer, rest integer, PRIMARY KEY (routineId, exerciseId))"
+            "routine (routineId integer primary key autoincrement, userId integer, name text)",
+            "exercises (routineId integer, exerciseId integer, sets integer, rest integer, equipmentId integer, PRIMARY KEY (routineId, exerciseId))"
         };
 
         Connection.Open();

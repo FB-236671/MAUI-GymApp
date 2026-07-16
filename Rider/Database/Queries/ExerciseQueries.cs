@@ -24,4 +24,22 @@ public class ExerciseQueries
         Tables.Connection.Close();
         return exerciseList;
     }
+
+    public static ExercisePasser GetExerciseByName(string name)
+    {
+        ExercisePasser exerciseObject = new ExercisePasser();
+        string sql = "SELECT * FROM exercise WHERE name = @name";
+        SqliteCommand command = new SqliteCommand(sql, Tables.Connection);
+        command.Parameters.AddWithValue("@name", name);
+        Tables.Connection.Open();
+        SqliteDataReader reader = command.ExecuteReader();
+        if (reader.Read())
+        {
+            exerciseObject.ExerciseId = reader.GetInt32(0);
+            exerciseObject.Name = reader.GetString(1);
+            exerciseObject.MuscleId = reader.GetInt32(2);
+        }
+        Tables.Connection.Close();
+        return exerciseObject;
+    }
 }

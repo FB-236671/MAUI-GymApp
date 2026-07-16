@@ -1,6 +1,5 @@
 ﻿using MAUI_GymApp.Database.Passers;
 using MAUI_GymApp.Rider.Database.Queries;
-using Microsoft.Maui.Controls.Shapes;
 
 namespace MAUI_GymApp;
 
@@ -20,10 +19,10 @@ public class CreateProfilePage : ContentPage
         Label weightLabel = Controls.MakeLabel("Weight:", 18, Colors.Black, LayoutOptions.Center);
         Label sexLabel = Controls.MakeLabel("Sex:", 18, Colors.Black, LayoutOptions.Center);
 
-        _nameEntry = Controls.MakeTextBox("Text", Colors.Black, 18, 180, LayoutOptions.Center);
-        _ageEntry = Controls.MakeTextBox("Text", Colors.Black, 18, 180, LayoutOptions.Center);
-        _weightEntry = Controls.MakeTextBox("Text", Colors.Black, 18, 180, LayoutOptions.Center);
-        _sexEntry = Controls.MakeTextBox("Text", Colors.Black, 18, 180, LayoutOptions.Center);
+        _nameEntry = Controls.MakeTextBox("Name", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
+        _ageEntry = Controls.MakeTextBox("Age", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
+        _weightEntry = Controls.MakeTextBox("Weight", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
+        _sexEntry = Controls.MakeTextBox("Sex", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
         
         VerticalStackLayout layout = new VerticalStackLayout
         {
