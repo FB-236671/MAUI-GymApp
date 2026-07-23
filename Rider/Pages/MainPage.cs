@@ -1,4 +1,4 @@
-using MAUI_GymApp.Database.Passers;
+using MAUI_GymApp.Rider.Database.Objects;
 using MAUI_GymApp.Views;
 
 namespace MAUI_GymApp;

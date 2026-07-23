@@ -1,5 +1,4 @@
-﻿using MAUI_GymApp.Database.Passers;
-using MAUI_GymApp.Rider.Database.Queries;
+﻿using MAUI_GymApp.Rider.Database.Objects;
 
 namespace MAUI_GymApp;
 
@@ -50,21 +49,24 @@ public class CreateWorkoutPage : ContentPage
 
     private void OnSaveClicked(object? sender, EventArgs e)
     {
-        RoutinePasser routineObject = new RoutinePasser();
-        routineObject.UserId = MainPage.User.UserId;
-        routineObject.Name = nameBox.Text;
-        RoutineQueries.CreateRoutine(routineObject);
-        int routineId = RoutineQueries.GetRoutineByName(routineObject.Name).RoutineId;
-        
-        foreach ((string _name, Entry _setEntry, Entry _restEntry, Picker _equipmentPicker) exercise in _routineExerciseList)
+        if (nameBox.Text != "")
         {
-            ExercisesPasser exercisesObject = new ExercisesPasser();
-            exercisesObject.RoutineId = routineId;
-            exercisesObject.ExerciseId = ExerciseQueries.GetExerciseByName(exercise._name).ExerciseId;
-            exercisesObject.Sets = Convert.ToInt32(exercise._setEntry.Text);
-            exercisesObject.Rest = Convert.ToInt32(exercise._restEntry.Text);
-            exercisesObject.EquipmentId = EquipmentQueries.GetEquipmentByName((string)exercise._equipmentPicker.SelectedItem).EquipmentId;
-            ExercisesQueries.AddExercises(exercisesObject);
+            RoutinePasser routineObject = new RoutinePasser();
+            routineObject.UserId = MainPage.User.UserId;
+            routineObject.Name = nameBox.Text;
+            Routine.CreateRoutine(routineObject);
+            int routineId = Routine.GetRoutineByName(routineObject.Name).RoutineId;
+        
+            foreach ((string _name, Entry _setEntry, Entry _restEntry, Picker _equipmentPicker) exercise in _routineExerciseList)
+            {
+                RoutineExercisesPasser routineExercisesObject = new RoutineExercisesPasser();
+                routineExercisesObject.RoutineId = routineId;
+                routineExercisesObject.ExerciseId = Exercise.GetExerciseByName(exercise._name).ExerciseId;
+                routineExercisesObject.Sets = Convert.ToInt32(exercise._setEntry.Text);
+                routineExercisesObject.Rest = Convert.ToInt32(exercise._restEntry.Text);
+                routineExercisesObject.EquipmentId = Equipment.GetEquipmentByName((string)exercise._equipmentPicker.SelectedItem).EquipmentId;
+                RoutineExercises.AddRoutineExercises(routineExercisesObject);
+            }
         }
         
         Application.Current!.MainPage = new NavigationPage(new MainPage())
@@ -77,7 +79,7 @@ public class CreateWorkoutPage : ContentPage
     private static List<string> ExerciseList()
     {
         List<string> exerciseList = new List<string>();
-        List<ExercisePasser> passerList = ExerciseQueries.GetExercises();
+        List<ExercisePasser> passerList = Exercise.GetExercises();
         
         foreach (ExercisePasser passer in passerList)
         {
@@ -89,7 +91,7 @@ public class CreateWorkoutPage : ContentPage
     private static List<string> EquipmentList()
     {
         List<string> equipmentList = new List<string>();
-        List<EquipmentPasser> passerList = EquipmentQueries.GetEquipment();
+        List<EquipmentPasser> passerList = Equipment.GetEquipment();
 
         foreach (EquipmentPasser passer in passerList)
         {

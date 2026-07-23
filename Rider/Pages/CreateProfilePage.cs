@@ -1,5 +1,4 @@
-﻿using MAUI_GymApp.Database.Passers;
-using MAUI_GymApp.Rider.Database.Queries;
+﻿using MAUI_GymApp.Rider.Database.Objects;
 
 namespace MAUI_GymApp;
 
@@ -48,7 +47,7 @@ public class CreateProfilePage : ContentPage
         userObject.Age = Convert.ToInt32(_ageEntry.Text);
         userObject.Weight = Convert.ToInt32(_weightEntry.Text);
         userObject.Sex = _sexEntry.Text;
-        UserQueries.CreateUser(userObject);
+        userObject.UserId = User.CreateUser(userObject);
         MainPage.User = userObject;
         
         Application.Current!.MainPage = new NavigationPage(new MainPage())

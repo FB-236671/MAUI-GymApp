@@ -19,10 +19,10 @@ public class Tables
             "user (userId integer primary key autoincrement, name text, age integer, weight integer, sex text)",
             "record (userId integer, exerciseId integer, bestWeight integer, oneRM integer, PRIMARY KEY (userId, exerciseId))",
 
-            "session (sessionId integer primary key autoincrement, userId integer, duration integer, volume integer)",
-            "workout (sessionId integer, exerciseId integer, weight integer, sets integer, reps integer, PRIMARY KEY (sessionId, exerciseId))",
+            "workout (workoutId integer primary key autoincrement, userId integer, duration integer, volume integer)",
+            "workoutexercises (workoutId integer, exerciseId integer, weight integer, sets integer, reps integer, PRIMARY KEY (workoutId, exerciseId))",
             "routine (routineId integer primary key autoincrement, userId integer, name text)",
-            "exercises (routineId integer, exerciseId integer, sets integer, rest integer, equipmentId integer, PRIMARY KEY (routineId, exerciseId))"
+            "routineexercises (routineId integer, exerciseId integer, sets integer, rest integer, equipmentId integer, PRIMARY KEY (routineId, exerciseId))"
         };
 
         Connection.Open();
@@ -132,7 +132,8 @@ public class Tables
     {
         string[,] equipment = new string[,]
         {
-            {"Dumbell", "2"},
+            {"No Equipment", "0"},
+            {"Dumbbell", "2"},
             {"Barbell", "1"},
             {"No Pulley", "1"},
             {"One Pulley", "0.5"},

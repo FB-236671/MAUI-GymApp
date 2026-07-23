@@ -1,5 +1,4 @@
-﻿using MAUI_GymApp.Database.Passers;
-using MAUI_GymApp.Rider.Database.Queries;
+﻿using MAUI_GymApp.Rider.Database.Objects;
 
 namespace MAUI_GymApp;
 
@@ -16,7 +15,7 @@ public class LoginPage : ContentPage
             HorizontalOptions = LayoutOptions.Center,
         };
         
-        List<UserPasser> userList = UserQueries.GetUsers();
+        List<UserPasser> userList = User.GetUsers();
         foreach (UserPasser userObject in userList)
         {
             Button button = Controls.MakeButton(userObject.Name, Colors.Black, Colors.White, Colors.Black, 2, 6, 18, 0);
