@@ -29,6 +29,20 @@ public class Equipment
             command => command.Parameters.AddWithValue("@name", name)
         );
     }
+
+    public static EquipmentPasser GetEquipmentById(int id)
+    {
+        string sql = "SELECT * FROM equipment WHERE equipmentId = @equipmentId";
+        
+        return GeneralQueries.GetOne(sql, reader => new EquipmentPasser
+            {
+                EquipmentId = reader.GetInt32(0),
+                Name = reader.GetString(1),
+                Multiplier = reader.GetInt32(2)
+            },
+            command => command.Parameters.AddWithValue("@equipmentId", id)
+        );
+    }
 }
 
 public class EquipmentPasser

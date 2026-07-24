@@ -29,6 +29,20 @@ public class Exercise
             command => command.Parameters.AddWithValue("@name", name)
         );
     }
+
+    public static ExercisePasser GetExerciseById(int id)
+    {
+        string sql = "SELECT * FROM exercise WHERE exerciseId = @exerciseId";
+        
+        return GeneralQueries.GetOne(sql, reader => new ExercisePasser()
+            {
+                ExerciseId = reader.GetInt32(0),
+                Name = reader.GetString(1),
+                MuscleId = reader.GetInt32(2),
+            },
+            command => command.Parameters.AddWithValue("@exerciseId", id)
+        );
+    }
 }
 
 public class ExercisePasser

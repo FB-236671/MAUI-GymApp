@@ -6,7 +6,6 @@ public class WorkoutTab : ContentView
 {
     private readonly VerticalStackLayout _layout;
     private bool _routinesLoaded;
-    private List<(Button start, Button edit, Button delete)> _routineButtonList = new();
 
     public WorkoutTab()
     {
@@ -33,20 +32,17 @@ public class WorkoutTab : ContentView
             Spacing = 16,
             Children = { topRow }
         };
-
-        foreach ((Button start, Button edit, Button delete) buttons in _routineButtonList)
-        {
-            buttons.start.Clicked += OnStartClick;
-            buttons.edit.Clicked += OnEditClick;
-        }
         
-        Content = _layout;
+        Content = new ScrollView { Content = _layout };
         Loaded += OnLoaded;
     }
 
-    private void OnStartClick(object? sender, EventArgs e)
+    private async void OnStartClick(object? sender, EventArgs e)
     {
+        if (sender is not Button button || button.CommandParameter is not RoutinePasser routineObject)
+            return;
         
+        await Navigation.PushAsync(new WorkoutPage(routineObject));
     }
     
     private void OnEditClick(object? sender, EventArgs e)
@@ -108,15 +104,15 @@ public class WorkoutTab : ContentView
         Button edit = Controls.MakeButton("✎", Colors.Black, Colors.White, Colors.White, 2, 6, 22, 48, 48, 0);
         Button delete = Controls.MakeButton("🗑", Colors.Black, Colors.White, Colors.White, 2, 6, 22, 48, 48, 0);
 
+        start.CommandParameter = routineObject;
         delete.CommandParameter = routineObject.RoutineId;
+        start.Clicked += OnStartClick;
         delete.Clicked += OnDeleteClick;
         
         inner.Add(Controls.MakeLabel(routineObject.Name, 24), 0);
         inner.Add(start, 1);
         inner.Add(edit, 2);
         inner.Add(delete, 3);
-        
-        _routineButtonList.Add((start, edit, delete));
 
         return new Border
         {

@@ -44,7 +44,7 @@ public class CreateWorkoutPage : ContentPage
         };
         picker.SelectedIndexChanged += OnPickerSelectedIndexChanged;
         saveButton.Clicked += OnSaveClicked;
-        Content = _layout;
+        Content = new ScrollView { Content = _layout };
     }
 
     private void OnSaveClicked(object? sender, EventArgs e)
