@@ -45,11 +45,6 @@ public class WorkoutTab : ContentView
         await Navigation.PushAsync(new WorkoutPage(routineObject));
     }
     
-    private void OnEditClick(object? sender, EventArgs e)
-    {
-        
-    }
-    
     private void OnDeleteClick(object? sender, EventArgs e)
     {
         if (sender is not Button button || button.CommandParameter is not int routineId)

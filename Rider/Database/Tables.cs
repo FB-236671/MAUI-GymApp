@@ -11,17 +11,18 @@ public class Tables
     {
         string[] tables = new[]
         {
-            "category (categoryId integer primary key autoincrement, name text UNIQUE)",
-            "exercise (exerciseId integer primary key autoincrement, name text UNIQUE, muscleId integer)",
-            "muscle (muscleId integer primary key autoincrement, name text UNIQUE, categoryId integer)",
-            "equipment (equipmentId integer primary key autoincrement, name text UNIQUE, multiplier integer)",
+            "category (categoryId integer PRIMARY KEY AUTOINCREMENT, name text UNIQUE)",
+            "exercise (exerciseId integer PRIMARY KEY AUTOINCREMENT, name text UNIQUE, muscleId integer)",
+            "muscle (muscleId integer PRIMARY KEY AUTOINCREMENT, name text UNIQUE, categoryId integer)",
+            "equipment (equipmentId integer PRIMARY KEY AUTOINCREMENT, name text UNIQUE, multiplier integer)",
 
-            "user (userId integer primary key autoincrement, name text, age integer, weight integer, sex text)",
+            "user (userId integer PRIMARY KEY AUTOINCREMENT, name text, age integer, weight integer, sex text)",
             "record (userId integer, exerciseId integer, bestWeight integer, oneRM integer, PRIMARY KEY (userId, exerciseId))",
 
-            "workout (workoutId integer primary key autoincrement, userId integer, duration integer, volume integer)",
-            "workoutexercises (workoutId integer, exerciseId integer, weight integer, sets integer, reps integer, PRIMARY KEY (workoutId, exerciseId))",
-            "routine (routineId integer primary key autoincrement, userId integer, name text)",
+            "workout (workoutId integer PRIMARY KEY AUTOINCREMENT, userId integer, duration integer, volume integer)",
+            "workoutexercises (workoutexercisesId integer PRIMARY KEY AUTOINCREMENT, workoutId integer, exerciseId integer, sets integer)",
+            "workoutsets (workoutexercisesId integer, setnumber integer, weight integer, reps integer, PRIMARY KEY (workoutexercisesId, setnumber)",
+            "routine (routineId integer PRIMARY KEY AUTOINCREMENT, userId integer, name text)",
             "routineexercises (routineId integer, exerciseId integer, sets integer, rest integer, equipmentId integer, PRIMARY KEY (routineId, exerciseId))"
         };
 

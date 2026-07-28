@@ -20,7 +20,7 @@ public class RoutineExercises
 
     public static void DeleteRoutineExercises(int routineId)
     {
-        string sql = "DELETE FROM routine WHERE routineId = @routineId";
+        string sql = "DELETE FROM routineexercises WHERE routineId = @routineId";
         
         GeneralQueries.NonQuery(sql, command => command.Parameters.AddWithValue("@routineId", routineId));
     }

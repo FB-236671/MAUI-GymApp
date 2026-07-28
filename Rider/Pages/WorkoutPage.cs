@@ -11,7 +11,8 @@ public class WorkoutPage : ContentPage
     private IDispatcherTimer _timer;
     private Stopwatch _stopwatch = new();
     private Label _timerLabel = Controls.MakeLabel("__:__:__", 30);
-    private List<(Entry reps, Entry weight, CheckBox checkBox)> _setList;
+    private List<List<(int setNumber, Entry weight, Entry reps, CheckBox checkBox)>> _setListList = new();
+    private List<RoutineExercisesPasser> _exercises = new();
     
     public WorkoutPage(RoutinePasser routineObject)
     {
@@ -21,7 +22,7 @@ public class WorkoutPage : ContentPage
         
         Background = Colors.White;
         _routineObject = routineObject;
-        List<RoutineExercisesPasser> exercises = RoutineExercises.GetRoutineExercisesByRoutineId(routineObject.RoutineId);
+        _exercises = RoutineExercises.GetRoutineExercisesByRoutineId(routineObject.RoutineId);
 
         _layout = new VerticalStackLayout()
         {
@@ -43,7 +44,7 @@ public class WorkoutPage : ContentPage
             }
         };
 
-        foreach (RoutineExercisesPasser exercise in exercises)
+        foreach (RoutineExercisesPasser exercise in _exercises)
         {
             _layout.Children.Add(BuildWorkoutCard(exercise));
         }
@@ -56,7 +57,7 @@ public class WorkoutPage : ContentPage
     {
         _stopwatch.Start();
         _timer = Dispatcher.CreateTimer();
-        _timer.Interval = TimeSpan.FromMicroseconds(100);
+        _timer.Interval = TimeSpan.FromSeconds(1);
         _timer.Tick += (sender, args) => _timerLabel.Text = _stopwatch.Elapsed.ToString(@"hh\:mm\:ss");
         _timer.Start();
     }
@@ -67,18 +68,50 @@ public class WorkoutPage : ContentPage
         _stopwatch.Stop();
 
         WorkoutPasser workoutObject = new WorkoutPasser();
+        List<WorkoutExercisesPasser> workoutExercisesList = new List<WorkoutExercisesPasser>();
+        List<List<WorkoutSetsPasser>> workoutSetsListList = new List<List<WorkoutSetsPasser>>();
+
+        foreach (RoutineExercisesPasser exercise in _exercises)
+        {
+            WorkoutExercisesPasser workoutExercisesObject = new WorkoutExercisesPasser();
+            workoutExercisesObject.ExerciseId = exercise.ExerciseId;
+            workoutExercisesObject.Sets = exercise.Sets;
+            workoutExercisesList.Add(workoutExercisesObject);
+        }
+
+        int totalVolume = 0;
+        
+        foreach (List<(int setNumber, Entry weight, Entry reps, CheckBox checkBox)> setList in _setListList)
+        {
+            List<WorkoutSetsPasser> workoutSetsList = new List<WorkoutSetsPasser>();
+            int drawback = 0;
+            
+            foreach ((int setNumber, Entry weight, Entry reps, CheckBox checkBox) set in setList)
+            {
+                if (!set.checkBox.IsChecked)
+                {
+                    drawback += -1;
+                }
+                
+                else
+                {
+                    totalVolume += Convert.ToInt32(set.reps.Text) * Convert.ToInt32(set.weight.Text);
+
+                    WorkoutSetsPasser workoutSetsObject = new WorkoutSetsPasser();
+                    workoutSetsObject.SetNumber = set.setNumber + drawback;
+                    workoutSetsObject.Weight = Convert.ToInt32(set.weight.Text);
+                    workoutSetsObject.Reps = Convert.ToInt32(set.reps.Text);
+                    workoutSetsList.Add(workoutSetsObject);
+                }
+            }
+            workoutSetsListList.Add(workoutSetsList);
+        }
+        
         workoutObject.UserId = MainPage.User.UserId;
         workoutObject.Duration = (int)_stopwatch.Elapsed.TotalSeconds;
-        int totalVolume = 0;
-        foreach ((Entry reps, Entry weight, CheckBox checkBox) set in _setList)
-        {
-            if (set.checkBox.IsChecked)
-            {
-                totalVolume += Convert.ToInt32(set.weight.Text) * Convert.ToInt32(set.weight.Text);
-            }
-        }
         workoutObject.Volume = totalVolume;
-        Workout.SaveWorkout(workoutObject);
+        
+        Workout.SaveWorkout(workoutObject, workoutExercisesList, workoutSetsListList);
     }
 
     private View BuildWorkoutCard(RoutineExercisesPasser routineExercisesObject)
@@ -102,10 +135,12 @@ public class WorkoutPage : ContentPage
             }
         };
 
-        for (int i = 0; i < routineExercisesObject.Sets; i++)
+        List<(int setNumber, Entry weight, Entry reps, CheckBox checkBox)> setList = new();
+        
+        for (int i = 1; i <= routineExercisesObject.Sets; i++)
         {
-            Entry reps = Controls.MakeTextBox(" ", Colors.Gray, Colors.Black, 12, 50, LayoutOptions.End);
-            Entry weight = Controls.MakeTextBox(" ", Colors.Gray, Colors.Black, 12, 50, LayoutOptions.End);
+            Entry reps = Controls.MakeTextBox("_", Colors.Gray, Colors.Black, 12, 50, LayoutOptions.End);
+            Entry weight = Controls.MakeTextBox("_", Colors.Gray, Colors.Black, 12, 50, LayoutOptions.End);
             CheckBox checkBox = new CheckBox();
             
             workoutLayout.Children.Add(new HorizontalStackLayout()
@@ -113,13 +148,15 @@ public class WorkoutPage : ContentPage
                 Spacing = 8,
                 Children =
                 {
-                    reps, weight, checkBox
+                    weight, reps, checkBox
                 }
             });
             
-            _setList.Add((reps, weight, checkBox));
+            setList.Add((i, weight, reps, checkBox));
         }
 
+        _setListList.Add(setList);
+        
         return new Border()
         {
             BackgroundColor = Colors.LightGray,
