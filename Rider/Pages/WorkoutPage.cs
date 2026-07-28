@@ -80,11 +80,14 @@ public class WorkoutPage : ContentPage
         }
 
         int totalVolume = 0;
+        List<(int bestWeight, int oneRM)> records = new();
         
         foreach (List<(int setNumber, Entry weight, Entry reps, CheckBox checkBox)> setList in _setListList)
         {
             List<WorkoutSetsPasser> workoutSetsList = new List<WorkoutSetsPasser>();
             int drawback = 0;
+            int heaviestWeight = 0;
+            int best1RM = 0;
             
             foreach ((int setNumber, Entry weight, Entry reps, CheckBox checkBox) set in setList)
             {
@@ -102,9 +105,22 @@ public class WorkoutPage : ContentPage
                     workoutSetsObject.Weight = Convert.ToInt32(set.weight.Text);
                     workoutSetsObject.Reps = Convert.ToInt32(set.reps.Text);
                     workoutSetsList.Add(workoutSetsObject);
+
+                    if (heaviestWeight < workoutSetsObject.Weight)
+                    {
+                        heaviestWeight = workoutSetsObject.Weight;
+                    }
+
+                    int oneRM = Calculator.OneRepMax(workoutSetsObject.Weight, workoutSetsObject.Reps);
+
+                    if (best1RM < oneRM)
+                    {
+                        best1RM = oneRM;
+                    }
                 }
             }
             workoutSetsListList.Add(workoutSetsList);
+            records.Add((heaviestWeight, best1RM));
         }
         
         workoutObject.UserId = MainPage.User.UserId;
@@ -112,6 +128,31 @@ public class WorkoutPage : ContentPage
         workoutObject.Volume = totalVolume;
         
         Workout.SaveWorkout(workoutObject, workoutExercisesList, workoutSetsListList);
+
+        for (int i = 0; i < _exercises.Count; i++)
+        {
+            RecordPasser bestRecordObject = Record.GetRecordById(workoutObject.UserId, _exercises[i].ExerciseId);
+
+            int previousBestWeight = bestRecordObject?.BestWeight ?? 0;
+            int previousOneRM = bestRecordObject?.OneRM ?? 0;
+
+            if (previousBestWeight < records[i].bestWeight || previousOneRM < records[i].oneRM)
+            {
+                RecordPasser recordObject = new RecordPasser();
+                recordObject.UserId = workoutObject.UserId;
+                recordObject.ExerciseId = _exercises[i].ExerciseId;
+                recordObject.BestWeight = Math.Max(previousBestWeight, records[i].bestWeight);
+                recordObject.OneRM = Math.Max(previousOneRM, records[i].oneRM);
+
+                Record.SaveRecord(recordObject);
+            }
+        }
+        
+        Application.Current!.MainPage = new NavigationPage(new MainPage())
+        {
+            BarBackgroundColor = Colors.White,
+            BarTextColor = Colors.Black,
+        };
     }
 
     private View BuildWorkoutCard(RoutineExercisesPasser routineExercisesObject)

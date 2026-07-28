@@ -15,13 +15,14 @@ public class Tables
             "exercise (exerciseId integer PRIMARY KEY AUTOINCREMENT, name text UNIQUE, muscleId integer)",
             "muscle (muscleId integer PRIMARY KEY AUTOINCREMENT, name text UNIQUE, categoryId integer)",
             "equipment (equipmentId integer PRIMARY KEY AUTOINCREMENT, name text UNIQUE, multiplier integer)",
+            "trophy (exerciseId integer PRIMARY KEY REFERENCES exercise(exerciseId), platinum integer, gold integer, silver integer, bronze integer)",
 
             "user (userId integer PRIMARY KEY AUTOINCREMENT, name text, age integer, weight integer, sex text)",
             "record (userId integer, exerciseId integer, bestWeight integer, oneRM integer, PRIMARY KEY (userId, exerciseId))",
 
             "workout (workoutId integer PRIMARY KEY AUTOINCREMENT, userId integer, duration integer, volume integer)",
             "workoutexercises (workoutexercisesId integer PRIMARY KEY AUTOINCREMENT, workoutId integer, exerciseId integer, sets integer)",
-            "workoutsets (workoutexercisesId integer, setnumber integer, weight integer, reps integer, PRIMARY KEY (workoutexercisesId, setnumber)",
+            "workoutsets (workoutexercisesId integer, setnumber integer, weight integer, reps integer, PRIMARY KEY (workoutexercisesId, setnumber))",
             "routine (routineId integer PRIMARY KEY AUTOINCREMENT, userId integer, name text)",
             "routineexercises (routineId integer, exerciseId integer, sets integer, rest integer, equipmentId integer, PRIMARY KEY (routineId, exerciseId))"
         };
@@ -56,7 +57,7 @@ public class Tables
 
     public static void ExercisePrepopulation()
     {
-        string[,] exercises = new string[,]
+        string[,] exercises = new [,]
         {
             { "Bicep Curl", "1" },
             { "Chest Press", "14" },
@@ -99,7 +100,7 @@ public class Tables
 
     public static void MusclePrepopulation()
     {
-        string[,] muscles = new string[,]
+        string[,] muscles = new [,]
         {
             { "Bicep", "1" },
             { "Tricep", "1" },
@@ -131,7 +132,7 @@ public class Tables
 
     public static void EquipmentPrepopulation()
     {
-        string[,] equipment = new string[,]
+        string[,] equipment = new [,]
         {
             {"No Equipment", "0"},
             {"Dumbbell", "2"},
@@ -152,5 +153,10 @@ public class Tables
             command.ExecuteNonQuery();
         }
         Connection.Close();
+    }
+
+    public static void TrophyPrepopulation()
+    {
+        
     }
 }

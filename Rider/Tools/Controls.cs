@@ -69,4 +69,12 @@ public class Controls
         TitleColor = Colors.Black,
         FontSize = fontSize
     };
+    
+    public static Label MakeCell(string text, int fontSize, TextAlignment alignment)
+    {
+        Label label = MakeLabel(text, fontSize);
+        label.HorizontalTextAlignment = alignment;
+        label.LineBreakMode = LineBreakMode.TailTruncation;
+        return label;
+    }
 }

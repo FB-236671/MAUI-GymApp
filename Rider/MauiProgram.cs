@@ -22,6 +22,7 @@ public static class MauiProgram
         Tables.ExercisePrepopulation();
         Tables.MusclePrepopulation();
         Tables.EquipmentPrepopulation();
+        Tables.TrophyPrepopulation();
         
         return builder.Build();
     }

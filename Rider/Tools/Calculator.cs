@@ -2,9 +2,9 @@
 
 public class Calculator
 {
-    public int GeneralStrength(int age, double weight, string sex, int intialLift)
+    public static int GeneralStrength(int age, double weight, string sex, int intialLift)
     {
-        double[] values = new double[6];
+        double[] values;
         double frostMcCoef = 0;
 
         if (sex == "male")
@@ -21,8 +21,19 @@ public class Calculator
                 -125.4255398, 13.71219419, -0.03307250631, -0.001050400051, 0.00000938773881462799, -0.000000023334613884954
             };
         }
+        else
+        {
+            return 0;
+        }
 
-        double wilksCoef = 600 / (values[1] + values[2] * weight + values[3] * Math.Pow(weight, 2) + values[4] * Math.Pow(weight, 3) + values[5] * Math.Pow(weight, 4) + values[6] * Math.Pow(weight, 5));
+        double polynomial = values[0] + values[1] * weight + values[2] * Math.Pow(weight, 2) + values[3] * Math.Pow(weight, 3) + values[4] * Math.Pow(weight, 4) + values[5] * Math.Pow(weight, 5);
+
+        if (polynomial == 0)
+        {
+            return 0;
+        }
+
+        double wilksCoef = 600 / polynomial;
 
         if (age < 23)
         {
@@ -41,5 +52,28 @@ public class Calculator
         int resultLift = Convert.ToInt32(Math.Round(rawResult, 0));
         
         return resultLift;
+    }
+
+    public static int OneRepMax(int weight, int reps)
+    {
+        double oneRM;
+
+        if (reps <= 10)
+        {
+            oneRM = weight * 36.0 / (37.0 - reps);
+        }
+        else
+        {
+            oneRM = weight * (1 + reps / 30.0);
+        }
+
+        if (oneRM < weight)
+        {
+            return weight;
+        }
+        else
+        {
+            return Convert.ToInt32(Math.Round(oneRM, 0));
+        }
     }
 }

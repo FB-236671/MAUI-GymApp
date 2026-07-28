@@ -52,6 +52,13 @@ public class WorkoutTab : ContentView
         
         Routine.DeleteRoutine(routineId);
 
+        List<RoutineExercisesPasser> exercises = RoutineExercises.GetRoutineExercisesByRoutineId(routineId);
+
+        foreach (RoutineExercisesPasser exercise in exercises)
+        {
+            RoutineExercises.DeleteRoutineExercises(routineId);
+        }
+
         if (button.Parent?.Parent is View card)
             _layout.Remove(card);
     }

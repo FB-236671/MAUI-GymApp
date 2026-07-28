@@ -31,19 +31,16 @@ public class Workout
         
         string setssql = "INSERT INTO workoutsets (WorkoutExercisesId, SetNumber, Weight, Reps) VALUES (@WorkoutExercisesId, @SetNumber, @Weight, @Reps)";
 
-        int exerciseCount = -1;
-        foreach (List<WorkoutSetsPasser> workoutSetsList in workoutSetsListList)
+        for (int exerciseCount = 0; exerciseCount < workoutSetsListList.Count; exerciseCount++)
         {
+            List<WorkoutSetsPasser> workoutSetsList = workoutSetsListList[exerciseCount];
+            int workoutExercisesId = workoutExercisesIdList[exerciseCount];
+
             foreach (WorkoutSetsPasser workoutSetsObject in workoutSetsList)
             {
-                if (workoutSetsObject.SetNumber == 1)
-                {
-                    exerciseCount += 1;
-                }
-                
                 GeneralQueries.NonQuery(setssql, command =>
                 {
-                    command.Parameters.AddWithValue("@WorkoutExercisesId", workoutExercisesIdList[exerciseCount]);
+                    command.Parameters.AddWithValue("@WorkoutExercisesId", workoutExercisesId);
                     command.Parameters.AddWithValue("@SetNumber", workoutSetsObject.SetNumber);
                     command.Parameters.AddWithValue("@Weight", workoutSetsObject.Weight);
                     command.Parameters.AddWithValue("@Reps", workoutSetsObject.Reps);
