@@ -16,7 +16,33 @@ public class TrophiesTab : ContentView
         };
 
         foreach (RecordPasser record in recordList)
-            layout.Add(BuildTrophyCard(record));
+        {
+            TrophyPasser trophies = Trophy.GetTrophyByExercise(record.ExerciseId);
+            string trophySource;
+
+            if (trophies.Platinum <= record.OneRM)
+            {
+                trophySource = "PlatinumTrophy.png";
+            }
+            else if (trophies.Gold <= record.OneRM)
+            {
+                trophySource = "GoldTrophy.png";
+            }
+            else if (trophies.Silver <= record.OneRM)
+            {
+                trophySource = "SilverTrophy.png";
+            }
+            else if (trophies.Bronze <= record.OneRM)
+            {
+                trophySource = "BronzeTrophy.png";
+            }
+            else
+            {
+                trophySource = "NoTrophy.png";
+            }
+            
+            layout.Add(BuildTrophyCard(record, trophySource));
+        }
 
         Content = new ScrollView { Content = layout };
     }
@@ -46,11 +72,11 @@ public class TrophiesTab : ContentView
         return header;
     }
 
-    private static View BuildTrophyCard(RecordPasser record)
+    private static View BuildTrophyCard(RecordPasser record, string trophySource)
     {
         Grid inner = MakeRowGrid();
         
-        inner.Add(Controls.MakeCell("🏆", 26, TextAlignment.Center), 0);
+        inner.Add(Controls.MakeTrophy(trophySource, 48, 48));
         inner.Add(Controls.MakeCell(Exercise.GetExerciseName(record.ExerciseId), 14, TextAlignment.Start), 1);
         inner.Add(Controls.MakeCell($"{record.OneRM}kg", 18, TextAlignment.End), 2);
         inner.Add(Controls.MakeCell($"{record.BestWeight}kg", 18, TextAlignment.End), 3);
@@ -60,13 +86,5 @@ public class TrophiesTab : ContentView
             BackgroundColor = Colors.LightGray,
             Content = inner
         };
-    }
-
-    private sealed class TrophyRow(string trophy, string exerciseName, int oneRM, int bestWeight)
-    {
-        public string Trophy { get; } = trophy;
-        public string ExerciseName { get; } = exerciseName;
-        public int OneRM { get; } = oneRM;
-        public int BestWeight { get; } = bestWeight;
     }
 }

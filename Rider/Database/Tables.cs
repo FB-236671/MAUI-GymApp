@@ -31,7 +31,7 @@ public class Tables
         foreach (string table in tables)
         {
             string query = "CREATE TABLE IF NOT EXISTS " + table;
-            SqliteCommand command = new SqliteCommand(query, Connection);
+            using SqliteCommand command = new SqliteCommand(query, Connection);
             command.ExecuteNonQuery();
         }
         Connection.Close();
@@ -48,7 +48,7 @@ public class Tables
         foreach (string category in categories)
         {
             string query = "INSERT OR IGNORE INTO category (name) VALUES (@name)";
-            SqliteCommand command = new SqliteCommand(query, Connection);
+            using SqliteCommand command = new SqliteCommand(query, Connection);
             command.Parameters.AddWithValue("@name", category);
             command.ExecuteNonQuery();
         }
@@ -90,7 +90,7 @@ public class Tables
         for (int i = 0; i < exercises.GetLength(0); i++)
         {
             string query = "INSERT OR IGNORE INTO exercise (name, muscleId) VALUES (@name, @muscleId)";
-            SqliteCommand command = new SqliteCommand(query, Connection);
+            using SqliteCommand command = new SqliteCommand(query, Connection);
             command.Parameters.AddWithValue("@name", exercises[i,0]);
             command.Parameters.AddWithValue("@muscleId", exercises[i,1]);
             command.ExecuteNonQuery();
@@ -122,7 +122,7 @@ public class Tables
         for (int i = 0; i < muscles.GetLength(0); i++)
         {
             string query = "INSERT OR IGNORE INTO muscle (name, categoryId) VALUES (@name, @categoryId)";
-            SqliteCommand command = new SqliteCommand(query, Connection);
+            using SqliteCommand command = new SqliteCommand(query, Connection);
             command.Parameters.AddWithValue("@name", muscles[i, 0]);
             command.Parameters.AddWithValue("@categoryId", muscles[i, 1]);
             command.ExecuteNonQuery();
@@ -147,7 +147,7 @@ public class Tables
         for (int i = 0; i < equipment.GetLength(0); i++)
         {
             string query = "INSERT OR IGNORE INTO equipment (name, multiplier) VALUES (@name, @multiplier)";
-            SqliteCommand command = new SqliteCommand(query, Connection);
+            using SqliteCommand command = new SqliteCommand(query, Connection);
             command.Parameters.AddWithValue("@name", equipment[i, 0]);
             command.Parameters.AddWithValue("@multiplier", equipment[i, 1]);
             command.ExecuteNonQuery();
@@ -157,6 +157,47 @@ public class Tables
 
     public static void TrophyPrepopulation()
     {
+        string[,] trophies = new [,]
+        {
+            {"50", "35", "25", "10"},
+            {"20", "15", "10", "5"},
+            {"75", "58", "42", "25"},
+            {"75", "60", "48", "35"},
+            {"50", "40", "30", "20"},
+            {"90", "70", "55", "40"},
+            {"60", "45", "30", "15"},
+            {"30", "21", "13", "6"},
+            {"140", "110", "85", "60"},
+            {"65", "50", "40", "30"},
+            {"90", "75", "50", "40"},
+            {"25", "18", "12", "6"},
+            {"15", "11", "7", "3"},
+            {"110", "90", "70", "50"},
+            {"40", "32", "24", "15"},
+            {"90", "72", "55", "38"},
+            {"140", "110", "85", "60"},
+            {"35", "26", "18", "10"},
+            {"160", "130", "100", "70"},
+            {"40", "28", "16", "5"},
+            {"38", "30", "22", "14"},
+            {"35", "22", "12", "3"},
+            {"40", "25", "15", "5"},
+            {"40", "25", "15", "10"},
+            {"130", "105", "80", "55"}
+        };
         
+        Connection.Open();
+        for (int i = 0; i < trophies.GetLength(0); i++)
+        {
+            string query = "INSERT OR IGNORE INTO trophy (exerciseId, platinum, gold, silver, bronze) VALUES (@exerciseId, @platinum, @gold, @silver, @bronze)";
+            using SqliteCommand command = new SqliteCommand(query, Connection);
+            command.Parameters.AddWithValue("@exerciseId", i + 1);
+            command.Parameters.AddWithValue("@platinum", trophies[i, 0]);
+            command.Parameters.AddWithValue("@gold", trophies[i, 1]);
+            command.Parameters.AddWithValue("@silver", trophies[i, 2]);
+            command.Parameters.AddWithValue("@bronze", trophies[i, 3]);
+            command.ExecuteNonQuery();
+        }
+        Connection.Close();
     }
 }

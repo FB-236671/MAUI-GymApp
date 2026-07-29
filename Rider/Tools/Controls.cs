@@ -77,4 +77,11 @@ public class Controls
         label.LineBreakMode = LineBreakMode.TailTruncation;
         return label;
     }
+
+    public static Image MakeTrophy(string source, int width, int height) => new()
+    {
+        Source = source,
+        WidthRequest = width,
+        HeightRequest = height,
+    };
 }
