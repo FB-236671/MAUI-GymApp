@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Markup;
 using MAUI_GymApp.Database;
+using Microcharts.Maui;
 
 namespace MAUI_GymApp;
 
@@ -12,6 +13,7 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .UseMauiCommunityToolkitMarkup()
+            .UseMicrocharts()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("orbitron-bold.otf", "OrbitronBold");

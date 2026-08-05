@@ -19,6 +19,8 @@ public class TrophiesTab : ContentView
         {
             TrophyPasser trophies = Trophy.GetTrophyByExercise(record.ExerciseId);
             string trophySource;
+            UserPasser user = MainPage.User;
+            int lift = Calculator.GeneralStrength(user.Age, user.Weight, user.Sex, record.ExerciseId);
 
             if (trophies.Platinum <= record.OneRM)
             {
@@ -76,8 +78,8 @@ public class TrophiesTab : ContentView
     {
         Grid inner = MakeRowGrid();
         
-        inner.Add(Controls.MakeTrophy(trophySource, 48, 48));
-        inner.Add(Controls.MakeCell(Exercise.GetExerciseName(record.ExerciseId), 14, TextAlignment.Start), 1);
+        inner.Add(Controls.MakeImage(trophySource, 48, 48));
+        inner.Add(Controls.MakeCell(Exercise.GetExerciseName(record.ExerciseId), 16, TextAlignment.Start), 1);
         inner.Add(Controls.MakeCell($"{record.OneRM}kg", 18, TextAlignment.End), 2);
         inner.Add(Controls.MakeCell($"{record.BestWeight}kg", 18, TextAlignment.End), 3);
 

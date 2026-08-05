@@ -17,7 +17,7 @@ public class MainPage : ContentPage
         _contentHost = new ContentView();
 
         TabButton workoutTab = new TabButton("🏋", "Workout", () => Show(0, new WorkoutTab()));
-        TabButton trophiesTab = new TabButton("🏆", "Trophies", () => Show(1, new TrophiesTab()));
+        TabButton trophiesTab = new TabButton("GoldTrophy.png", "Trophies", () => Show(1, new TrophiesTab()));
         TabButton statsTab = new TabButton("📊", "Stats", () => Show(2, new StatsTab()));
         _tabs.Add(workoutTab);
         _tabs.Add(trophiesTab);

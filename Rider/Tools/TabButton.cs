@@ -5,10 +5,10 @@ public class TabButton : VerticalStackLayout
     private static readonly Color SelectedColor = Colors.Black;
     private static readonly Color UnselectedColor = Color.FromArgb("#9E9E9E");
 
-    private readonly Label _icon;
+    private readonly Image _icon;
     private readonly Label _text;
 
-    public TabButton(string icon, string text, Action onTapped)
+    public TabButton(string source, string text, Action onTapped)
     {
         Spacing = 2;
         Padding = new Thickness(0, 8);
@@ -16,12 +16,7 @@ public class TabButton : VerticalStackLayout
         VerticalOptions = LayoutOptions.Fill;
         BackgroundColor = Colors.White;
 
-        _icon = new Label
-        {
-            Text = icon,
-            FontSize = 24,
-            HorizontalOptions = LayoutOptions.Center
-        };
+        _icon = Controls.MakeImage(source, 34, 34);
 
         _text = new Label
         {
@@ -43,9 +38,7 @@ public class TabButton : VerticalStackLayout
     {
         Color color = selected ? SelectedColor : UnselectedColor;
         FontAttributes attributes = selected ? FontAttributes.Bold : FontAttributes.None;
-
-        _icon.TextColor = color;
-        _icon.FontAttributes = attributes;
+        
         _text.TextColor = color;
         _text.FontAttributes = attributes;
     }

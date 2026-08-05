@@ -1,4 +1,8 @@
-﻿namespace MAUI_GymApp;
+﻿using Microcharts;
+using Microcharts.Maui;
+using SkiaSharp;
+
+namespace MAUI_GymApp;
 
 public class Controls
 {
@@ -78,10 +82,22 @@ public class Controls
         return label;
     }
 
-    public static Image MakeTrophy(string source, int width, int height) => new()
+    public static Image MakeImage(string source, int width, int height) => new()
     {
         Source = source,
         WidthRequest = width,
         HeightRequest = height,
+    };
+
+    public static ChartView MakeRadarChart(int height, ChartEntry[] entries, int textSize) => new()
+    {
+        HeightRequest = height,
+        Chart = new RadarChart
+        {
+            Entries = entries,
+            LabelTextSize = textSize,
+            IsAnimated = false,
+            BackgroundColor = SKColors.Transparent
+        }
     };
 }
