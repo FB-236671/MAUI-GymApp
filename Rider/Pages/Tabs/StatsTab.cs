@@ -1,6 +1,5 @@
 using MAUI_GymApp.Rider.Database.Objects;
 using Microcharts;
-using Microcharts.Maui;
 using SkiaSharp;
 
 namespace MAUI_GymApp.Views;
@@ -15,10 +14,11 @@ public class StatsTab : ContentView
     private string[,] MuscleTotals =
     {
         { "Bicep", "0" }, { "Tricep", "0" }, { "Forearm", "0" }, { "Calf", "0" }, { "Lats", "0" }, { "Shoulders", "0" }, { "Glutes", "0" },
-        { "Traps", "0" }, { "Quadriceps", "0" }, {"Hamstrings", "0"}, {"L Back", "0"}, {"U Back", "0"}, {"Abs", "0"}, {"Chest", "0"}
+        { "Chest", "0" }, { "Quadriceps", "0" }, {"Hamstrings", "0"}, {"Traps", "0"}, {"Abs", "0"}, {"U Back", "0"}, {"L Back", "0"}
     };
 
     private Switch _switch = new Switch() { OnColor = Colors.White, ThumbColor = Colors.Black};
+    private Label _label = Controls.MakeLabel("Category Chart", 20);
     private VerticalStackLayout _layout;
     private VerticalStackLayout _card;
 
@@ -30,7 +30,7 @@ public class StatsTab : ContentView
             Spacing = 16,
             Children =
             {
-                _switch,
+                BuildHeader(),
                 Controls.MakeRadarChart(360, BuildEntries(CategoryTotals, Category.GetCategoryChartStats()), 28),
             }
         };
@@ -41,7 +41,6 @@ public class StatsTab : ContentView
             Spacing = 16,
             Children =
             {
-                Controls.MakeLabel("Radar Charts", 24),
                 new Border
                 {
                     BackgroundColor = Colors.LightGray,
@@ -53,6 +52,27 @@ public class StatsTab : ContentView
         _switch.Toggled += OnToggled;
 
         Content = new ScrollView { Content = _layout };
+    }
+
+    private Grid BuildHeader()
+    {
+        _label.HorizontalOptions = LayoutOptions.Start;
+        _switch.HorizontalOptions = LayoutOptions.End;
+        _switch.VerticalOptions = LayoutOptions.Center;
+
+        Grid header = new Grid()
+        {
+            ColumnDefinitions =
+            {
+                new ColumnDefinition(GridLength.Star),
+                new ColumnDefinition(GridLength.Auto)
+            }
+        };
+
+        header.Add(_label, 0);
+        header.Add(_switch, 1);
+
+        return header;
     }
 
     private ChartEntry[] BuildEntries(string[,] totals, List<ChartPasser> setList)
@@ -88,11 +108,13 @@ public class StatsTab : ContentView
         {
             _card.Children.RemoveAt(1);
             _card.Children.Add(Controls.MakeRadarChart(360, BuildEntries(MuscleTotals, Muscle.GetMuscleChartStats()), 28));
+            _label.Text = "Muscle Chart";
         }
         else
         {
             _card.Children.RemoveAt(1);
             _card.Children.Add(Controls.MakeRadarChart(360, BuildEntries(CategoryTotals, Category.GetCategoryChartStats()), 28));
+            _label.Text = "Category Chart";
         }
     }
 }

@@ -42,6 +42,7 @@ public class CreateWorkoutPage : ContentPage
                 picker
             }
         };
+        
         picker.SelectedIndexChanged += OnPickerSelectedIndexChanged;
         saveButton.Clicked += OnSaveClicked;
         Content = new ScrollView { Content = _layout };
@@ -114,7 +115,7 @@ public class CreateWorkoutPage : ContentPage
 
     private View BuildWorkoutCard(string name)
     {
-        Entry setEntry = Controls.MakeTextBox("Sets", Colors.White, Colors.Black, 12, 30, LayoutOptions.End);
+        Entry setEntry = Controls.MakeTextBox("Sets", Colors.White, Colors.Black, 12, 35, LayoutOptions.End);
         Entry restEntry = Controls.MakeTextBox("Rest", Colors.White, Colors.Black, 12, 50, LayoutOptions.End);
         Picker equipmentPicker = Controls.MakeSelector("Equipment", EquipmentList(), 12);
         

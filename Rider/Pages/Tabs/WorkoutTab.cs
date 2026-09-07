@@ -14,6 +14,7 @@ public class WorkoutTab : ContentView
         Grid.SetColumn(createNew, 1);
 
         createNew.Clicked += OnCreateClick;
+        startEmpty.Clicked += OnStartEmptyClick;
 
         Grid topRow = new Grid
         {
@@ -45,9 +46,15 @@ public class WorkoutTab : ContentView
         await Navigation.PushAsync(new WorkoutPage(routineObject));
     }
     
-    private void OnDeleteClick(object? sender, EventArgs e)
+    private async void OnDeleteClick(object? sender, EventArgs e)
     {
         if (sender is not Button button || button.CommandParameter is not int routineId)
+            return;
+
+        bool confirmed = await Application.Current!.MainPage!.DisplayAlertAsync(
+            "Delete Routine", "Are you sure you want to delete this routine", "Confirm", "Cancel");
+        
+        if (!confirmed)
             return;
         
         Routine.DeleteRoutine(routineId);
@@ -87,6 +94,11 @@ public class WorkoutTab : ContentView
         await Navigation.PushAsync(new CreateWorkoutPage());
     }
 
+    private async void OnStartEmptyClick(object? sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new EmptyWorkoutPage());
+    }
+
     private View BuildRoutineCard(RoutinePasser routineObject)
     {
         Grid inner = new Grid
@@ -102,9 +114,9 @@ public class WorkoutTab : ContentView
             Padding = new Thickness(20, 14)
         };
 
-        Button start = Controls.MakeButton("▶", Colors.Black, Colors.White, Colors.White, 2, 6, 22, 48, 48, 0);
-        Button edit = Controls.MakeButton("✎", Colors.Black, Colors.White, Colors.White, 2, 6, 22, 48, 48, 0);
-        Button delete = Controls.MakeButton("🗑", Colors.Black, Colors.White, Colors.White, 2, 6, 22, 48, 48, 0);
+        Button start = Controls.MakeButton("▶", Colors.Black, Colors.White, Colors.White, 2, 6, 18, 48, 48, 0);
+        Button edit = Controls.MakeButton("✎", Colors.Black, Colors.White, Colors.White, 2, 6, 18, 48, 48, 0);
+        Button delete = Controls.MakeButton("🗑", Colors.Black, Colors.White, Colors.White, 2, 6, 18, 48, 48, 0);
 
         start.CommandParameter = routineObject;
         delete.CommandParameter = routineObject.RoutineId;

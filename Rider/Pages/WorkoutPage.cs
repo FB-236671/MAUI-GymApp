@@ -4,6 +4,15 @@ using MAUI_GymApp.Rider.Database.Objects;
 
 namespace MAUI_GymApp;
 
+public class SetPasser
+{
+    public int setNumber { get; set; }
+    public Entry weight { get; set; }
+    public Entry reps { get; set; }
+    public CheckBox checkBox { get; set; }
+    public int equipmentMultiplier { get; set; }
+}
+
 public class WorkoutPage : ContentPage
 {
     private readonly VerticalStackLayout _layout;
@@ -11,7 +20,7 @@ public class WorkoutPage : ContentPage
     private IDispatcherTimer _timer;
     private Stopwatch _stopwatch = new();
     private Label _timerLabel = Controls.MakeLabel("__:__:__", 30);
-    private List<List<(int setNumber, Entry weight, Entry reps, CheckBox checkBox)>> _setListList = new();
+    private List<List<SetPasser>> _setListList = new();
     private List<RoutineExercisesPasser> _exercises = new();
     
     public WorkoutPage(RoutinePasser routineObject)
@@ -82,14 +91,14 @@ public class WorkoutPage : ContentPage
         int totalVolume = 0;
         List<(int bestWeight, int oneRM)> records = new();
         
-        foreach (List<(int setNumber, Entry weight, Entry reps, CheckBox checkBox)> setList in _setListList)
+        foreach (List<SetPasser> setList in _setListList)
         {
             List<WorkoutSetsPasser> workoutSetsList = new List<WorkoutSetsPasser>();
             int drawback = 0;
             int heaviestWeight = 0;
             int best1RM = 0;
             
-            foreach ((int setNumber, Entry weight, Entry reps, CheckBox checkBox) set in setList)
+            foreach (SetPasser set in setList)
             {
                 if (!set.checkBox.IsChecked)
                 {
@@ -102,7 +111,7 @@ public class WorkoutPage : ContentPage
 
                     WorkoutSetsPasser workoutSetsObject = new WorkoutSetsPasser();
                     workoutSetsObject.SetNumber = set.setNumber + drawback;
-                    workoutSetsObject.Weight = Convert.ToInt32(set.weight.Text);
+                    workoutSetsObject.Weight = Convert.ToInt32(set.weight.Text) * set.equipmentMultiplier;
                     workoutSetsObject.Reps = Convert.ToInt32(set.reps.Text);
                     workoutSetsList.Add(workoutSetsObject);
 
@@ -133,8 +142,19 @@ public class WorkoutPage : ContentPage
         {
             RecordPasser bestRecordObject = Record.GetRecordById(workoutObject.UserId, _exercises[i].ExerciseId);
 
-            int previousBestWeight = bestRecordObject?.BestWeight ?? 0;
-            int previousOneRM = bestRecordObject?.OneRM ?? 0;
+            int previousBestWeight;
+            int previousOneRM;
+
+            if (bestRecordObject == null)
+            {
+                previousBestWeight = 0;
+                previousOneRM = 0;
+            }
+            else
+            {
+                previousBestWeight = bestRecordObject.BestWeight;
+                previousOneRM = bestRecordObject.OneRM;
+            }
 
             if (previousBestWeight < records[i].bestWeight || previousOneRM < records[i].oneRM)
             {
@@ -169,14 +189,14 @@ public class WorkoutPage : ContentPage
                     Children =
                     {
                         Controls.MakeLabel(Exercise.GetExerciseById(routineExercisesObject.ExerciseId).Name, 22, Colors.Black, LayoutOptions.Center),
-                        Controls.MakeButton(GetEquipmentName(routineExercisesObject.EquipmentId).ToString(), Colors.White, Colors.Black, Colors.Black, 5, 2, 22, new Thickness())
+                        Controls.MakeButton(Equipment.GetEquipmentById(routineExercisesObject.EquipmentId).Name[0].ToString(), Colors.White, Colors.Black, Colors.Black, 5, 2, 22, new Thickness())
                     }
                 },
                 new BoxView { HeightRequest = 2, Color = Colors.Black },
             }
         };
 
-        List<(int setNumber, Entry weight, Entry reps, CheckBox checkBox)> setList = new();
+        List<SetPasser> setList = new();
         
         for (int i = 1; i <= routineExercisesObject.Sets; i++)
         {
@@ -192,8 +212,14 @@ public class WorkoutPage : ContentPage
                     weight, reps, checkBox
                 }
             });
-            
-            setList.Add((i, weight, reps, checkBox));
+
+            SetPasser set = new SetPasser();
+            set.setNumber = i;
+            set.weight = weight;
+            set.reps = reps;
+            set.checkBox = checkBox;
+            set.equipmentMultiplier = Equipment.GetEquipmentById(routineExercisesObject.EquipmentId).Multiplier;
+            setList.Add(set);
         }
 
         _setListList.Add(setList);
@@ -203,12 +229,5 @@ public class WorkoutPage : ContentPage
             BackgroundColor = Colors.LightGray,
             Content = workoutLayout
         };
-    }
-
-    private char GetEquipmentName(int equipmentId)
-    {
-        EquipmentPasser equipmentObject = Equipment.GetEquipmentById(equipmentId);
-        string name = equipmentObject.Name;
-        return name[0];
     }
 }
