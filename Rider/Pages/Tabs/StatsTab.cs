@@ -31,7 +31,7 @@ public class StatsTab : ContentView
             Children =
             {
                 BuildHeader(),
-                Controls.MakeRadarChart(360, BuildEntries(CategoryTotals, Category.GetCategoryChartStats()), 28),
+                Controls.MakeRadarChart(360, BuildEntries(CategoryTotals, Category.GetCategoryChartStats(MainPage.User.UserId)), 28),
             }
         };
 
@@ -107,13 +107,13 @@ public class StatsTab : ContentView
         if (_switch.IsToggled)
         {
             _card.Children.RemoveAt(1);
-            _card.Children.Add(Controls.MakeRadarChart(360, BuildEntries(MuscleTotals, Muscle.GetMuscleChartStats()), 28));
+            _card.Children.Add(Controls.MakeRadarChart(360, BuildEntries(MuscleTotals, Muscle.GetMuscleChartStats(MainPage.User.UserId)), 28));
             _label.Text = "Muscle Chart";
         }
         else
         {
             _card.Children.RemoveAt(1);
-            _card.Children.Add(Controls.MakeRadarChart(360, BuildEntries(CategoryTotals, Category.GetCategoryChartStats()), 28));
+            _card.Children.Add(Controls.MakeRadarChart(360, BuildEntries(CategoryTotals, Category.GetCategoryChartStats(MainPage.User.UserId)), 28));
             _label.Text = "Category Chart";
         }
     }
