@@ -12,16 +12,16 @@ public class CreateProfilePage : ContentPage
     public CreateProfilePage()
     {
         BackgroundColor = Colors.White;
-        Button createButton = Controls.MakeButton("Create Profile", Colors.Black, Colors.White, Colors.Black, 2, 6, 18, 0);
-        Label nameLabel = Controls.MakeLabel("Name:", 18, Colors.Black, LayoutOptions.Center);
-        Label ageLabel = Controls.MakeLabel("Age:", 18, Colors.Black, LayoutOptions.Center);
-        Label weightLabel = Controls.MakeLabel("Weight:", 18, Colors.Black, LayoutOptions.Center);
-        Label sexLabel = Controls.MakeLabel("Sex:", 18, Colors.Black, LayoutOptions.Center);
+        Button createButton = UIElementControls.MakeButton("Create Profile", Colors.Black, Colors.White, Colors.Black, 2, 6, 18, 0);
+        Label nameLabel = UIElementControls.MakeLabel("Name:", 18, Colors.Black, LayoutOptions.Center);
+        Label ageLabel = UIElementControls.MakeLabel("Age:", 18, Colors.Black, LayoutOptions.Center);
+        Label weightLabel = UIElementControls.MakeLabel("Weight:", 18, Colors.Black, LayoutOptions.Center);
+        Label sexLabel = UIElementControls.MakeLabel("Sex:", 18, Colors.Black, LayoutOptions.Center);
 
-        _nameEntry = Controls.MakeTextBox("Name", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
-        _ageEntry = Controls.MakeTextBox("Age", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
-        _weightEntry = Controls.MakeTextBox("Weight", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
-        _sexEntry = Controls.MakeTextBox("Sex", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
+        _nameEntry = UIElementControls.MakeTextBox("Name", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
+        _ageEntry = UIElementControls.MakeTextBox("Age", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
+        _weightEntry = UIElementControls.MakeTextBox("Weight", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
+        _sexEntry = UIElementControls.MakeTextBox("Sex", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
         
         VerticalStackLayout layout = new VerticalStackLayout
         {

@@ -43,6 +43,20 @@ public class Equipment
             command => command.Parameters.AddWithValue("@equipmentId", id)
         );
     }
+    
+    
+    public static List<string> EquipmentNameList()
+    {
+        List<string> equipmentList = new List<string>();
+        List<EquipmentPasser> passerList = GetEquipment();
+
+        foreach (EquipmentPasser passer in passerList)
+        {
+            equipmentList.Add(passer.Name);
+        }
+
+        return equipmentList;
+    }
 }
 
 public class EquipmentPasser

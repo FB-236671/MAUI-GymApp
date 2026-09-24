@@ -66,10 +66,10 @@ public class TrophiesTab : ContentView
     {
         Grid header = MakeRowGrid();
 
-        header.Add(Controls.MakeCell(string.Empty, 14, TextAlignment.Center), 0);
-        header.Add(Controls.MakeCell("Exercise", 14, TextAlignment.Start), 1);
-        header.Add(Controls.MakeCell("1RM", 14, TextAlignment.End), 2);
-        header.Add(Controls.MakeCell("Best", 14, TextAlignment.End), 3);
+        header.Add(UIElementControls.MakeCell(string.Empty, 14, TextAlignment.Center), 0);
+        header.Add(UIElementControls.MakeCell("Exercise", 14, TextAlignment.Start), 1);
+        header.Add(UIElementControls.MakeCell("1RM", 14, TextAlignment.End), 2);
+        header.Add(UIElementControls.MakeCell("Best", 14, TextAlignment.End), 3);
 
         return header;
     }
@@ -78,15 +78,11 @@ public class TrophiesTab : ContentView
     {
         Grid inner = MakeRowGrid();
         
-        inner.Add(Controls.MakeImage(trophySource, 48, 48));
-        inner.Add(Controls.MakeCell(Exercise.GetExerciseName(record.ExerciseId), 16, TextAlignment.Start), 1);
-        inner.Add(Controls.MakeCell($"{record.OneRM}kg", 18, TextAlignment.End), 2);
-        inner.Add(Controls.MakeCell($"{record.BestWeight}kg", 18, TextAlignment.End), 3);
+        inner.Add(UIElementControls.MakeImage(trophySource, 48, 48));
+        inner.Add(UIElementControls.MakeCell(Exercise.GetExerciseName(record.ExerciseId), 16, TextAlignment.Start), 1);
+        inner.Add(UIElementControls.MakeCell($"{record.OneRM}kg", 18, TextAlignment.End), 2);
+        inner.Add(UIElementControls.MakeCell($"{record.BestWeight}kg", 18, TextAlignment.End), 3);
 
-        return new Border
-        {
-            BackgroundColor = Colors.LightGray,
-            Content = inner
-        };
+        return UIElementControls.MakeCard(Colors.LightGray, inner);
     }
 }

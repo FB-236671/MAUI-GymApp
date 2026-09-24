@@ -22,25 +22,6 @@ public class Trophy
             }
         );
     }
-    
-    public static RecordPasser GetRecordById(int userId, int exerciseId)
-    {
-        string sql = "SELECT * FROM record WHERE UserId = @UserId AND ExerciseId = @ExerciseId";
-
-        return GeneralQueries.GetOne(sql, reader => new RecordPasser
-            {
-                UserId = reader.GetInt32(0),
-                ExerciseId = reader.GetInt32(1),
-                BestWeight = reader.GetInt32(2),
-                OneRM = reader.GetInt32(3)
-            },
-            command =>
-            {
-                command.Parameters.AddWithValue("@UserId", userId);
-                command.Parameters.AddWithValue("@ExerciseId", exerciseId);
-            }
-        );
-    }
 }
 
 public class TrophyPasser

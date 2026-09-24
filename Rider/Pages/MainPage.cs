@@ -43,7 +43,7 @@ public class MainPage : ContentPage
             Spacing = 0,
             Children =
             {
-                new BoxView { HeightRequest = 2, Color = Colors.Black },
+                UIElementControls.MakeLine(2, Colors.Black),
                 tabBarGrid
             }
         };

@@ -5,15 +5,15 @@ namespace MAUI_GymApp;
 public class CreateWorkoutPage : ContentPage
 {
     private readonly VerticalStackLayout _layout;
-    private List<(string _name, Entry _setEntry, Entry _restEntry, Picker _equipmentPicker)> _routineExerciseList = new();
+    private List<RoutineDataPasser> _routineExerciseList = new();
     private Entry nameBox;
     
     public CreateWorkoutPage()
     {
         Background = Colors.White;
-        Picker picker = Controls.MakeSelector("Add an Exercise", ExerciseList(), 18);
-        Button saveButton = Controls.MakeButton("Save", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
-        nameBox = Controls.MakeTextBox("Name", Colors.Gray, Colors.Black, 30, 250, LayoutOptions.Center);
+        Picker picker = UIElementControls.MakeSelector("Add an Exercise", Exercise.ExerciseNameList(), 18);
+        Button saveButton = UIElementControls.MakeButton("Save", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
+        nameBox = UIElementControls.MakeTextBox("Name", Colors.Gray, Colors.Black, 30, 250, LayoutOptions.Center);
         
         _layout = new VerticalStackLayout()
         {
@@ -32,12 +32,12 @@ public class CreateWorkoutPage : ContentPage
                             Children =
                             {
                                 nameBox,
-                                new BoxView { HeightRequest = 2, Color = Colors.Black }
+                                UIElementControls.MakeLine(2, Colors.Black)
                             }
                         }
                     }
                 },
-                new BoxView { HeightRequest = 2, Color = Colors.Black },
+                UIElementControls.MakeLine(2, Colors.Black),
                 saveButton,
                 picker
             }
@@ -58,48 +58,19 @@ public class CreateWorkoutPage : ContentPage
             Routine.CreateRoutine(routineObject);
             int routineId = Routine.GetRoutineByName(routineObject.Name).RoutineId;
         
-            foreach ((string _name, Entry _setEntry, Entry _restEntry, Picker _equipmentPicker) exercise in _routineExerciseList)
+            foreach (RoutineDataPasser exercise in _routineExerciseList)
             {
                 RoutineExercisesPasser routineExercisesObject = new RoutineExercisesPasser();
                 routineExercisesObject.RoutineId = routineId;
-                routineExercisesObject.ExerciseId = Exercise.GetExerciseByName(exercise._name).ExerciseId;
-                routineExercisesObject.Sets = Convert.ToInt32(exercise._setEntry.Text);
-                routineExercisesObject.Rest = Convert.ToInt32(exercise._restEntry.Text);
-                routineExercisesObject.EquipmentId = Equipment.GetEquipmentByName((string)exercise._equipmentPicker.SelectedItem).EquipmentId;
+                routineExercisesObject.ExerciseId = Exercise.GetExerciseByName(exercise.Name).ExerciseId;
+                routineExercisesObject.Sets = Convert.ToInt32(exercise.SetEntry.Text);
+                routineExercisesObject.Rest = Convert.ToInt32(exercise.RestEntry.Text);
+                routineExercisesObject.EquipmentId = Equipment.GetEquipmentByName((string)exercise.EquipmentPicker.SelectedItem).EquipmentId;
                 RoutineExercises.AddRoutineExercises(routineExercisesObject);
             }
         }
         
-        Application.Current!.MainPage = new NavigationPage(new MainPage())
-        {
-            BarBackgroundColor = Colors.White,
-            BarTextColor = Colors.Black,
-        };
-    }
-    
-    private static List<string> ExerciseList()
-    {
-        List<string> exerciseList = new List<string>();
-        List<ExercisePasser> passerList = Exercise.GetExercises();
-        
-        foreach (ExercisePasser passer in passerList)
-        {
-            exerciseList.Add(passer.Name);
-        }
-        return exerciseList;
-    }
-
-    private static List<string> EquipmentList()
-    {
-        List<string> equipmentList = new List<string>();
-        List<EquipmentPasser> passerList = Equipment.GetEquipment();
-
-        foreach (EquipmentPasser passer in passerList)
-        {
-            equipmentList.Add(passer.Name);
-        }
-
-        return equipmentList;
+        GeneralControls.GoHome();
     }
 
     private void OnPickerSelectedIndexChanged(object sender, EventArgs e)
@@ -109,15 +80,15 @@ public class CreateWorkoutPage : ContentPage
 
         if (selectedIndex != -1)
         {
-            _layout.Children.Add(BuildWorkoutCard((string)picker.ItemsSource[selectedIndex]));
+            _layout.Children.Add(BuildCreateWorkoutCard((string)picker.ItemsSource[selectedIndex]));
         }
     }
 
-    private View BuildWorkoutCard(string name)
+    private View BuildCreateWorkoutCard(string name)
     {
-        Entry setEntry = Controls.MakeTextBox("Sets", Colors.White, Colors.Black, 12, 35, LayoutOptions.End);
-        Entry restEntry = Controls.MakeTextBox("Rest", Colors.White, Colors.Black, 12, 50, LayoutOptions.End);
-        Picker equipmentPicker = Controls.MakeSelector("Equipment", EquipmentList(), 12);
+        Entry setEntry = UIElementControls.MakeTextBox("Sets", Colors.White, Colors.Black, 12, 35, LayoutOptions.End);
+        Entry restEntry = UIElementControls.MakeTextBox("Rest", Colors.White, Colors.Black, 12, 50, LayoutOptions.End);
+        Picker equipmentPicker = UIElementControls.MakeSelector("Equipment", Equipment.EquipmentNameList(), 12);
         
         VerticalStackLayout workoutLayout = new VerticalStackLayout()
         {
@@ -125,7 +96,7 @@ public class CreateWorkoutPage : ContentPage
             Spacing = 12,
             Children =
             {
-                Controls.MakeLabel(name, 22, Colors.Black, LayoutOptions.Center),
+                UIElementControls.MakeLabel(name, 22, Colors.Black, LayoutOptions.Center),
                 new HorizontalStackLayout()
                 {
                     Spacing = 8,
@@ -139,12 +110,13 @@ public class CreateWorkoutPage : ContentPage
             }
         };
 
-        _routineExerciseList.Add((name, setEntry, restEntry, equipmentPicker));
+        RoutineDataPasser routineData = new RoutineDataPasser();
+        routineData.Name = name;
+        routineData.SetEntry = setEntry;
+        routineData.RestEntry = restEntry;
+        routineData.EquipmentPicker = equipmentPicker;
+        _routineExerciseList.Add(routineData);
 
-        return new Border
-        {
-            BackgroundColor = Colors.LightGray,
-            Content = workoutLayout
-        };
+        return UIElementControls.MakeCard(Colors.LightGray, workoutLayout);
     }
 }

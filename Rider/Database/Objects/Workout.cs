@@ -73,3 +73,12 @@ public class WorkoutSetsPasser
     public int Weight { get; set; }
     public int Reps { get; set; }
 }
+
+public class SetPasser
+{
+    public int SetNumber { get; set; }
+    public Entry Weight { get; set; }
+    public Entry Reps { get; set; }
+    public CheckBox CheckBox { get; set; }
+    public int EquipmentMultiplier { get; set; }
+}

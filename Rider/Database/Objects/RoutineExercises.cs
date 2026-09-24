@@ -50,3 +50,13 @@ public class RoutineExercisesPasser
     public int Rest { get; set; }
     public int EquipmentId { get; set; }
 }
+
+public class RoutineDataPasser
+{
+    public string Name { get; set; }
+    public int Sets { get; set; }
+    public Entry SetEntry { get; set; }
+    public int Rest { get; set; }
+    public Entry RestEntry { get; set; }
+    public Picker EquipmentPicker { get; set; }
+}

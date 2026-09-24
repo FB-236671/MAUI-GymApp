@@ -9,8 +9,8 @@ public class WorkoutTab : ContentView
 
     public WorkoutTab()
     {
-        Button startEmpty = Controls.MakeButton("Start Empty Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 12, new Thickness(8));
-        Button createNew = Controls.MakeButton("Create New Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 12, new Thickness(8));
+        Button startEmpty = UIElementControls.MakeButton("Start Empty Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 12, new Thickness(8));
+        Button createNew = UIElementControls.MakeButton("Create New Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 12, new Thickness(8));
         Grid.SetColumn(createNew, 1);
 
         createNew.Clicked += OnCreateClick;
@@ -85,7 +85,7 @@ public class WorkoutTab : ContentView
         catch (Exception ex)
         {
             System.Diagnostics.Debug.WriteLine($"Failed to load routines: {ex}");
-            _layout.Add(Controls.MakeLabel("Couldn't load routines.", 16));
+            _layout.Add(UIElementControls.MakeLabel("Couldn't load routines.", 16));
         }
     }
     
@@ -114,24 +114,20 @@ public class WorkoutTab : ContentView
             Padding = new Thickness(20, 14)
         };
 
-        Button start = Controls.MakeButton("▶", Colors.Black, Colors.White, Colors.White, 2, 6, 18, 48, 48, 0);
-        Button edit = Controls.MakeButton("✎", Colors.Black, Colors.White, Colors.White, 2, 6, 18, 48, 48, 0);
-        Button delete = Controls.MakeButton("🗑", Colors.Black, Colors.White, Colors.White, 2, 6, 18, 48, 48, 0);
+        Button start = UIElementControls.MakeButton("▶", Colors.Black, Colors.White, Colors.White, 2, 6, 18, 48, 48, 0);
+        Button edit = UIElementControls.MakeButton("✎", Colors.Black, Colors.White, Colors.White, 2, 6, 18, 48, 48, 0);
+        Button delete = UIElementControls.MakeButton("🗑", Colors.Black, Colors.White, Colors.White, 2, 6, 18, 48, 48, 0);
 
         start.CommandParameter = routineObject;
         delete.CommandParameter = routineObject.RoutineId;
         start.Clicked += OnStartClick;
         delete.Clicked += OnDeleteClick;
         
-        inner.Add(Controls.MakeLabel(routineObject.Name, 24), 0);
+        inner.Add(UIElementControls.MakeLabel(routineObject.Name, 24), 0);
         inner.Add(start, 1);
         inner.Add(edit, 2);
         inner.Add(delete, 3);
 
-        return new Border
-        {
-            BackgroundColor = Colors.LightGray,
-            Content = inner
-        };
+        return UIElementControls.MakeCard(Colors.LightGray, inner);
     }
 }

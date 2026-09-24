@@ -4,7 +4,7 @@ using SkiaSharp;
 
 namespace MAUI_GymApp;
 
-public class Controls
+public class UIElementControls
 {
     public static Button MakeButton(string text, Color textColor, Color backgroundColor, Color borderColor, int borderWidth, int cornerRadius, int fontSize, Thickness padding) => new()
     {
@@ -99,5 +99,17 @@ public class Controls
             IsAnimated = false,
             BackgroundColor = SKColors.Transparent
         }
+    };
+
+    public static Border MakeCard(Color backgroundColor, View inner) => new()
+    {
+        BackgroundColor = backgroundColor,
+        Content = inner
+    };
+
+    public static BoxView MakeLine(int height, Color color) => new()
+    {
+        HeightRequest = height,
+        Color = color
     };
 }

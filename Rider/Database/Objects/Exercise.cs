@@ -51,6 +51,19 @@ public class Exercise
         return GeneralQueries.GetOne(sql, reader => reader.GetString(0),
             command => command.Parameters.AddWithValue("@exerciseId", id));
     }
+    
+    
+    public static List<string> ExerciseNameList()
+    {
+        List<string> exerciseList = new List<string>();
+        List<ExercisePasser> passerList = GetExercises();
+        
+        foreach (ExercisePasser passer in passerList)
+        {
+            exerciseList.Add(passer.Name);
+        }
+        return exerciseList;
+    }
 }
 
 public class ExercisePasser

@@ -1,19 +1,26 @@
-﻿using MAUI_GymApp.Rider.Database.Objects;
+﻿using System.Diagnostics;
+using MAUI_GymApp.Rider.Database;
+using MAUI_GymApp.Rider.Database.Objects;
 
 namespace MAUI_GymApp;
 
 public class EmptyWorkoutPage : ContentPage
 {
     private readonly VerticalStackLayout _layout;
-    private Label _timerLabel = Controls.MakeLabel("__:__:__", 30);
-    private RoutinePasser routine = new RoutinePasser();
+    private List<RoutineExercisesPasser> _routineExerciseList = new();
+    private Label _timerLabel = UIElementControls.MakeLabel("__:__:__", 30);
+    private Stopwatch _stopwatch = new();
+    private IDispatcherTimer _timer;
+    private List<List<SetPasser>> _setListList = new();
 
     public EmptyWorkoutPage()
     {
+        _timer = GeneralControls.StartTimer(_stopwatch, _timerLabel, Dispatcher);
+        
         Background = Colors.White;
-        Button saveButton = Controls.MakeButton("Save", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
-        Button finishButton = Controls.MakeButton("Finish", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
-        Picker exercisePicker = Controls.MakeSelector("Add an Exercise", ExerciseList(), 18);
+        Button saveButton = UIElementControls.MakeButton("Save", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
+        Button finishButton = UIElementControls.MakeButton("Finish", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
+        Picker exercisePicker = UIElementControls.MakeSelector("Add an Exercise", Exercise.ExerciseNameList(), 18);
 
         Grid buttons = new Grid
         {
@@ -39,42 +46,48 @@ public class EmptyWorkoutPage : ContentPage
                     Spacing = 30,
                     Children =
                     {
-                        Controls.MakeLabel("New Routine", 25),
+                        UIElementControls.MakeLabel("New Routine", 25),
                         _timerLabel
                     }
                 },
-                new BoxView { HeightRequest = 2, Color = Colors.Black },
+                UIElementControls.MakeLine(2, Colors.Black),
                 buttons, exercisePicker
             }
         };
         
         exercisePicker.SelectedIndexChanged += OnPickerSelectedIndexChanged;
+        saveButton.Clicked += OnSavedClicked;
+        finishButton.Clicked += OnFinishedClicked;
         Content = new ScrollView { Content = _layout };
     }
-    
-    private static List<string> ExerciseList()
+
+    private void OnFinishedClicked(object? sender, EventArgs e)
     {
-        List<string> exerciseList = new List<string>();
-        List<ExercisePasser> passerList = Exercise.GetExercises();
+        _timer.Stop();
+        _stopwatch.Stop();
+
+        SaveControls.SaveWholeWorkout(_routineExerciseList, _setListList, _stopwatch);
         
-        foreach (ExercisePasser passer in passerList)
-        {
-            exerciseList.Add(passer.Name);
-        }
-        return exerciseList;
+        GeneralControls.GoHome();
     }
-    
-    private static List<string> EquipmentList()
+
+    private async void OnSavedClicked(object? sender, EventArgs e)
     {
-        List<string> equipmentList = new List<string>();
-        List<EquipmentPasser> passerList = Equipment.GetEquipment();
+        string name = await Application.Current!.MainPage!.DisplayPromptAsync("Name", "What do you want to call your exercise", "Confirm", "Back");
 
-        foreach (EquipmentPasser passer in passerList)
+        RoutinePasser routineObject = new RoutinePasser();
+        routineObject.UserId = MainPage.User.UserId;
+        routineObject.Name = name;
+        Routine.CreateRoutine(routineObject);
+        int routineId = Routine.GetRoutineByName(routineObject.Name).RoutineId;
+        
+        foreach (RoutineExercisesPasser routineExercisesObject in _routineExerciseList)
         {
-            equipmentList.Add(passer.Name);
+            routineExercisesObject.RoutineId = routineId;
+            RoutineExercises.AddRoutineExercises(routineExercisesObject);
         }
-
-        return equipmentList;
+        
+        GeneralControls.GoHome();
     }
     
     private async void OnPickerSelectedIndexChanged(object sender, EventArgs e)
@@ -85,7 +98,7 @@ public class EmptyWorkoutPage : ContentPage
         if (selectedIndex != -1)
         {
             RoutineExercisesPasser exercise = new RoutineExercisesPasser();
-            exercise.RoutineId = routine.RoutineId;
+            
             exercise.ExerciseId = Exercise.GetExerciseByName((string)picker.ItemsSource[selectedIndex]).ExerciseId;
         
             string sets = await Application.Current!.MainPage!.DisplayPromptAsync("Sets", "How many sets for this exercise", "Confirm", "Back");
@@ -94,7 +107,7 @@ public class EmptyWorkoutPage : ContentPage
             string rest = await Application.Current!.MainPage!.DisplayPromptAsync("Rest", "How much rest do you want for this exercise", "Confirm", "Back");
             exercise.Rest = Convert.ToInt32(rest);
 
-            List<string> equipmentList = EquipmentList();
+            List<string> equipmentList = Equipment.EquipmentNameList();
             string chosenEquipment = await Application.Current!.MainPage!.DisplayActionSheetAsync("Equipment", "Back", null, equipmentList.ToArray());
 
             if (chosenEquipment != null && chosenEquipment != "Back")
@@ -102,51 +115,8 @@ public class EmptyWorkoutPage : ContentPage
                 exercise.EquipmentId = Equipment.GetEquipmentByName(chosenEquipment).EquipmentId;
             }
             
-            _layout.Children.Add(BuildWorkoutCard(exercise));
+            _layout.Children.Add(UIControls.BuildWorkoutCard(exercise, _setListList));
+            _routineExerciseList.Add(exercise);
         }
-    }
-
-    private View BuildWorkoutCard(RoutineExercisesPasser exercise)
-    {
-        VerticalStackLayout workoutLayout = new VerticalStackLayout()
-        {
-            Padding = new Thickness(20, 14),
-            Spacing = 12,
-            Children =
-            {
-                new HorizontalStackLayout()
-                {
-                    Spacing = 20,
-                    Children =
-                    {
-                        Controls.MakeLabel(Exercise.GetExerciseById(exercise.ExerciseId).Name, 22, Colors.Black, LayoutOptions.Center),
-                        Controls.MakeButton(Equipment.GetEquipmentById(exercise.EquipmentId).Name[0].ToString(), Colors.White, Colors.Black, Colors.Black, 5, 2, 22, new Thickness())
-                    }
-                },
-                new BoxView { HeightRequest = 2, Color = Colors.Black },
-            }
-        };
-
-        for (int i = 1; i <= exercise.Sets; i++)
-        {
-            Entry reps = Controls.MakeTextBox("_", Colors.Gray, Colors.Black, 12, 50, LayoutOptions.End);
-            Entry weight = Controls.MakeTextBox("_", Colors.Gray, Colors.Black, 12, 50, LayoutOptions.End);
-            CheckBox checkBox = new CheckBox();
-
-            workoutLayout.Children.Add(new HorizontalStackLayout()
-            {
-                Spacing = 8,
-                Children =
-                {
-                    weight, reps, checkBox
-                }
-            });
-        }
-        
-        return new Border()
-        {
-            BackgroundColor = Colors.LightGray,
-            Content = workoutLayout
-        };
     }
 }
