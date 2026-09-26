@@ -1,0 +1,14 @@
+﻿Bicep,1
+Tricep,1
+Forearm,1
+Calf,2
+Lats,3
+Shoulders,1
+Glutes,2
+Traps,3
+Quadriceps,2
+Hamstrings,2
+Lower Back,3
+Upper Back,3
+Abs,5
+Chest,4

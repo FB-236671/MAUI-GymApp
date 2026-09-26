@@ -67,4 +67,26 @@ public class GeneralQueries
         finally { Tables.Connection.Close(); }
         return list;
     }
+    
+    public static void PrePopulator(string path, string query, string[] fields)
+    {
+        StreamReader reader = new StreamReader(path);
+        string line = reader.ReadLine();
+        string[] words = line.Split(',');
+        
+        Tables.Connection.Open();
+        while (line != null)
+        {
+            using SqliteCommand command = new SqliteCommand(query, Tables.Connection);
+            for (int i = 0; i < fields.Length; i++)
+            {
+                command.Parameters.AddWithValue(fields[i], words[i]);
+            }
+            command.ExecuteNonQuery();
+            line = reader.ReadLine();
+            words = line.Split(',');
+        }
+        reader.Close();
+        Tables.Connection.Close();
+    }
 }

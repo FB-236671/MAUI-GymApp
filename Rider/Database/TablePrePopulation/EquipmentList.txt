@@ -1,0 +1,7 @@
+﻿No Equipment,0
+Dumbbell,2
+Barbell,1
+No Pulley,1
+One Pulley,0.5
+Two Pulley,0.25
+Smithing Machine,0.75

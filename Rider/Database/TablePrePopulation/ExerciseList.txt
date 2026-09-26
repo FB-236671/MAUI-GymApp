@@ -1,0 +1,25 @@
+﻿Bicep Curl,1
+Chest Press,14
+Chest Flys,14
+Lat Pulldown,5
+Shoulder Press,6
+Shrug,8
+Wrist Curl,3
+Lat Raises,6
+Squat,9
+Leg Curl,10
+Leg Extension,9
+Crunch,13
+Leg Raises,13
+Calf Raises,4
+Tricep Extension,2
+Row,12
+Hip Thrust,7
+Back Extension,11
+Deadlift,7
+Tricep Dip,2
+Pullover,5
+Pull Up,5
+Chin Up,1
+Reverse Curl,3
+Bench Press,14
