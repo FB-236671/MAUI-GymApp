@@ -80,5 +80,5 @@ public class SetPasser
     public Entry Weight { get; set; }
     public Entry Reps { get; set; }
     public CheckBox CheckBox { get; set; }
-    public int EquipmentMultiplier { get; set; }
+    public double EquipmentMultiplier { get; set; }
 }

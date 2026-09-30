@@ -15,7 +15,7 @@ public class Tables
             "category (categoryId integer PRIMARY KEY AUTOINCREMENT, name text UNIQUE)",
             "exercise (exerciseId integer PRIMARY KEY AUTOINCREMENT, name text UNIQUE, muscleId integer)",
             "muscle (muscleId integer PRIMARY KEY AUTOINCREMENT, name text UNIQUE, categoryId integer)",
-            "equipment (equipmentId integer PRIMARY KEY AUTOINCREMENT, name text UNIQUE, multiplier integer)",
+            "equipment (equipmentId integer PRIMARY KEY AUTOINCREMENT, name text UNIQUE, multiplier double)",
             "trophy (exerciseId integer PRIMARY KEY REFERENCES exercise(exerciseId), platinum integer, gold integer, silver integer, bronze integer)",
 
             "user (userId integer PRIMARY KEY AUTOINCREMENT, name text, age integer, weight integer, sex text)",
@@ -40,29 +40,10 @@ public class Tables
 
     public static void TablePrePopulation()
     {
-        GeneralQueries.PrePopulator(
-            "C:\\Users\\finla\\RiderProjects\\MAUI-GymApp\\MAUI-GymApp\\Rider\\Database\\TablePrePopulation\\CategoryList.txt", 
-            "INSERT OR IGNORE INTO category (name) VALUES (@name)", 
-            new []{ "@name" });
-        
-        GeneralQueries.PrePopulator(
-            "C:\\Users\\finla\\RiderProjects\\MAUI-GymApp\\MAUI-GymApp\\Rider\\Database\\TablePrePopulation\\EquipmentList.txt",
-            "INSERT OR IGNORE INTO equipment (name, multiplier) VALUES (@name, @multiplier)",
-            new [] { "@name", "@multiplier" });
-        
-        GeneralQueries.PrePopulator(
-            "C:\\Users\\finla\\RiderProjects\\MAUI-GymApp\\MAUI-GymApp\\Rider\\Database\\TablePrePopulation\\ExerciseList.txt", 
-            "INSERT OR IGNORE INTO exercise (name, muscleId) VALUES (@name, @muscleId)", 
-            new []{ "@name", "@muscleId" });
-        
-        GeneralQueries.PrePopulator(
-            "C:\\Users\\finla\\RiderProjects\\MAUI-GymApp\\MAUI-GymApp\\Rider\\Database\\TablePrePopulation\\MuscleList.txt", 
-            "INSERT OR IGNORE INTO muscle (name, categoryId) VALUES (@name, @categoryId)", 
-            new [] { "@name", "@categoryId" });
-        
-        GeneralQueries.PrePopulator(
-            "C:\\Users\\finla\\RiderProjects\\MAUI-GymApp\\MAUI-GymApp\\Rider\\Database\\TablePrePopulation\\TrophyList.txt", 
-            "INSERT OR IGNORE INTO trophy (exerciseId, platinum, gold, silver, bronze) VALUES (@exerciseId, @platinum, @gold, @silver, @bronze)",
-            new [] { "@exerciseId", "@platinum", "@gold", "@silver", "@bronze" });
+        GeneralQueries.PrePopulator("CategoryList.txt", "INSERT OR IGNORE INTO category (name) VALUES (@name)", new []{ "@name" });
+        GeneralQueries.PrePopulator("EquipmentList.txt", "INSERT OR IGNORE INTO equipment (name, multiplier) VALUES (@name, @multiplier)", new [] { "@name", "@multiplier" });
+        GeneralQueries.PrePopulator("ExerciseList.txt", "INSERT OR IGNORE INTO exercise (name, muscleId) VALUES (@name, @muscleId)", new []{ "@name", "@muscleId" });
+        GeneralQueries.PrePopulator("MuscleList.txt", "INSERT OR IGNORE INTO muscle (name, categoryId) VALUES (@name, @categoryId)", new [] { "@name", "@categoryId" });
+        GeneralQueries.PrePopulator("TrophyList.txt", "INSERT OR IGNORE INTO trophy (exerciseId, platinum, gold, silver, bronze) VALUES (@exerciseId, @platinum, @gold, @silver, @bronze)", new [] { "@exerciseId", "@platinum", "@gold", "@silver", "@bronze" });
     }
 }

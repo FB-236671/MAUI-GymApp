@@ -68,25 +68,27 @@ public class GeneralQueries
         return list;
     }
     
-    public static void PrePopulator(string path, string query, string[] fields)
+    public static void PrePopulator(string fileName, string query, string[] fields)
     {
-        StreamReader reader = new StreamReader(path);
-        string line = reader.ReadLine();
-        string[] words = line.Split(',');
-        
+        Stream stream = FileSystem.OpenAppPackageFileAsync(fileName).GetAwaiter().GetResult();
+        StreamReader reader = new StreamReader(stream);
         Tables.Connection.Open();
-        while (line != null)
+        try
         {
-            using SqliteCommand command = new SqliteCommand(query, Tables.Connection);
-            for (int i = 0; i < fields.Length; i++)
+            string line = reader.ReadLine();
+            while (line != null)
             {
-                command.Parameters.AddWithValue(fields[i], words[i]);
+                string[] words = line.Split(',');
+                if (words.Length == fields.Length)
+                {
+                    using SqliteCommand command = new SqliteCommand(query, Tables.Connection);
+                    for (int i = 0; i < fields.Length; i++)
+                        command.Parameters.AddWithValue(fields[i], words[i]);
+                    command.ExecuteNonQuery();
+                }
+                line = reader.ReadLine();
             }
-            command.ExecuteNonQuery();
-            line = reader.ReadLine();
-            words = line.Split(',');
         }
-        reader.Close();
-        Tables.Connection.Close();
+        finally { Tables.Connection.Close(); }
     }
 }

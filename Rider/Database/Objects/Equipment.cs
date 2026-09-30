@@ -12,7 +12,7 @@ public class Equipment
         {
             EquipmentId = reader.GetInt32(0),
             Name = reader.GetString(1),
-            Multiplier = reader.GetInt32(2)
+            Multiplier = reader.GetDouble(2)
         });
     }
     
@@ -24,7 +24,7 @@ public class Equipment
             {
                 EquipmentId = reader.GetInt32(0),
                 Name = reader.GetString(1),
-                Multiplier = reader.GetInt32(2)
+                Multiplier = reader.GetDouble(2)
             },
             command => command.Parameters.AddWithValue("@name", name)
         );
@@ -38,7 +38,7 @@ public class Equipment
             {
                 EquipmentId = reader.GetInt32(0),
                 Name = reader.GetString(1),
-                Multiplier = reader.GetInt32(2)
+                Multiplier = reader.GetDouble(2)
             },
             command => command.Parameters.AddWithValue("@equipmentId", id)
         );
@@ -63,5 +63,5 @@ public class EquipmentPasser
 {
     public int EquipmentId { get; set; }
     public string Name { get; set; }
-    public int Multiplier { get; set; }
+    public double Multiplier { get; set; }
 }
