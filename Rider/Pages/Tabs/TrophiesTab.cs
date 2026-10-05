@@ -24,23 +24,23 @@ public class TrophiesTab : ContentView
 
             if (trophies.Platinum <= record.OneRM)
             {
-                trophySource = "PlatinumTrophy.png";
+                trophySource = "platinumtrophy.png";
             }
             else if (trophies.Gold <= record.OneRM)
             {
-                trophySource = "GoldTrophy.png";
+                trophySource = "goldtrophy.png";
             }
             else if (trophies.Silver <= record.OneRM)
             {
-                trophySource = "SilverTrophy.png";
+                trophySource = "silvertrophy.png";
             }
             else if (trophies.Bronze <= record.OneRM)
             {
-                trophySource = "BronzeTrophy.png";
+                trophySource = "bronzetrophy.png";
             }
             else
             {
-                trophySource = "NoTrophy.png";
+                trophySource = "notrophy.png";
             }
             
             layout.Add(BuildTrophyCard(record, trophySource));
