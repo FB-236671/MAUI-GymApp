@@ -28,7 +28,7 @@
         <MauiXamlInflator>SourceGen</MauiXamlInflator>
 
         <!-- Display name -->
-        <ApplicationTitle>MAUI-GymApp</ApplicationTitle>
+        <ApplicationTitle>Gainz</ApplicationTitle>
 
         <!-- App Identifier -->
         <ApplicationId>com.companyname.mauigymapp</ApplicationId>
