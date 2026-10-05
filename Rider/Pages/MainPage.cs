@@ -16,9 +16,9 @@ public class MainPage : ContentPage
         NavigationPage.SetHasNavigationBar(this, false);
         _contentHost = new ContentView();
 
-        TabButton workoutTab = new TabButton("🏋", "Workout", () => Show(0, new WorkoutTab()));
-        TabButton trophiesTab = new TabButton("GoldTrophy.png", "Trophies", () => Show(1, new TrophiesTab()));
-        TabButton statsTab = new TabButton("📊", "Stats", () => Show(2, new StatsTab()));
+        TabButton workoutTab = new TabButton("dumbbell.png", "Workout", () => Show(0, new WorkoutTab()));
+        TabButton trophiesTab = new TabButton("goldtrophy.png", "Trophies", () => Show(1, new TrophiesTab()));
+        TabButton statsTab = new TabButton("stats.png", "Stats", () => Show(2, new StatsTab()));
         _tabs.Add(workoutTab);
         _tabs.Add(trophiesTab);
         _tabs.Add(statsTab);
