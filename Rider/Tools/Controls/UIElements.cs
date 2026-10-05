@@ -4,7 +4,7 @@ using SkiaSharp;
 
 namespace MAUI_GymApp;
 
-public class UIElementControls
+public class UIElements
 {
     public static Button MakeButton(string text, Color textColor, Color backgroundColor, Color borderColor, int borderWidth, int cornerRadius, int fontSize, Thickness padding) => new()
     {

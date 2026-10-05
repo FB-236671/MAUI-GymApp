@@ -7,21 +7,22 @@ public class CreateProfilePage : ContentPage
     private Entry _nameEntry;
     private Entry _ageEntry;
     private Entry _weightEntry;
-    private Entry _sexEntry;
+    private Picker _sexPicker;
 
     public CreateProfilePage()
     {
         BackgroundColor = Colors.White;
-        Button createButton = UIElementControls.MakeButton("Create Profile", Colors.Black, Colors.White, Colors.Black, 2, 6, 18, 0);
-        Label nameLabel = UIElementControls.MakeLabel("Name:", 18, Colors.Black, LayoutOptions.Center);
-        Label ageLabel = UIElementControls.MakeLabel("Age:", 18, Colors.Black, LayoutOptions.Center);
-        Label weightLabel = UIElementControls.MakeLabel("Weight:", 18, Colors.Black, LayoutOptions.Center);
-        Label sexLabel = UIElementControls.MakeLabel("Sex:", 18, Colors.Black, LayoutOptions.Center);
+        Button createButton = UIElements.MakeButton("Create Profile", Colors.Black, Colors.White, Colors.Black, 2, 6, 18, 0);
+        Label nameLabel = UIElements.MakeLabel("Name:", 18, Colors.Black, LayoutOptions.Center);
+        Label ageLabel = UIElements.MakeLabel("Age:", 18, Colors.Black, LayoutOptions.Center);
+        Label weightLabel = UIElements.MakeLabel("Weight:", 18, Colors.Black, LayoutOptions.Center);
+        Label sexLabel = UIElements.MakeLabel("Sex:", 18, Colors.Black, LayoutOptions.Center);
 
-        _nameEntry = UIElementControls.MakeTextBox("Name", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
-        _ageEntry = UIElementControls.MakeTextBox("Age", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
-        _weightEntry = UIElementControls.MakeTextBox("Weight", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
-        _sexEntry = UIElementControls.MakeTextBox("Sex", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
+        _nameEntry = UIElements.MakeTextBox("Name", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
+        _ageEntry = UIElements.MakeTextBox("Age", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
+        _weightEntry = UIElements.MakeTextBox("Weight", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
+        _sexPicker = UIElements.MakeSelector("Sex", new List<string> { "Male", "Female" }, 18);
+        _sexPicker.WidthRequest = 180;
         
         VerticalStackLayout layout = new VerticalStackLayout
         {
@@ -34,19 +35,34 @@ public class CreateProfilePage : ContentPage
         layout.Add(BuildProfileCard(nameLabel, _nameEntry));
         layout.Add(BuildProfileCard(ageLabel, _ageEntry));
         layout.Add(BuildProfileCard(weightLabel, _weightEntry));
-        layout.Add(BuildProfileCard(sexLabel, _sexEntry));
+        layout.Add(BuildProfileCard(sexLabel, _sexPicker));
         layout.Add(createButton);
 
         Content = layout;
     }
     
-    private void OnLoginClick(object? sender, EventArgs e)
+    private async void OnLoginClick(object? sender, EventArgs e)
     {
-        UserPasser userObject = new UserPasser();
-        userObject.Name = _nameEntry.Text;
-        userObject.Age = Convert.ToInt32(_ageEntry.Text);
-        userObject.Weight = Convert.ToInt32(_weightEntry.Text);
-        userObject.Sex = _sexEntry.Text;
+        var errors = new List<string>();
+
+        if (TypeChecker.StringCheck(_nameEntry.Text, "Name") is string nameError) { errors.Add(nameError); }
+        if (TypeChecker.IntegerCheck(_ageEntry.Text, "Age", out int age) is string ageError) { errors.Add(ageError); }
+        if (TypeChecker.IntegerCheck(_weightEntry.Text, "Weight", out int weight) is string weightError) { errors.Add(weightError); }
+        if (_sexPicker.SelectedItem == null) { errors.Add("Please select an option for Sex"); }
+
+        if (errors.Count > 0)
+        {
+            await DisplayAlertAsync("Input Error", string.Join("\n", errors), "Close");
+            return;
+        }
+
+        UserPasser userObject = new UserPasser
+        {
+            Name = _nameEntry.Text,
+            Age = age,
+            Weight = weight,
+            Sex = (string)_sexPicker.SelectedItem,
+        };
         userObject.UserId = User.CreateUser(userObject);
         MainPage.User = userObject;
         
@@ -57,7 +73,7 @@ public class CreateProfilePage : ContentPage
         };
     }
     
-    private static View BuildProfileCard(Label label, Entry entry)
+    private static View BuildProfileCard(Label label, View entry)
     {
         Border textBox = new Border
         {

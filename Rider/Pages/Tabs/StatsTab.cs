@@ -18,7 +18,7 @@ public class StatsTab : ContentView
     };
 
     private Switch _switch = new Switch() { OnColor = Colors.White, ThumbColor = Colors.Black};
-    private Label _label = UIElementControls.MakeLabel("Category Chart", 20);
+    private Label _label = UIElements.MakeLabel("Category Chart", 20);
     private VerticalStackLayout _layout;
     private VerticalStackLayout _card;
 
@@ -31,7 +31,7 @@ public class StatsTab : ContentView
             Children =
             {
                 BuildHeader(),
-                UIElementControls.MakeRadarChart(360, BuildEntries(CategoryTotals, Category.GetCategoryChartStats(MainPage.User.UserId)), 28),
+                UIElements.MakeRadarChart(360, BuildEntries(CategoryTotals, Category.GetCategoryChartStats(MainPage.User.UserId)), 28),
             }
         };
 
@@ -41,7 +41,7 @@ public class StatsTab : ContentView
             Spacing = 16,
             Children =
             {
-                UIElementControls.MakeCard(Colors.LightGray, _card)
+                UIElements.MakeCard(Colors.LightGray, _card)
             }
         };
 
@@ -103,13 +103,13 @@ public class StatsTab : ContentView
         if (_switch.IsToggled)
         {
             _card.Children.RemoveAt(1);
-            _card.Children.Add(UIElementControls.MakeRadarChart(360, BuildEntries(MuscleTotals, Muscle.GetMuscleChartStats(MainPage.User.UserId)), 28));
+            _card.Children.Add(UIElements.MakeRadarChart(360, BuildEntries(MuscleTotals, Muscle.GetMuscleChartStats(MainPage.User.UserId)), 28));
             _label.Text = "Muscle Chart";
         }
         else
         {
             _card.Children.RemoveAt(1);
-            _card.Children.Add(UIElementControls.MakeRadarChart(360, BuildEntries(CategoryTotals, Category.GetCategoryChartStats(MainPage.User.UserId)), 28));
+            _card.Children.Add(UIElements.MakeRadarChart(360, BuildEntries(CategoryTotals, Category.GetCategoryChartStats(MainPage.User.UserId)), 28));
             _label.Text = "Category Chart";
         }
     }

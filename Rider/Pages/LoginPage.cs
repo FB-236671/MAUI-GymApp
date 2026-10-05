@@ -7,7 +7,7 @@ public class LoginPage : ContentPage
     public LoginPage()
     {
         BackgroundColor = Colors.White;
-        Button createProfileButton = UIElementControls.MakeButton("Create New Profile", Colors.Black, Colors.White, Colors.Black, 2, 6, 18, 0);
+        Button createProfileButton = UIElements.MakeButton("Create New Profile", Colors.Black, Colors.White, Colors.Black, 2, 6, 18, 0);
         
         VerticalStackLayout layout = new VerticalStackLayout
         {
@@ -18,7 +18,7 @@ public class LoginPage : ContentPage
         List<UserPasser> userList = User.GetUsers();
         foreach (UserPasser userObject in userList)
         {
-            Button button = UIElementControls.MakeButton(userObject.Name, Colors.Black, Colors.White, Colors.Black, 2, 6, 18, 0);
+            Button button = UIElements.MakeButton(userObject.Name, Colors.Black, Colors.White, Colors.Black, 2, 6, 18, 0);
             button.Clicked += (sender, e) => OnLoginClick(userObject);
             layout.Add(button);
         }

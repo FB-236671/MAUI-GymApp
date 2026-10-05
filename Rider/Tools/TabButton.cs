@@ -16,7 +16,7 @@ public class TabButton : VerticalStackLayout
         VerticalOptions = LayoutOptions.Fill;
         BackgroundColor = Colors.White;
 
-        _icon = UIElementControls.MakeImage(source, 34, 34);
+        _icon = UIElements.MakeImage(source, 34, 34);
 
         _text = new Label
         {

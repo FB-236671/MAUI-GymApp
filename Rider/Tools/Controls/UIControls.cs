@@ -18,11 +18,11 @@ public class UIControls
                     Spacing = 20,
                     Children =
                     {
-                        UIElementControls.MakeLabel(Exercise.GetExerciseById(routineExercisesObject.ExerciseId).Name, 22, Colors.Black, LayoutOptions.Center),
-                        UIElementControls.MakeButton(Equipment.GetEquipmentById(routineExercisesObject.EquipmentId).Name[0].ToString(), Colors.White, Colors.Black, Colors.Black, 5, 2, 22, new Thickness())
+                        UIElements.MakeLabel(Exercise.GetExerciseById(routineExercisesObject.ExerciseId).Name, 22, Colors.Black, LayoutOptions.Center),
+                        UIElements.MakeButton(Equipment.GetEquipmentById(routineExercisesObject.EquipmentId).Name[0].ToString(), Colors.White, Colors.Black, Colors.Black, 5, 2, 22, new Thickness())
                     }
                 },
-                UIElementControls.MakeLine(2, Colors.Black),
+                UIElements.MakeLine(2, Colors.Black),
             }
         };
 
@@ -30,8 +30,8 @@ public class UIControls
         
         for (int i = 1; i <= routineExercisesObject.Sets; i++)
         {
-            Entry reps = UIElementControls.MakeTextBox("_", Colors.Gray, Colors.Black, 12, 50, LayoutOptions.End);
-            Entry weight = UIElementControls.MakeTextBox("_", Colors.Gray, Colors.Black, 12, 50, LayoutOptions.End);
+            Entry reps = UIElements.MakeTextBox("_", Colors.Gray, Colors.Black, 12, 50, LayoutOptions.End);
+            Entry weight = UIElements.MakeTextBox("_", Colors.Gray, Colors.Black, 12, 50, LayoutOptions.End);
             CheckBox checkBox = new CheckBox();
             
             workoutLayout.Children.Add(new HorizontalStackLayout()
@@ -54,6 +54,6 @@ public class UIControls
 
         setListList.Add(setList);
         
-        return UIElementControls.MakeCard(Colors.LightGray, workoutLayout);
+        return UIElements.MakeCard(Colors.LightGray, workoutLayout);
     }
 }

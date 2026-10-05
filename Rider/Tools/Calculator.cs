@@ -7,14 +7,14 @@ public class Calculator
         double[] values;
         double frostMcCoef = 0;
 
-        if (sex == "male")
+        if (string.Equals(sex, "male", StringComparison.OrdinalIgnoreCase))
         {
             values = new[]
             {
                 47.46178854, 8.472061379, 0.07369410346, -0.001395833811, 0.00000707665973070743, -0.0000000120804336482315
             };
         }
-        else if (sex == "female")
+        else if (string.Equals(sex, "female", StringComparison.OrdinalIgnoreCase))
         {
             values = new[]
             {

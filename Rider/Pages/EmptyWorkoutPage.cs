@@ -8,7 +8,7 @@ public class EmptyWorkoutPage : ContentPage
 {
     private readonly VerticalStackLayout _layout;
     private List<RoutineExercisesPasser> _routineExerciseList = new();
-    private Label _timerLabel = UIElementControls.MakeLabel("__:__:__", 30);
+    private Label _timerLabel = UIElements.MakeLabel("__:__:__", 30);
     private Stopwatch _stopwatch = new();
     private IDispatcherTimer _timer;
     private List<List<SetPasser>> _setListList = new();
@@ -18,9 +18,9 @@ public class EmptyWorkoutPage : ContentPage
         _timer = GeneralControls.StartTimer(_stopwatch, _timerLabel, Dispatcher);
         
         Background = Colors.White;
-        Button saveButton = UIElementControls.MakeButton("Save", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
-        Button finishButton = UIElementControls.MakeButton("Finish", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
-        Picker exercisePicker = UIElementControls.MakeSelector("Add an Exercise", Exercise.ExerciseNameList(), 18);
+        Button saveButton = UIElements.MakeButton("Save", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
+        Button finishButton = UIElements.MakeButton("Finish", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
+        Picker exercisePicker = UIElements.MakeSelector("Add an Exercise", Exercise.ExerciseNameList(), 18);
 
         Grid buttons = new Grid
         {
@@ -46,11 +46,11 @@ public class EmptyWorkoutPage : ContentPage
                     Spacing = 30,
                     Children =
                     {
-                        UIElementControls.MakeLabel("New Routine", 25),
+                        UIElements.MakeLabel("New Routine", 25),
                         _timerLabel
                     }
                 },
-                UIElementControls.MakeLine(2, Colors.Black),
+                UIElements.MakeLine(2, Colors.Black),
                 buttons, exercisePicker
             }
         };

@@ -11,9 +11,9 @@ public class CreateWorkoutPage : ContentPage
     public CreateWorkoutPage()
     {
         Background = Colors.White;
-        Picker picker = UIElementControls.MakeSelector("Add an Exercise", Exercise.ExerciseNameList(), 18);
-        Button saveButton = UIElementControls.MakeButton("Save", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
-        nameBox = UIElementControls.MakeTextBox("Name", Colors.Gray, Colors.Black, 30, 250, LayoutOptions.Center);
+        Picker picker = UIElements.MakeSelector("Add an Exercise", Exercise.ExerciseNameList(), 18);
+        Button saveButton = UIElements.MakeButton("Save", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
+        nameBox = UIElements.MakeTextBox("Name", Colors.Gray, Colors.Black, 30, 250, LayoutOptions.Center);
         
         _layout = new VerticalStackLayout()
         {
@@ -32,12 +32,12 @@ public class CreateWorkoutPage : ContentPage
                             Children =
                             {
                                 nameBox,
-                                UIElementControls.MakeLine(2, Colors.Black)
+                                UIElements.MakeLine(2, Colors.Black)
                             }
                         }
                     }
                 },
-                UIElementControls.MakeLine(2, Colors.Black),
+                UIElements.MakeLine(2, Colors.Black),
                 saveButton,
                 picker
             }
@@ -48,26 +48,39 @@ public class CreateWorkoutPage : ContentPage
         Content = new ScrollView { Content = _layout };
     }
 
-    private void OnSaveClicked(object? sender, EventArgs e)
+    private async void OnSaveClicked(object? sender, EventArgs e)
     {
-        if (nameBox.Text != "")
-        {
-            RoutinePasser routineObject = new RoutinePasser();
-            routineObject.UserId = MainPage.User.UserId;
-            routineObject.Name = nameBox.Text;
-            Routine.CreateRoutine(routineObject);
-            int routineId = Routine.GetRoutineByName(routineObject.Name).RoutineId;
+        var errors = new List<string>();
         
-            foreach (RoutineDataPasser exercise in _routineExerciseList)
-            {
-                RoutineExercisesPasser routineExercisesObject = new RoutineExercisesPasser();
-                routineExercisesObject.RoutineId = routineId;
-                routineExercisesObject.ExerciseId = Exercise.GetExerciseByName(exercise.Name).ExerciseId;
-                routineExercisesObject.Sets = Convert.ToInt32(exercise.SetEntry.Text);
-                routineExercisesObject.Rest = Convert.ToInt32(exercise.RestEntry.Text);
-                routineExercisesObject.EquipmentId = Equipment.GetEquipmentByName((string)exercise.EquipmentPicker.SelectedItem).EquipmentId;
-                RoutineExercises.AddRoutineExercises(routineExercisesObject);
-            }
+        if (TypeChecker.StringCheck(nameBox.Text, "Name") is string nameError) { errors.Add(nameError); }
+
+        foreach (RoutineDataPasser exercise in _routineExerciseList)
+        {
+            if (TypeChecker.IntegerCheck(exercise.SetEntry.Text, "Sets", exercise.Name, out int sets) is string setsError) { errors.Add(setsError); }
+            if (TypeChecker.IntegerCheck(exercise.RestEntry.Text, "Rest", exercise.Name, out int rest) is string restError) { errors.Add(restError); }
+        }
+        
+        if (errors.Count > 0)
+        {
+            await DisplayAlertAsync("Input Error", string.Join("\n", errors), "Close");
+            return;
+        }
+        
+        RoutinePasser routineObject = new RoutinePasser();
+        routineObject.UserId = MainPage.User.UserId;
+        routineObject.Name = nameBox.Text;
+        Routine.CreateRoutine(routineObject);
+        int routineId = Routine.GetRoutineByName(routineObject.Name).RoutineId;
+        
+        foreach (RoutineDataPasser exercise in _routineExerciseList)
+        {
+            RoutineExercisesPasser routineExercisesObject = new RoutineExercisesPasser();
+            routineExercisesObject.RoutineId = routineId;
+            routineExercisesObject.ExerciseId = Exercise.GetExerciseByName(exercise.Name).ExerciseId;
+            routineExercisesObject.Sets = Convert.ToInt32(exercise.SetEntry.Text);
+            routineExercisesObject.Rest = Convert.ToInt32(exercise.RestEntry.Text);
+            routineExercisesObject.EquipmentId = Equipment.GetEquipmentByName((string)exercise.EquipmentPicker.SelectedItem).EquipmentId;
+            RoutineExercises.AddRoutineExercises(routineExercisesObject);
         }
         
         GeneralControls.GoHome();
@@ -86,9 +99,9 @@ public class CreateWorkoutPage : ContentPage
 
     private View BuildCreateWorkoutCard(string name)
     {
-        Entry setEntry = UIElementControls.MakeTextBox("Sets", Colors.White, Colors.Black, 12, 35, LayoutOptions.End);
-        Entry restEntry = UIElementControls.MakeTextBox("Rest", Colors.White, Colors.Black, 12, 50, LayoutOptions.End);
-        Picker equipmentPicker = UIElementControls.MakeSelector("Equipment", Equipment.EquipmentNameList(), 12);
+        Entry setEntry = UIElements.MakeTextBox("Sets", Colors.White, Colors.Black, 12, 35, LayoutOptions.End);
+        Entry restEntry = UIElements.MakeTextBox("Rest", Colors.White, Colors.Black, 12, 50, LayoutOptions.End);
+        Picker equipmentPicker = UIElements.MakeSelector("Equipment", Equipment.EquipmentNameList(), 12);
         
         VerticalStackLayout workoutLayout = new VerticalStackLayout()
         {
@@ -96,7 +109,7 @@ public class CreateWorkoutPage : ContentPage
             Spacing = 12,
             Children =
             {
-                UIElementControls.MakeLabel(name, 22, Colors.Black, LayoutOptions.Center),
+                UIElements.MakeLabel(name, 22, Colors.Black, LayoutOptions.Center),
                 new HorizontalStackLayout()
                 {
                     Spacing = 8,
@@ -117,6 +130,6 @@ public class CreateWorkoutPage : ContentPage
         routineData.EquipmentPicker = equipmentPicker;
         _routineExerciseList.Add(routineData);
 
-        return UIElementControls.MakeCard(Colors.LightGray, workoutLayout);
+        return UIElements.MakeCard(Colors.LightGray, workoutLayout);
     }
 }

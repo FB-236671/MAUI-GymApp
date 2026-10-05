@@ -10,7 +10,7 @@ public class WorkoutPage : ContentPage
     private RoutinePasser _routineObject;
     private IDispatcherTimer _timer;
     private Stopwatch _stopwatch = new();
-    private Label _timerLabel = UIElementControls.MakeLabel("__:__:__", 30);
+    private Label _timerLabel = UIElements.MakeLabel("__:__:__", 30);
     private List<List<SetPasser>> _setListList = new();
     private List<RoutineExercisesPasser> _exercises = new();
     
@@ -18,7 +18,7 @@ public class WorkoutPage : ContentPage
     {
         _timer = GeneralControls.StartTimer(_stopwatch, _timerLabel, Dispatcher);
         
-        Button saveButton = UIElementControls.MakeButton("Finish", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
+        Button saveButton = UIElements.MakeButton("Finish", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
         
         Background = Colors.White;
         _routineObject = routineObject;
@@ -35,11 +35,11 @@ public class WorkoutPage : ContentPage
                     Spacing = 40,
                     Children =
                     {
-                        UIElementControls.MakeLabel(_routineObject.Name, 25), 
+                        UIElements.MakeLabel(_routineObject.Name, 25), 
                         _timerLabel
                     }
                 },
-                UIElementControls.MakeLine(2, Colors.Black),
+                UIElements.MakeLine(2, Colors.Black),
                 saveButton
             }
         };
