@@ -43,7 +43,7 @@ public class SaveControls
 
                     WorkoutSetsPasser workoutSetsObject = new WorkoutSetsPasser();
                     workoutSetsObject.SetNumber = set.SetNumber + drawback;
-                    workoutSetsObject.Weight = Convert.ToInt32(set.Weight.Text) * set.EquipmentMultiplier;
+                    workoutSetsObject.Weight = Convert.ToInt32(Math.Round(Convert.ToDouble(set.Weight.Text) * set.EquipmentMultiplier, 0));
                     workoutSetsObject.Reps = Convert.ToInt32(set.Reps.Text);
                     workoutSetsList.Add(workoutSetsObject);
 
