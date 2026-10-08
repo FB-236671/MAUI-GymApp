@@ -21,7 +21,7 @@ public class Tables
             "user (userId integer PRIMARY KEY AUTOINCREMENT, name text, age integer, weight integer, sex text)",
             "record (userId integer, exerciseId integer, bestWeight integer, oneRM integer, PRIMARY KEY (userId, exerciseId))",
 
-            "workout (workoutId integer PRIMARY KEY AUTOINCREMENT, userId integer, duration integer, volume integer)",
+            "workout (workoutId integer PRIMARY KEY AUTOINCREMENT, userId integer, duration integer, volume integer, date long)",
             "workoutexercises (workoutexercisesId integer PRIMARY KEY AUTOINCREMENT, workoutId integer, exerciseId integer, sets integer)",
             "workoutsets (workoutexercisesId integer, setnumber integer, weight integer, reps integer, PRIMARY KEY (workoutexercisesId, setnumber))",
             "routine (routineId integer PRIMARY KEY AUTOINCREMENT, userId integer, name text)",
