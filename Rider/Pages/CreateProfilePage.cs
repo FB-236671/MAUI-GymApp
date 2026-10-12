@@ -19,8 +19,8 @@ public class CreateProfilePage : ContentPage
         Label sexLabel = UIElements.MakeLabel("Sex:", 18, Colors.Black, LayoutOptions.Center);
 
         _nameEntry = UIElements.MakeTextBox("Name", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
-        _ageEntry = UIElements.MakeTextBox("Age", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
-        _weightEntry = UIElements.MakeTextBox("Weight", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
+        _ageEntry = UIElements.MakeIntBox("Age", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
+        _weightEntry = UIElements.MakeIntBox("Weight", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
         _sexPicker = UIElements.MakeSelector("Sex", new List<string> { "Male", "Female" }, 18);
         _sexPicker.WidthRequest = 180;
         
@@ -58,7 +58,7 @@ public class CreateProfilePage : ContentPage
 
         UserPasser userObject = new UserPasser
         {
-            Name = _nameEntry.Text,
+            Name = _nameEntry.Text.Trim(),
             Age = age,
             Weight = weight,
             Sex = (string)_sexPicker.SelectedItem,

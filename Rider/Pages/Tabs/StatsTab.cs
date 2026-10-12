@@ -14,7 +14,7 @@ public class StatsTab : ContentView
     private string[,] MuscleTotals =
     {
         { "Bicep", "0" }, { "Tricep", "0" }, { "Forearm", "0" }, { "Calf", "0" }, { "Lats", "0" }, { "Shoulders", "0" }, { "Glutes", "0" },
-        { "Chest", "0" }, { "Quadriceps", "0" }, {"Hamstrings", "0"}, {"Traps", "0"}, {"Abs", "0"}, {"U Back", "0"}, {"L Back", "0"}
+        { "Chest", "0" }, { "Quadriceps", "0" }, {"Hamstrings", "0"}, {"Traps", "0"}, {"Abs", "0"}, {"Upper Back", "0"}, {"Lower Back", "0"}
     };
 
     private Switch _switch = new Switch() { OnColor = Colors.White, ThumbColor = Colors.Black};
@@ -31,7 +31,7 @@ public class StatsTab : ContentView
             Children =
             {
                 BuildHeader(),
-                UIElements.MakeRadarChart(360, BuildEntries(CategoryTotals, Category.GetCategoryChartStats(MainPage.User.UserId)), 28),
+                UIElements.MakeRadarChart(360, BuildEntries(CategoryTotals, Category.GetCategoryChartStats(MainPage.User.UserId)), 20),
             }
         };
 

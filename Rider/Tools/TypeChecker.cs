@@ -46,17 +46,4 @@ public static class TypeChecker
         }
         return null;
     }
-
-    public static string? WordCheck(string? input, string name, string[] words)
-    {
-        if (string.IsNullOrWhiteSpace(input))
-        {
-            return "Please input something for " + name;
-        }
-        if (!words.Contains(input.Trim(), StringComparer.OrdinalIgnoreCase))
-        {
-            return "Please enter one of: " + string.Join(", ", words);
-        }
-        return null;
-    }
 }

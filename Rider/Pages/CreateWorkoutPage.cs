@@ -68,7 +68,7 @@ public class CreateWorkoutPage : ContentPage
         
         RoutinePasser routineObject = new RoutinePasser();
         routineObject.UserId = MainPage.User.UserId;
-        routineObject.Name = nameBox.Text;
+        routineObject.Name = nameBox.Text.Trim();
         Routine.CreateRoutine(routineObject);
         int routineId = Routine.GetRoutineByName(routineObject.Name).RoutineId;
         

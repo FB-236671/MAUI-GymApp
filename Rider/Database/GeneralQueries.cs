@@ -19,7 +19,10 @@ public class GeneralQueries
                 list.Add(obj);
             }
         }
-        finally { Tables.Connection.Close(); }
+        finally
+        {
+            Tables.Connection.Close();
+        }
         return list;
     }
     
@@ -28,8 +31,14 @@ public class GeneralQueries
         using SqliteCommand command = new SqliteCommand(sql, Tables.Connection);
         if (setParameters != null) { setParameters(command); }
         Tables.Connection.Open();
-        try { command.ExecuteNonQuery(); }
-        finally { Tables.Connection.Close(); }
+        try
+        {
+            command.ExecuteNonQuery();
+        }
+        finally
+        {
+            Tables.Connection.Close();
+        }
     }
     
     public static T GetOne<T>(string sql, Func<SqliteDataReader, T> mapItem, Action<SqliteCommand> setParameters = null)
@@ -45,7 +54,10 @@ public class GeneralQueries
                 return mapItem(reader);
             }
         }
-        finally { Tables.Connection.Close(); }
+        finally
+        {
+            Tables.Connection.Close();
+        }
         return default;
     }
 
@@ -64,7 +76,10 @@ public class GeneralQueries
                 list.Add(obj);
             }
         }
-        finally { Tables.Connection.Close(); }
+        finally
+        {
+            Tables.Connection.Close();
+        }
         return list;
     }
     
@@ -86,9 +101,15 @@ public class GeneralQueries
                         command.Parameters.AddWithValue(fields[i], words[i]);
                     command.ExecuteNonQuery();
                 }
+
                 line = reader.ReadLine();
             }
         }
-        finally { Tables.Connection.Close(); }
+        finally
+        {
+            stream.Close();
+            reader.Close();
+            Tables.Connection.Close();
+        }
     }
 }

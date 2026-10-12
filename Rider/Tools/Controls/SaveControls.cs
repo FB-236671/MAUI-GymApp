@@ -39,7 +39,7 @@ public class SaveControls
                 
                 else
                 {
-                    totalVolume += Convert.ToInt32(set.Reps.Text) * Convert.ToInt32(set.Weight.Text);
+                    totalVolume += Convert.ToInt32(Math.Round(Convert.ToDouble(set.Weight.Text) * Convert.ToInt32(set.Reps.Text)));
 
                     WorkoutSetsPasser workoutSetsObject = new WorkoutSetsPasser();
                     workoutSetsObject.SetNumber = set.SetNumber + drawback;

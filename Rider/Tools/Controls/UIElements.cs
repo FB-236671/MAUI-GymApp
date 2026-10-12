@@ -63,6 +63,19 @@ public class UIElements
         WidthRequest = width,
         VerticalOptions = layout
     };
+    
+    public static Entry MakeIntBox(string placeHolder, Color placeHolderColor, Color textColor, int fontSize, int width, LayoutOptions layout) => new()
+    {
+        Placeholder = placeHolder,
+        FontFamily = "OrbitronBold",
+        BackgroundColor = Colors.Transparent,
+        PlaceholderColor = placeHolderColor,
+        TextColor = textColor,
+        FontSize = fontSize,
+        WidthRequest = width,
+        Keyboard = Keyboard.Numeric,
+        VerticalOptions = layout
+    };
 
     public static Picker MakeSelector(string title, List<string> list, int fontSize) => new()
     {

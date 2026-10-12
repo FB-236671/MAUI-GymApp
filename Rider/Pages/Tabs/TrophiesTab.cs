@@ -17,24 +17,28 @@ public class TrophiesTab : ContentView
 
         foreach (RecordPasser record in recordList)
         {
+            if (Trophy.GetTrophyByExercise(record.ExerciseId) == null)
+            {
+                continue;
+            }
             TrophyPasser trophies = Trophy.GetTrophyByExercise(record.ExerciseId);
             string trophySource;
             UserPasser user = MainPage.User;
-            int lift = Calculator.GeneralStrength(user.Age, user.Weight, user.Sex, record.ExerciseId);
+            int lift = Calculator.GeneralStrength(user.Age, user.Weight, user.Sex, record.OneRM);
 
-            if (trophies.Platinum <= record.OneRM)
+            if (trophies.Platinum <= lift)
             {
                 trophySource = "platinumtrophy.png";
             }
-            else if (trophies.Gold <= record.OneRM)
+            else if (trophies.Gold <= lift)
             {
                 trophySource = "goldtrophy.png";
             }
-            else if (trophies.Silver <= record.OneRM)
+            else if (trophies.Silver <= lift)
             {
                 trophySource = "silvertrophy.png";
             }
-            else if (trophies.Bronze <= record.OneRM)
+            else if (trophies.Bronze <= lift)
             {
                 trophySource = "bronzetrophy.png";
             }

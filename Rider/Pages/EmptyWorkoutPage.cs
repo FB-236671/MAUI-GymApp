@@ -100,12 +100,21 @@ public class EmptyWorkoutPage : ContentPage
             RoutineExercisesPasser exercise = new RoutineExercisesPasser();
             
             exercise.ExerciseId = Exercise.GetExerciseByName((string)picker.ItemsSource[selectedIndex]).ExerciseId;
-        
+            
             string sets = await Application.Current!.MainPage!.DisplayPromptAsync("Sets", "How many sets for this exercise", "Confirm", "Back");
-            exercise.Sets = Convert.ToInt32(sets);
+            if (TypeChecker.IntegerCheck(sets, "Sets", out int checkedSets) is string setsError)
+            {
+                await DisplayAlertAsync("Input Error", setsError, "Close");
+                return;
+            }
+            exercise.Sets = Convert.ToInt32(checkedSets);
 
             string rest = await Application.Current!.MainPage!.DisplayPromptAsync("Rest", "How much rest do you want for this exercise", "Confirm", "Back");
-            exercise.Rest = Convert.ToInt32(rest);
+            if (TypeChecker.IntegerCheck(rest, "Rest", out int checkedRest) is string restError)
+            {
+                await DisplayAlertAsync("Input Error", restError, "Close");
+            }
+            exercise.Rest = Convert.ToInt32(checkedRest);
 
             List<string> equipmentList = Equipment.EquipmentNameList();
             string chosenEquipment = await Application.Current!.MainPage!.DisplayActionSheetAsync("Equipment", "Back", null, equipmentList.ToArray());
