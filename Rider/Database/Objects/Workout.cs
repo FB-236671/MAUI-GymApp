@@ -6,13 +6,14 @@ public class Workout
 { 
     public static void SaveWorkout(WorkoutPasser workoutObject, List<WorkoutExercisesPasser> workoutExercisesList, List<List<WorkoutSetsPasser>> workoutSetsListList)
     {
-        string workoutSql = "INSERT INTO workout (UserId, Duration, Volume) VALUES (@UserId, @Duration, @Volume); SELECT last_insert_rowid();";
+        string workoutSql = "INSERT INTO workout (UserId, Duration, Volume, Date) VALUES (@UserId, @Duration, @Volume, @Date); SELECT last_insert_rowid();";
         
         int workoutId = GeneralQueries.GetOne(workoutSql, reader => reader.GetInt32(0), command =>
         {
             command.Parameters.AddWithValue("@UserId", workoutObject.UserId);
             command.Parameters.AddWithValue("@Duration", workoutObject.Duration);
             command.Parameters.AddWithValue("@Volume", workoutObject.Volume);
+            command.Parameters.AddWithValue("@Date", workoutObject.Date);
         });
         
         string exercisesSql = "INSERT INTO workoutexercises (WorkoutId, ExerciseId, Sets) VALUES (@WorkoutId, @ExerciseId, @Sets); SELECT last_insert_rowid();";
@@ -56,6 +57,7 @@ public class WorkoutPasser
     public int UserId { get; set; }
     public int Duration { get; set; }
     public int Volume { get; set; }
+    public int Date {get; set; }
 }
 
 public class WorkoutExercisesPasser
