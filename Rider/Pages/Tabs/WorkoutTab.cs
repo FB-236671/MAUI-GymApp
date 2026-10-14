@@ -51,7 +51,7 @@ public class WorkoutTab : ContentView
         if (sender is not Button button || button.CommandParameter is not int routineId)
             return;
 
-        bool confirmed = await Application.Current!.MainPage!.DisplayAlertAsync("Delete Routine", "Are you sure you want to delete this routine", "Confirm", "Cancel");
+        bool confirmed = await Application.Current!.MainPage!.DisplayAlert("Delete Routine", "Are you sure you want to delete this routine", "Confirm", "Cancel");
         
         if (!confirmed)
             return;

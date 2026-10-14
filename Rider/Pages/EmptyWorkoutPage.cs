@@ -104,7 +104,7 @@ public class EmptyWorkoutPage : ContentPage
             string sets = await Application.Current!.MainPage!.DisplayPromptAsync("Sets", "How many sets for this exercise", "Confirm", "Back");
             if (TypeChecker.IntegerCheck(sets, "Sets", out int checkedSets) is string setsError)
             {
-                await DisplayAlertAsync("Input Error", setsError, "Close");
+                await DisplayAlert("Input Error", setsError, "Close");
                 return;
             }
             exercise.Sets = Convert.ToInt32(checkedSets);
@@ -112,12 +112,12 @@ public class EmptyWorkoutPage : ContentPage
             string rest = await Application.Current!.MainPage!.DisplayPromptAsync("Rest", "How much rest do you want for this exercise", "Confirm", "Back");
             if (TypeChecker.IntegerCheck(rest, "Rest", out int checkedRest) is string restError)
             {
-                await DisplayAlertAsync("Input Error", restError, "Close");
+                await DisplayAlert("Input Error", restError, "Close");
             }
             exercise.Rest = Convert.ToInt32(checkedRest);
 
             List<string> equipmentList = Equipment.EquipmentNameList();
-            string chosenEquipment = await Application.Current!.MainPage!.DisplayActionSheetAsync("Equipment", "Back", null, equipmentList.ToArray());
+            string chosenEquipment = await Application.Current!.MainPage!.DisplayActionSheet("Equipment", "Back", null, equipmentList.ToArray());
 
             if (chosenEquipment != null && chosenEquipment != "Back")
             {

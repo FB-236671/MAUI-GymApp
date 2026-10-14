@@ -62,7 +62,7 @@ public class CreateWorkoutPage : ContentPage
         
         if (errors.Count > 0)
         {
-            await DisplayAlertAsync("Input Error", string.Join("\n", errors), "Close");
+            await DisplayAlert("Input Error", string.Join("\n", errors), "Close");
             return;
         }
         
