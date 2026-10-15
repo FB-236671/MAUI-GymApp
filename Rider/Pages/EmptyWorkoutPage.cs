@@ -74,6 +74,11 @@ public class EmptyWorkoutPage : ContentPage
     private async void OnSavedClicked(object? sender, EventArgs e)
     {
         string name = await Application.Current!.MainPage!.DisplayPromptAsync("Name", "What do you want to call your exercise", "Confirm", "Back");
+        if (TypeChecker.StringCheck(name, "Name") is string nameError)
+        {
+            await DisplayAlert("Input Error", nameError, "Close");
+            return;
+        }
 
         RoutinePasser routineObject = new RoutinePasser();
         routineObject.UserId = MainPage.User.UserId;
@@ -94,6 +99,14 @@ public class EmptyWorkoutPage : ContentPage
     {
         Picker picker = (Picker)sender;
         int selectedIndex = picker.SelectedIndex;
+
+        foreach (RoutineExercisesPasser exercise in _routineExerciseList)
+        {
+            if (Exercise.GetExerciseById(exercise.ExerciseId).Name == (string)picker.ItemsSource[selectedIndex])
+            {
+                await DisplayAlert("Picker Error", "You cannot select two of the same exercise", "Close");
+            }
+        }
 
         if (selectedIndex != -1)
         {

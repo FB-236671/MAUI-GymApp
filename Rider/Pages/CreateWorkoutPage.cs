@@ -1,4 +1,5 @@
 ﻿using MAUI_GymApp.Rider.Database.Objects;
+using System.Threading.Tasks;
 
 namespace MAUI_GymApp;
 
@@ -86,10 +87,18 @@ public class CreateWorkoutPage : ContentPage
         GeneralControls.GoHome();
     }
 
-    private void OnPickerSelectedIndexChanged(object sender, EventArgs e)
+    private async Task OnPickerSelectedIndexChanged(object sender, EventArgs e)
     {
         Picker picker = (Picker)sender;
         int selectedIndex = picker.SelectedIndex;
+
+        foreach (RoutineDataPasser exercise in _routineExerciseList)
+        {
+            if (exercise.Name == (string)picker.ItemsSource[selectedIndex])
+            {
+                await DisplayAlert("Picker Error", "You cannot select two of the same exercise", "Close");
+            }
+        }
 
         if (selectedIndex != -1)
         {
