@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 
 namespace MAUI_GymApp;
 
-public class CreateWorkoutPage : ContentPage
+public class CreateRoutinePage : ContentPage
 {
     private readonly VerticalStackLayout _layout;
     private List<RoutineDataPasser> _routineExerciseList = new();
     private Entry nameBox;
     
-    public CreateWorkoutPage()
+    public CreateRoutinePage()
     {
         Background = Colors.White;
         Picker picker = UIElements.MakeSelector("Add an Exercise", Exercise.ExerciseNameList(), 18);
@@ -102,43 +102,7 @@ public class CreateWorkoutPage : ContentPage
 
         if (selectedIndex != -1)
         {
-            _layout.Children.Add(BuildCreateWorkoutCard((string)picker.ItemsSource[selectedIndex]));
+            _layout.Children.Add(UIControls.BuildRoutineCard((string)picker.ItemsSource[selectedIndex], _routineExerciseList));
         }
-    }
-
-    private View BuildCreateWorkoutCard(string name)
-    {
-        Entry setEntry = UIElements.MakeTextBox("Sets", Colors.White, Colors.Black, 12, 35, LayoutOptions.End);
-        Entry restEntry = UIElements.MakeTextBox("Rest", Colors.White, Colors.Black, 12, 50, LayoutOptions.End);
-        Picker equipmentPicker = UIElements.MakeSelector("Equipment", Equipment.EquipmentNameList(), 12);
-        
-        VerticalStackLayout workoutLayout = new VerticalStackLayout()
-        {
-            Padding = new Thickness(20, 14),
-            Spacing = 12,
-            Children =
-            {
-                UIElements.MakeLabel(name, 22, Colors.Black, LayoutOptions.Center),
-                new HorizontalStackLayout()
-                {
-                    Spacing = 8,
-                    Children =
-                    {
-                        setEntry,
-                        restEntry,
-                        equipmentPicker
-                    }
-                }
-            }
-        };
-
-        RoutineDataPasser routineData = new RoutineDataPasser();
-        routineData.Name = name;
-        routineData.SetEntry = setEntry;
-        routineData.RestEntry = restEntry;
-        routineData.EquipmentPicker = equipmentPicker;
-        _routineExerciseList.Add(routineData);
-
-        return UIElements.MakeCard(Colors.LightGray, workoutLayout);
     }
 }

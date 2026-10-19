@@ -84,7 +84,7 @@ public class WorkoutTab : ContentView
     
     private async void OnCreateClick(object? sender, EventArgs e)
     {
-        await Navigation.PushAsync(new CreateWorkoutPage());
+        await Navigation.PushAsync(new CreateRoutinePage());
     }
 
     private async void OnStartEmptyClick(object? sender, EventArgs e)

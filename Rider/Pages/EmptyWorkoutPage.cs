@@ -73,6 +73,9 @@ public class EmptyWorkoutPage : ContentPage
 
     private async void OnSavedClicked(object? sender, EventArgs e)
     {
+        _timer.Stop();
+        _stopwatch.Stop();
+
         string name = await Application.Current!.MainPage!.DisplayPromptAsync("Name", "What do you want to call your exercise", "Confirm", "Back");
         if (TypeChecker.StringCheck(name, "Name") is string nameError)
         {
@@ -91,7 +94,9 @@ public class EmptyWorkoutPage : ContentPage
             routineExercisesObject.RoutineId = routineId;
             RoutineExercises.AddRoutineExercises(routineExercisesObject);
         }
-        
+
+        SaveControls.SaveWholeWorkout(_routineExerciseList, _setListList, _stopwatch);
+
         GeneralControls.GoHome();
     }
     

@@ -5,7 +5,7 @@ namespace MAUI_GymApp;
 
 public class UIControls
 {
-        public static View BuildWorkoutCard(RoutineExercisesPasser routineExercisesObject, List<List<SetPasser>> setListList)
+    public static View BuildWorkoutCard(RoutineExercisesPasser routineExercisesObject, List<List<SetPasser>> setListList)
     {
         VerticalStackLayout workoutLayout = new VerticalStackLayout()
         {
@@ -54,6 +54,42 @@ public class UIControls
 
         setListList.Add(setList);
         
+        return UIElements.MakeCard(Colors.LightGray, workoutLayout);
+    }
+
+    public static View BuildRoutineCard(string name, List<RoutineDataPasser> routineExerciseList)
+    {
+        Entry setEntry = UIElements.MakeTextBox("Sets", Colors.White, Colors.Black, 12, 35, LayoutOptions.End);
+        Entry restEntry = UIElements.MakeTextBox("Rest", Colors.White, Colors.Black, 12, 50, LayoutOptions.End);
+        Picker equipmentPicker = UIElements.MakeSelector("Equipment", Equipment.EquipmentNameList(), 12);
+
+        VerticalStackLayout workoutLayout = new VerticalStackLayout()
+        {
+            Padding = new Thickness(20, 14),
+            Spacing = 12,
+            Children =
+            {
+                UIElements.MakeLabel(name, 22, Colors.Black, LayoutOptions.Center),
+                new HorizontalStackLayout()
+                {
+                    Spacing = 8,
+                    Children =
+                    {
+                        setEntry,
+                        restEntry,
+                        equipmentPicker
+                    }
+                }
+            }
+        };
+
+        RoutineDataPasser routineData = new RoutineDataPasser();
+        routineData.Name = name;
+        routineData.SetEntry = setEntry;
+        routineData.RestEntry = restEntry;
+        routineData.EquipmentPicker = equipmentPicker;
+        routineExerciseList.Add(routineData);
+
         return UIElements.MakeCard(Colors.LightGray, workoutLayout);
     }
 }
