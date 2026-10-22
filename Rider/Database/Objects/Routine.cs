@@ -4,11 +4,11 @@ namespace MAUI_GymApp.Rider.Database.Objects;
 
 public class Routine
 {
-    public static void CreateRoutine(RoutinePasser routineObject)
+    public static int CreateRoutine(RoutinePasser routineObject)
     {
-        string sql = "INSERT INTO routine (UserId, Name) VALUES (@UserId, @Name)";
+        string sql = "INSERT INTO routine (UserId, Name) VALUES (@UserId, @Name); SELECT last_insert_rowid();";
         
-        GeneralQueries.NonQuery(sql, command => 
+        return GeneralQueries.GetOne(sql, reader => reader.GetInt32(0), command => 
         {
             command.Parameters.AddWithValue("@UserId", routineObject.UserId);
             command.Parameters.AddWithValue("@Name", routineObject.Name);

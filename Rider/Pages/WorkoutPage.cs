@@ -54,12 +54,12 @@ public class WorkoutPage : ContentPage
     }
 
     private void OnSaveClicked(object? sender, EventArgs e)
-    {
+    {   
+        SaveControls.SaveWholeWorkout(_exercises, _setListList, _stopwatch);
+
         _timer.Stop();
         _stopwatch.Stop();
-        
-        SaveControls.SaveWholeWorkout(_exercises, _setListList, _stopwatch);
-        
+
         GeneralControls.GoHome();
     }
 }

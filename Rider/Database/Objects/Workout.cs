@@ -57,7 +57,7 @@ public class WorkoutPasser
     public int UserId { get; set; }
     public int Duration { get; set; }
     public int Volume { get; set; }
-    public int Date {get; set; }
+    public long Date {get; set; }
 }
 
 public class WorkoutExercisesPasser

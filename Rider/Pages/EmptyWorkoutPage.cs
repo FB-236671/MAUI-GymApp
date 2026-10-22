@@ -63,11 +63,11 @@ public class EmptyWorkoutPage : ContentPage
 
     private void OnFinishedClicked(object? sender, EventArgs e)
     {
+        SaveControls.SaveWholeWorkout(_routineExerciseList, _setListList, _stopwatch);
+
         _timer.Stop();
         _stopwatch.Stop();
 
-        SaveControls.SaveWholeWorkout(_routineExerciseList, _setListList, _stopwatch);
-        
         GeneralControls.GoHome();
     }
 
@@ -86,8 +86,7 @@ public class EmptyWorkoutPage : ContentPage
         RoutinePasser routineObject = new RoutinePasser();
         routineObject.UserId = MainPage.User.UserId;
         routineObject.Name = name;
-        Routine.CreateRoutine(routineObject);
-        int routineId = Routine.GetRoutineByName(routineObject.Name).RoutineId;
+        int routineId = Routine.CreateRoutine(routineObject);
         
         foreach (RoutineExercisesPasser routineExercisesObject in _routineExerciseList)
         {
@@ -120,7 +119,7 @@ public class EmptyWorkoutPage : ContentPage
             exercise.ExerciseId = Exercise.GetExerciseByName((string)picker.ItemsSource[selectedIndex]).ExerciseId;
             
             string sets = await Application.Current!.MainPage!.DisplayPromptAsync("Sets", "How many sets for this exercise", "Confirm", "Back");
-            if (TypeChecker.IntegerCheck(sets, "Sets", out int checkedSets) is string setsError)
+            if (TypeChecker.IntegerCheck(sets, "Sets", 1, 20, out int checkedSets) is string setsError)
             {
                 await DisplayAlert("Input Error", setsError, "Close");
                 return;
@@ -128,7 +127,7 @@ public class EmptyWorkoutPage : ContentPage
             exercise.Sets = Convert.ToInt32(checkedSets);
 
             string rest = await Application.Current!.MainPage!.DisplayPromptAsync("Rest", "How much rest do you want for this exercise", "Confirm", "Back");
-            if (TypeChecker.IntegerCheck(rest, "Rest", out int checkedRest) is string restError)
+            if (TypeChecker.IntegerCheck(rest, "Rest", 0, 600, out int checkedRest) is string restError)
             {
                 await DisplayAlert("Input Error", restError, "Close");
             }
@@ -145,5 +144,7 @@ public class EmptyWorkoutPage : ContentPage
             _layout.Children.Add(UIControls.BuildWorkoutCard(exercise, _setListList));
             _routineExerciseList.Add(exercise);
         }
+
+        picker.SelectedIndex = -1;
     }
 }

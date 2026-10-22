@@ -30,8 +30,8 @@ public class UIControls
         
         for (int i = 1; i <= routineExercisesObject.Sets; i++)
         {
-            Entry reps = UIElements.MakeTextBox("_", Colors.Gray, Colors.Black, 12, 50, LayoutOptions.End);
-            Entry weight = UIElements.MakeTextBox("_", Colors.Gray, Colors.Black, 12, 50, LayoutOptions.End);
+            Entry reps = UIElements.MakeIntBox("_", Colors.Gray, Colors.Black, 12, 50, LayoutOptions.End);
+            Entry weight = UIElements.MakeIntBox("_", Colors.Gray, Colors.Black, 12, 50, LayoutOptions.End);
             CheckBox checkBox = new CheckBox();
             
             workoutLayout.Children.Add(new HorizontalStackLayout()
@@ -59,8 +59,8 @@ public class UIControls
 
     public static View BuildRoutineCard(string name, List<RoutineDataPasser> routineExerciseList)
     {
-        Entry setEntry = UIElements.MakeTextBox("Sets", Colors.White, Colors.Black, 12, 35, LayoutOptions.End);
-        Entry restEntry = UIElements.MakeTextBox("Rest", Colors.White, Colors.Black, 12, 50, LayoutOptions.End);
+        Entry setEntry = UIElements.MakeIntBox("Sets", Colors.White, Colors.Black, 12, 35, LayoutOptions.End);
+        Entry restEntry = UIElements.MakeIntBox("Rest", Colors.White, Colors.Black, 12, 50, LayoutOptions.End);
         Picker equipmentPicker = UIElements.MakeSelector("Equipment", Equipment.EquipmentNameList(), 12);
 
         VerticalStackLayout workoutLayout = new VerticalStackLayout()

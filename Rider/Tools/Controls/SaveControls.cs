@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using MAUI_GymApp.Rider.Database;
 using MAUI_GymApp.Rider.Database.Objects;
+using SkiaSharp;
 
 namespace MAUI_GymApp;
 
@@ -22,21 +23,21 @@ public class SaveControls
 
         int totalVolume = 0;
         List<(int bestWeight, int oneRM)> records = new();
-        
+
         foreach (List<SetPasser> setList in setListList)
         {
             List<WorkoutSetsPasser> workoutSetsList = new List<WorkoutSetsPasser>();
             int drawback = 0;
             int heaviestWeight = 0;
             int best1RM = 0;
-            
+
             foreach (SetPasser set in setList)
             {
                 if (!set.CheckBox.IsChecked)
                 {
                     drawback += -1;
                 }
-                
+
                 else
                 {
                     totalVolume += Convert.ToInt32(Math.Round(Convert.ToDouble(set.Weight.Text) * Convert.ToInt32(set.Reps.Text)));
@@ -63,11 +64,12 @@ public class SaveControls
             workoutSetsListList.Add(workoutSetsList);
             records.Add((heaviestWeight, best1RM));
         }
-        
+
         workoutObject.UserId = MainPage.User.UserId;
         workoutObject.Duration = (int)stopwatch.Elapsed.TotalSeconds;
         workoutObject.Volume = totalVolume;
-        
+        workoutObject.Date = DateTimeOffset.UtcNow.ToUnixTimeSeconds;
+
         Workout.SaveWorkout(workoutObject, workoutExercisesList, workoutSetsListList);
 
         for (int i = 0; i < routineExerciseList.Count; i++)
@@ -97,6 +99,19 @@ public class SaveControls
                 recordObject.OneRM = Math.Max(previousOneRM, records[i].oneRM);
 
                 Record.SaveRecord(recordObject);
+            }
+        }
+    }
+
+    public static void ValidateSets(List<List<SetPasser>> setListList)
+    {
+        foreach (List<SetPasser> setList in setListList)
+        {
+            foreach (SetPasser set in setList)
+            {
+                var errors = new List<string>();
+
+                if (TypeChecker.IntegerIndexCheck(set.Weight, "Weight", 0, 1000, out int value))
             }
         }
     }

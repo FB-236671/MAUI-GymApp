@@ -1,0 +1,625 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\tools\\controls\\savecontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\tools\\controls\\savecontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\database\\objects\\routine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\database\\objects\\routine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\database\\objects\\trophy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\database\\objects\\trophy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\database\\objects\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\database\\objects\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\database\\objects\\workout.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\database\\objects\\workout.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\database\\objects\\routineexercises.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\database\\objects\\routineexercises.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\database\\objects\\record.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\database\\objects\\record.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\database\\objects\\muscle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\database\\objects\\muscle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\database\\objects\\exercise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\database\\objects\\exercise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\database\\objects\\equipment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\database\\objects\\equipment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\database\\objects\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\database\\objects\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\database\\tables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\database\\tables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\database\\generalqueries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\database\\generalqueries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\pages\\emptyworkoutpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\pages\\emptyworkoutpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\tools\\calculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\tools\\calculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\tools\\controls\\uicontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\tools\\controls\\uicontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\pages\\workoutpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\pages\\workoutpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\pages\\tabs\\statstab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\pages\\tabs\\statstab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\pages\\mainpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\pages\\mainpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\pages\\createroutinepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\pages\\createroutinepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\tools\\controls\\generalcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\tools\\controls\\generalcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\resources\\appicon\\appiconfg.svg||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:resources\\appicon\\appiconfg.svg||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\resources\\appicon\\appicon.svg||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:resources\\appicon\\appicon.svg||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\resources\\images\\goldtrophy.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:resources\\images\\goldtrophy.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\resources\\images\\notrophy.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:resources\\images\\notrophy.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\resources\\images\\platinumtrophy.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:resources\\images\\platinumtrophy.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\resources\\images\\stats.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:resources\\images\\stats.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\resources\\images\\dumbbell.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:resources\\images\\dumbbell.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\resources\\images\\bronzetrophy.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:resources\\images\\bronzetrophy.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\resources\\raw\\equipmentlist.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:resources\\raw\\equipmentlist.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\resources\\raw\\categorylist.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:resources\\raw\\categorylist.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\tools\\controls\\uielements.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\tools\\controls\\uielements.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\tools\\typechecker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\tools\\typechecker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\pages\\editroutinepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\pages\\editroutinepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|c:\\users\\236671\\source\\repos\\maui-gymapp\\rider\\pages\\loginpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1C00D34-8349-4887-BE54-CD07EE29BFCD}|MAUI-GymApp.csproj|solutionrelative:rider\\pages\\loginpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\User.cs",
+              "RelativeDocumentMoniker": "Rider\\Database\\Objects\\User.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\User.cs",
+              "RelativeToolTip": "Rider\\Database\\Objects\\User.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwCMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T15:12:14.557Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Trophy.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\Trophy.cs",
+              "RelativeDocumentMoniker": "Rider\\Database\\Objects\\Trophy.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\Trophy.cs",
+              "RelativeToolTip": "Rider\\Database\\Objects\\Trophy.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T15:12:10.649Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Exercise.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\Exercise.cs",
+              "RelativeDocumentMoniker": "Rider\\Database\\Objects\\Exercise.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\Exercise.cs",
+              "RelativeToolTip": "Rider\\Database\\Objects\\Exercise.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAwwEQAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T15:11:54.297Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\Category.cs",
+              "RelativeDocumentMoniker": "Rider\\Database\\Objects\\Category.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\Category.cs",
+              "RelativeToolTip": "Rider\\Database\\Objects\\Category.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T15:11:11.663Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Muscle.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\Muscle.cs",
+              "RelativeDocumentMoniker": "Rider\\Database\\Objects\\Muscle.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\Muscle.cs",
+              "RelativeToolTip": "Rider\\Database\\Objects\\Muscle.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwBIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T15:10:50.321Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Equipment.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\Equipment.cs",
+              "RelativeDocumentMoniker": "Rider\\Database\\Objects\\Equipment.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\Equipment.cs",
+              "RelativeToolTip": "Rider\\Database\\Objects\\Equipment.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAwwAYAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T15:06:11.026Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Record.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\Record.cs",
+              "RelativeDocumentMoniker": "Rider\\Database\\Objects\\Record.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\Record.cs",
+              "RelativeToolTip": "Rider\\Database\\Objects\\Record.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAowDcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T14:30:37.725Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Routine.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\Routine.cs",
+              "RelativeDocumentMoniker": "Rider\\Database\\Objects\\Routine.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\Routine.cs",
+              "RelativeToolTip": "Rider\\Database\\Objects\\Routine.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-19T13:23:05.25Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SaveControls.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Tools\\Controls\\SaveControls.cs",
+              "RelativeDocumentMoniker": "Rider\\Tools\\Controls\\SaveControls.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Tools\\Controls\\SaveControls.cs",
+              "RelativeToolTip": "Rider\\Tools\\Controls\\SaveControls.cs",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAgwHEAAABgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-15T15:16:16.112Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "GeneralQueries.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\GeneralQueries.cs",
+              "RelativeDocumentMoniker": "Rider\\Database\\GeneralQueries.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\GeneralQueries.cs",
+              "RelativeToolTip": "Rider\\Database\\GeneralQueries.cs",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T15:11:32.795Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Calculator.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Tools\\Calculator.cs",
+              "RelativeDocumentMoniker": "Rider\\Tools\\Calculator.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Tools\\Calculator.cs",
+              "RelativeToolTip": "Rider\\Tools\\Calculator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T15:08:01.889Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "MainPage.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Pages\\MainPage.cs",
+              "RelativeDocumentMoniker": "Rider\\Pages\\MainPage.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Pages\\MainPage.cs",
+              "RelativeToolTip": "Rider\\Pages\\MainPage.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T14:37:01.408Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Workout.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\Workout.cs",
+              "RelativeDocumentMoniker": "Rider\\Database\\Objects\\Workout.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\Workout.cs",
+              "RelativeToolTip": "Rider\\Database\\Objects\\Workout.cs",
+              "ViewState": "AgIAADsAAAAAAAAAAAA8wEEAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-15T14:48:57.899Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "CreateRoutinePage.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Pages\\CreateRoutinePage.cs",
+              "RelativeDocumentMoniker": "Rider\\Pages\\CreateRoutinePage.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Pages\\CreateRoutinePage.cs",
+              "RelativeToolTip": "Rider\\Pages\\CreateRoutinePage.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwCoAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-19T13:34:58.81Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RoutineExercises.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\RoutineExercises.cs",
+              "RelativeDocumentMoniker": "Rider\\Database\\Objects\\RoutineExercises.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Objects\\RoutineExercises.cs",
+              "RelativeToolTip": "Rider\\Database\\Objects\\RoutineExercises.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAwwDUAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-15T14:55:30.658Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "MauiProgram.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\MauiProgram.cs",
+              "RelativeDocumentMoniker": "Rider\\MauiProgram.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\MauiProgram.cs",
+              "RelativeToolTip": "Rider\\MauiProgram.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T14:27:58.938Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Tables.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Tables.cs",
+              "RelativeDocumentMoniker": "Rider\\Database\\Tables.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Database\\Tables.cs",
+              "RelativeToolTip": "Rider\\Database\\Tables.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-15T14:49:08.662Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "EmptyWorkoutPage.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Pages\\EmptyWorkoutPage.cs",
+              "RelativeDocumentMoniker": "Rider\\Pages\\EmptyWorkoutPage.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Pages\\EmptyWorkoutPage.cs",
+              "RelativeToolTip": "Rider\\Pages\\EmptyWorkoutPage.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-15T14:50:12.563Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "WorkoutPage.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Pages\\WorkoutPage.cs",
+              "RelativeDocumentMoniker": "Rider\\Pages\\WorkoutPage.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Pages\\WorkoutPage.cs",
+              "RelativeToolTip": "Rider\\Pages\\WorkoutPage.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAgwDwAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-19T13:15:18.343Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "StatsTab.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Pages\\Tabs\\StatsTab.cs",
+              "RelativeDocumentMoniker": "Rider\\Pages\\Tabs\\StatsTab.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Pages\\Tabs\\StatsTab.cs",
+              "RelativeToolTip": "Rider\\Pages\\Tabs\\StatsTab.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T14:00:46.155Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "UIControls.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Tools\\Controls\\UIControls.cs",
+              "RelativeDocumentMoniker": "Rider\\Tools\\Controls\\UIControls.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Tools\\Controls\\UIControls.cs",
+              "RelativeToolTip": "Rider\\Tools\\Controls\\UIControls.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAASwD8AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-15T15:15:25.049Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "GeneralControls.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Tools\\Controls\\GeneralControls.cs",
+              "RelativeDocumentMoniker": "Rider\\Tools\\Controls\\GeneralControls.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Tools\\Controls\\GeneralControls.cs",
+              "RelativeToolTip": "Rider\\Tools\\Controls\\GeneralControls.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-15T15:16:19.82Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "appiconfg.svg",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\AppIcon\\appiconfg.svg",
+              "RelativeDocumentMoniker": "Resources\\AppIcon\\appiconfg.svg",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\AppIcon\\appiconfg.svg",
+              "RelativeToolTip": "Resources\\AppIcon\\appiconfg.svg",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKMSURBVDhPjZNLSFRhFMd/3507M/dKPsacsYelWGZZFFJRkdSmNrUoatMiKggSN2YFEUX3MvQiiBYWtFAyggoXPSGyhQuhFrXQFr7GMFOowcZMUO9MM3pPi9Eao6gf/Bcfh3PO/5yPo8jAsqxI5vtvKKXuhMPhK4jInIBlWRH5Bw0NDYOWZUVs264B0DILKEUXCCIpZOIi7uetpHpCxN8GiffU4rrThEIhXzgcXiEidbZtH/5ZQKTV\u002B72oItjSYfG5vxwneoX2/iW80dvxb4ji9D4BIBAIeBsbG4fSOXJWzSR7qpt9D\u002BvWndpTlNXL2HCQ28PXaIuVEB2Dmsp8DiZqyN35FAFiw19IJpPcbmrq0wCq7\u002BvHd5Y\u002B2rMy5y3OcBXmqtccq9rB/uUFKI/GzfZRPhRdBhEQIRgKUlxSAoAm0uqtWNB5Yu\u002Bier5\u002BWOoWbnxAwAwQzDao3lLIobX5ePxemiImroCIzFm\u002BztT7/CPLzi8ej\u002BVxdeyu1nJjgMR3FwDl0fD4dJRHozuWACStjM/TGDlZ50tNqHuxejo\u002B\u002BZPL8wwqCvxUFPhZFfBSbIBMJti0wJjpDpJRQXfjzr6uj9u\u002BtYysCWijA4OPqzeXpVLJtE010zS9cZDM1DTa9ASLmoaOnh4cEYaySsoa30T5Mp5kPD7Ni\u002B5Rtt7qofzqO553jqQHmHExi5p8RcRNsb6y7VWtnm1ecjUdcdM7QClwhQPl8zi3o\u002BiXdREMMwvbtvv0KYfmRJSBtvlVY93O6ujLlc8WdsYcdE1RmutlV3kO20tzcXFRohBFerQ/ccE6c11EJB53xIk7EndmNSnObxIRsSwrMucWUvh2AxiGiWmYGOassjB/0yxzzPzvOWfyAyvlXYiiBFoWAAAAAElFTkSuQmCC",
+              "WhenOpened": "2026-10-22T14:27:32.931Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "appicon.svg",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\AppIcon\\appicon.svg",
+              "RelativeDocumentMoniker": "Resources\\AppIcon\\appicon.svg",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\AppIcon\\appicon.svg",
+              "RelativeToolTip": "Resources\\AppIcon\\appicon.svg",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKMSURBVDhPjZNLSFRhFMd/3507M/dKPsacsYelWGZZFFJRkdSmNrUoatMiKggSN2YFEUX3MvQiiBYWtFAyggoXPSGyhQuhFrXQFr7GMFOowcZMUO9MM3pPi9Eao6gf/Bcfh3PO/5yPo8jAsqxI5vtvKKXuhMPhK4jInIBlWRH5Bw0NDYOWZUVs264B0DILKEUXCCIpZOIi7uetpHpCxN8GiffU4rrThEIhXzgcXiEidbZtH/5ZQKTV\u002B72oItjSYfG5vxwneoX2/iW80dvxb4ji9D4BIBAIeBsbG4fSOXJWzSR7qpt9D\u002BvWndpTlNXL2HCQ28PXaIuVEB2Dmsp8DiZqyN35FAFiw19IJpPcbmrq0wCq7\u002BvHd5Y\u002B2rMy5y3OcBXmqtccq9rB/uUFKI/GzfZRPhRdBhEQIRgKUlxSAoAm0uqtWNB5Yu\u002Bier5\u002BWOoWbnxAwAwQzDao3lLIobX5ePxemiImroCIzFm\u002BztT7/CPLzi8ej\u002BVxdeyu1nJjgMR3FwDl0fD4dJRHozuWACStjM/TGDlZ50tNqHuxejo\u002B\u002BZPL8wwqCvxUFPhZFfBSbIBMJti0wJjpDpJRQXfjzr6uj9u\u002BtYysCWijA4OPqzeXpVLJtE010zS9cZDM1DTa9ASLmoaOnh4cEYaySsoa30T5Mp5kPD7Ni\u002B5Rtt7qofzqO553jqQHmHExi5p8RcRNsb6y7VWtnm1ecjUdcdM7QClwhQPl8zi3o\u002BiXdREMMwvbtvv0KYfmRJSBtvlVY93O6ujLlc8WdsYcdE1RmutlV3kO20tzcXFRohBFerQ/ccE6c11EJB53xIk7EndmNSnObxIRsSwrMucWUvh2AxiGiWmYGOassjB/0yxzzPzvOWfyAyvlXYiiBFoWAAAAAElFTkSuQmCC",
+              "WhenOpened": "2026-10-22T14:27:31.481Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "goldtrophy.png - PNG [2048x2048, 32 bit, PNG]",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\Images\\goldtrophy.png",
+              "RelativeDocumentMoniker": "Resources\\Images\\goldtrophy.png",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\Images\\goldtrophy.png - PNG [2048x2048, 32 bit, PNG]",
+              "RelativeToolTip": "Resources\\Images\\goldtrophy.png - PNG [2048x2048, 32 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-10-22T14:27:23.319Z",
+              "EditorCaption": " - PNG [2048x2048, 32 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "notrophy.png - PNG [2048x2048, 32 bit, PNG]",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\Images\\notrophy.png",
+              "RelativeDocumentMoniker": "Resources\\Images\\notrophy.png",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\Images\\notrophy.png - PNG [2048x2048, 32 bit, PNG]",
+              "RelativeToolTip": "Resources\\Images\\notrophy.png - PNG [2048x2048, 32 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-10-22T14:27:26.776Z",
+              "EditorCaption": " - PNG [2048x2048, 32 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "platinumtrophy.png - PNG [2048x2048, 32 bit, PNG]",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\Images\\platinumtrophy.png",
+              "RelativeDocumentMoniker": "Resources\\Images\\platinumtrophy.png",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\Images\\platinumtrophy.png - PNG [2048x2048, 32 bit, PNG]",
+              "RelativeToolTip": "Resources\\Images\\platinumtrophy.png - PNG [2048x2048, 32 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-10-22T14:27:25.812Z",
+              "EditorCaption": " - PNG [2048x2048, 32 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "stats.png - PNG [2048x2048, 32 bit, PNG]",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\Images\\stats.png",
+              "RelativeDocumentMoniker": "Resources\\Images\\stats.png",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\Images\\stats.png - PNG [2048x2048, 32 bit, PNG]",
+              "RelativeToolTip": "Resources\\Images\\stats.png - PNG [2048x2048, 32 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-10-22T14:27:25.188Z",
+              "EditorCaption": " - PNG [2048x2048, 32 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "dumbbell.png - PNG [2048x2048, 32 bit, PNG]",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\Images\\dumbbell.png",
+              "RelativeDocumentMoniker": "Resources\\Images\\dumbbell.png",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\Images\\dumbbell.png - PNG [2048x2048, 32 bit, PNG]",
+              "RelativeToolTip": "Resources\\Images\\dumbbell.png - PNG [2048x2048, 32 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-10-22T14:27:22.553Z",
+              "EditorCaption": " - PNG [2048x2048, 32 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "bronzetrophy.png - PNG [2048x2048, 32 bit, PNG]",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\Images\\bronzetrophy.png",
+              "RelativeDocumentMoniker": "Resources\\Images\\bronzetrophy.png",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\Images\\bronzetrophy.png - PNG [2048x2048, 32 bit, PNG]",
+              "RelativeToolTip": "Resources\\Images\\bronzetrophy.png - PNG [2048x2048, 32 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-10-22T14:27:21.884Z",
+              "EditorCaption": " - PNG [2048x2048, 32 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "CategoryList.txt",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\Raw\\CategoryList.txt",
+              "RelativeDocumentMoniker": "Resources\\Raw\\CategoryList.txt",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\Raw\\CategoryList.txt",
+              "RelativeToolTip": "Resources\\Raw\\CategoryList.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-10-22T14:27:18.429Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "TypeChecker.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Tools\\TypeChecker.cs",
+              "RelativeDocumentMoniker": "Rider\\Tools\\TypeChecker.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Tools\\TypeChecker.cs",
+              "RelativeToolTip": "Rider\\Tools\\TypeChecker.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-15T14:41:35.488Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "UIElements.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Tools\\Controls\\UIElements.cs",
+              "RelativeDocumentMoniker": "Rider\\Tools\\Controls\\UIElements.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Tools\\Controls\\UIElements.cs",
+              "RelativeToolTip": "Rider\\Tools\\Controls\\UIElements.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-15T15:15:50.342Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "EquipmentList.txt",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\Raw\\EquipmentList.txt",
+              "RelativeDocumentMoniker": "Resources\\Raw\\EquipmentList.txt",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Resources\\Raw\\EquipmentList.txt",
+              "RelativeToolTip": "Resources\\Raw\\EquipmentList.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-10-15T15:04:56.267Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "EditRoutinePage.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Pages\\EditRoutinePage.cs",
+              "RelativeDocumentMoniker": "Rider\\Pages\\EditRoutinePage.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Pages\\EditRoutinePage.cs",
+              "RelativeToolTip": "Rider\\Pages\\EditRoutinePage.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAADcAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-15T15:07:03.776Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "LoginPage.cs",
+              "DocumentMoniker": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Pages\\LoginPage.cs",
+              "RelativeDocumentMoniker": "Rider\\Pages\\LoginPage.cs",
+              "ToolTip": "C:\\Users\\236671\\source\\repos\\MAUI-GymApp\\Rider\\Pages\\LoginPage.cs",
+              "RelativeToolTip": "Rider\\Pages\\LoginPage.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-15T15:17:33.58Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

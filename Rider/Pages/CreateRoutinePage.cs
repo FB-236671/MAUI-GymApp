@@ -56,8 +56,8 @@ public class CreateRoutinePage : ContentPage
 
         foreach (RoutineDataPasser exercise in _routineExerciseList)
         {
-            if (TypeChecker.IntegerCheck(exercise.SetEntry.Text, "Sets", exercise.Name, out int sets) is string setsError) { errors.Add(setsError); }
-            if (TypeChecker.IntegerCheck(exercise.RestEntry.Text, "Rest", exercise.Name, out int rest) is string restError) { errors.Add(restError); }
+            if (TypeChecker.IntegerIndexCheck(exercise.SetEntry.Text, "Sets", exercise.Name, 1, 20, out int sets) is string setsError) { errors.Add(setsError); }
+            if (TypeChecker.IntegerIndexCheck(exercise.RestEntry.Text, "Rest", exercise.Name, 0, 600, out int rest) is string restError) { errors.Add(restError); }
             if (exercise.EquipmentPicker.SelectedItem is null) { errors.Add("Please select equipment for " + exercise.Name); }
         }
         
@@ -70,8 +70,7 @@ public class CreateRoutinePage : ContentPage
         RoutinePasser routineObject = new RoutinePasser();
         routineObject.UserId = MainPage.User.UserId;
         routineObject.Name = nameBox.Text.Trim();
-        Routine.CreateRoutine(routineObject);
-        int routineId = Routine.GetRoutineByName(routineObject.Name).RoutineId;
+        int routineId = Routine.CreateRoutine(routineObject);
         
         foreach (RoutineDataPasser exercise in _routineExerciseList)
         {
@@ -105,5 +104,6 @@ public class CreateRoutinePage : ContentPage
         }
 
         _layout.Children.Add(UIControls.BuildRoutineCard(name, _routineExerciseList));
+        picker.SelectedIndex = -1;
     }
 }

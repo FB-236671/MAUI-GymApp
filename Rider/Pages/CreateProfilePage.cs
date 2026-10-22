@@ -46,8 +46,8 @@ public class CreateProfilePage : ContentPage
         var errors = new List<string>();
 
         if (TypeChecker.StringCheck(_nameEntry.Text, "Name") is string nameError) { errors.Add(nameError); }
-        if (TypeChecker.IntegerCheck(_ageEntry.Text, "Age", out int age) is string ageError) { errors.Add(ageError); }
-        if (TypeChecker.IntegerCheck(_weightEntry.Text, "Weight", out int weight) is string weightError) { errors.Add(weightError); }
+        if (TypeChecker.IntegerCheck(_ageEntry.Text, "Age", 1, 120, out int age) is string ageError) { errors.Add(ageError); }
+        if (TypeChecker.IntegerCheck(_weightEntry.Text, "Weight", 20, 700, out int weight) is string weightError) { errors.Add(weightError); }
         if (_sexPicker.SelectedItem == null) { errors.Add("Please select an option for Sex"); }
 
         if (errors.Count > 0)
