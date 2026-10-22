@@ -59,32 +59,37 @@ public class EditRoutinePage : ContentPage
 
         foreach (RoutineExercisesPasser exercise in routineExercisesList)
         {
-            _layout.Children.Add(UIControls.BuildRoutineCard(Exercise.GetExerciseById(exercise.ExerciseId).Name, _routineExerciseList);
+            _layout.Children.Add(UIControls.BuildRoutineCard(Exercise.GetExerciseById(exercise.ExerciseId).Name, _routineExerciseList));
+
+            RoutineDataPasser card = _routineExerciseList[^1];
+            card.SetEntry.Text = exercise.Sets.ToString();
+            card.RestEntry.Text = exercise.Rest.ToString();
+            card.EquipmentPicker.SelectedItem = Equipment.GetEquipmentById(exercise.EquipmentId).Name;
         }
     }
 
-    private async void OnSaveClicked(object? sender, EventArgs e)
+    private void OnSaveClicked(object? sender, EventArgs e)
     {
         GeneralControls.GoHome();
     }
 
-
-    private async Task OnPickerSelectedIndexChanged(object sender, EventArgs e)
+    private async void OnPickerSelectedIndexChanged(object? sender, EventArgs e)
     {
-        Picker picker = (Picker)sender;
+        Picker picker = (Picker)sender!;
         int selectedIndex = picker.SelectedIndex;
+        if (selectedIndex == -1) { return; }
+
+        string name = (string)picker.ItemsSource[selectedIndex]!;
 
         foreach (RoutineDataPasser exercise in _routineExerciseList)
         {
-            if (exercise.Name == (string)picker.ItemsSource[selectedIndex])
+            if (exercise.Name == name)
             {
                 await DisplayAlert("Picker Error", "You cannot select two of the same exercise", "Close");
+                return;
             }
         }
 
-        if (selectedIndex != -1)
-        {
-            _layout.Children.Add(UIControls.BuildRoutineCard((string)picker.ItemsSource[selectedIndex], _routineExerciseList));
-        }
+        _layout.Children.Add(UIControls.BuildRoutineCard(name, _routineExerciseList));
     }
 }

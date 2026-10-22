@@ -1,5 +1,4 @@
 ﻿using MAUI_GymApp.Rider.Database.Objects;
-using System.Threading.Tasks;
 
 namespace MAUI_GymApp;
 
@@ -59,6 +58,7 @@ public class CreateRoutinePage : ContentPage
         {
             if (TypeChecker.IntegerCheck(exercise.SetEntry.Text, "Sets", exercise.Name, out int sets) is string setsError) { errors.Add(setsError); }
             if (TypeChecker.IntegerCheck(exercise.RestEntry.Text, "Rest", exercise.Name, out int rest) is string restError) { errors.Add(restError); }
+            if (exercise.EquipmentPicker.SelectedItem is null) { errors.Add("Please select equipment for " + exercise.Name); }
         }
         
         if (errors.Count > 0)
@@ -87,22 +87,23 @@ public class CreateRoutinePage : ContentPage
         GeneralControls.GoHome();
     }
 
-    private async Task OnPickerSelectedIndexChanged(object sender, EventArgs e)
+    private async void OnPickerSelectedIndexChanged(object? sender, EventArgs e)
     {
-        Picker picker = (Picker)sender;
+        Picker picker = (Picker)sender!;
         int selectedIndex = picker.SelectedIndex;
+        if (selectedIndex == -1) { return; }
+
+        string name = (string)picker.ItemsSource[selectedIndex]!;
 
         foreach (RoutineDataPasser exercise in _routineExerciseList)
         {
-            if (exercise.Name == (string)picker.ItemsSource[selectedIndex])
+            if (exercise.Name == name)
             {
                 await DisplayAlert("Picker Error", "You cannot select two of the same exercise", "Close");
+                return;
             }
         }
 
-        if (selectedIndex != -1)
-        {
-            _layout.Children.Add(UIControls.BuildRoutineCard((string)picker.ItemsSource[selectedIndex], _routineExerciseList));
-        }
+        _layout.Children.Add(UIControls.BuildRoutineCard(name, _routineExerciseList));
     }
 }

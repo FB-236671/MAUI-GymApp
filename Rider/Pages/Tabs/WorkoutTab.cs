@@ -45,6 +45,14 @@ public class WorkoutTab : ContentView
         
         await Navigation.PushAsync(new WorkoutPage(routineObject));
     }
+
+    private async void OnEditClick(object? sender, EventArgs e)
+    {
+        if (sender is not Button button || button.CommandParameter is not RoutinePasser routineObject)
+            return;
+        
+        await Navigation.PushAsync(new EditRoutinePage(routineObject));
+    }
     
     private async void OnDeleteClick(object? sender, EventArgs e)
     {
@@ -112,8 +120,10 @@ public class WorkoutTab : ContentView
         Button delete = UIElements.MakeButton("🗑", Colors.Black, Colors.White, Colors.White, 2, 6, 18, 48, 48, 0);
 
         start.CommandParameter = routineObject;
+        edit.CommandParameter = routineObject;
         delete.CommandParameter = routineObject.RoutineId;
         start.Clicked += OnStartClick;
+        edit.Clicked += OnEditClick;
         delete.Clicked += OnDeleteClick;
         
         inner.Add(UIElements.MakeLabel(routineObject.Name, 24), 0);
