@@ -23,8 +23,7 @@ public class TrophiesTab : ContentView
             }
             TrophyPasser trophies = Trophy.GetTrophyByExercise(record.ExerciseId);
             string trophySource;
-            UserPasser user = MainPage.User;
-            int lift = Calculator.GeneralStrength(user.Age, user.Weight, user.Sex, record.OneRM);
+            int lift = Calculator.GeneralStrength(record.OneRM);
 
             if (trophies.Platinum <= lift)
             {

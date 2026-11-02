@@ -26,10 +26,6 @@ public static class TypeChecker
         {
             return "Please input something between " + min + " and " + max;
         }
-        if (value <= 0)
-        {
-            return "Please input a number greater than zero for " + name;
-        }
         return null;
     }
     
@@ -47,10 +43,6 @@ public static class TypeChecker
         if (value > max || value < min)
         {
             return "Please input something between " + min + " and " + max + " at " + index;
-        }
-        if (value <= 0)
-        {
-            return "Please input a number greater than zero for " + name + " at " + index;
         }
         return null;
     }

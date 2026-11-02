@@ -29,20 +29,6 @@ public class Routine
         );
     }
 
-    public static RoutinePasser GetRoutineByName(string name)
-    {
-        string sql = "SELECT * FROM routine WHERE name = @name";
-        
-        return GeneralQueries.GetOne(sql, reader => new RoutinePasser()
-            {
-                RoutineId = reader.GetInt32(0),
-                UserId = reader.GetInt32(1),
-                Name = reader.GetString(2)
-            },
-            command => command.Parameters.AddWithValue("@name", name)
-        );
-    }
-
     public static void DeleteRoutine(int routineId)
     {
         string sql = "DELETE FROM routine WHERE routineId = @routineId";

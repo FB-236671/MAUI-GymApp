@@ -1,9 +1,16 @@
-﻿namespace MAUI_GymApp;
+﻿using MAUI_GymApp.Rider.Database.Objects;
+
+namespace MAUI_GymApp;
 
 public class Calculator
 {
-    public static int GeneralStrength(int age, double weight, string sex, int intialLift)
+    public static int GeneralStrength(int intialLift)
     {
+        UserPasser user = MainPage.User;
+        int age = user.Age;
+        double weight = user.Weight;
+        string sex = user.Sex;
+
         double[] values;
         double frostMcCoef = 0;
 

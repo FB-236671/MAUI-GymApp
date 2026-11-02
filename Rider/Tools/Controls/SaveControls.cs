@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using MAUI_GymApp.Rider.Database;
 using MAUI_GymApp.Rider.Database.Objects;
-using SkiaSharp;
 
 namespace MAUI_GymApp;
 
@@ -40,7 +40,7 @@ public class SaveControls
 
                 else
                 {
-                    totalVolume += Convert.ToInt32(Math.Round(Convert.ToDouble(set.Weight.Text) * Convert.ToInt32(set.Reps.Text)));
+                    totalVolume += Calculator.GeneralStrength(Convert.ToInt32(Math.Round(Convert.ToDouble(set.Weight.Text)) * Convert.ToInt32(set.Reps.Text)));
 
                     WorkoutSetsPasser workoutSetsObject = new WorkoutSetsPasser();
                     workoutSetsObject.SetNumber = set.SetNumber + drawback;
@@ -103,16 +103,24 @@ public class SaveControls
         }
     }
 
-    public static void ValidateSets(List<List<SetPasser>> setListList)
-    {
-        foreach (List<SetPasser> setList in setListList)
-        {
-            foreach (SetPasser set in setList)
-            {
-                var errors = new List<string>();
+    //public static async Task ValidateSets(List<List<SetPasser>> setListList)
+    //{
+    //    foreach (List<SetPasser> setList in setListList)
+    //    {
+    //        var errors = new List<string>();
 
-                if (TypeChecker.IntegerIndexCheck(set.Weight, "Weight", 0, 1000, out int value))
-            }
-        }
-    }
+    //        foreach (SetPasser set in setList)
+    //        {x`
+
+    //            if (TypeChecker.IntegerIndexCheck(set.Weight.Text, "Weight", set.SetNumber.ToString(), 0, 1000, out int weight) is string weightError) { errors.Add(weightError);  }
+    //            if (TypeChecker.IntegerIndexCheck(set.Reps.Text, "Reps", set.SetNumber.ToString(), 1, 30, out int reps) is string repsError) { errors.Add(repsError); }
+    //        }
+
+    //        if (errors.Count > 0)
+    //        {
+    //            await DisplayAlert("Input Error", string.Join("\n", errors), "Close");
+    //            return;
+    //        }
+    //    }
+    //}
 }

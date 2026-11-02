@@ -73,9 +73,6 @@ public class EmptyWorkoutPage : ContentPage
 
     private async void OnSavedClicked(object? sender, EventArgs e)
     {
-        _timer.Stop();
-        _stopwatch.Stop();
-
         string name = await Application.Current!.MainPage!.DisplayPromptAsync("Name", "What do you want to call your exercise", "Confirm", "Back");
         if (TypeChecker.StringCheck(name, "Name") is string nameError)
         {
@@ -93,6 +90,9 @@ public class EmptyWorkoutPage : ContentPage
             routineExercisesObject.RoutineId = routineId;
             RoutineExercises.AddRoutineExercises(routineExercisesObject);
         }
+
+        _timer.Stop();
+        _stopwatch.Stop();
 
         SaveControls.SaveWholeWorkout(_routineExerciseList, _setListList, _stopwatch);
 
@@ -117,8 +117,8 @@ public class EmptyWorkoutPage : ContentPage
             RoutineExercisesPasser exercise = new RoutineExercisesPasser();
             
             exercise.ExerciseId = Exercise.GetExerciseByName((string)picker.ItemsSource[selectedIndex]).ExerciseId;
-            
-            string sets = await Application.Current!.MainPage!.DisplayPromptAsync("Sets", "How many sets for this exercise", "Confirm", "Back");
+
+            string sets = await Application.Current!.MainPage!.DisplayPromptAsync("Sets", "How many sets for this exercise", "Confirm", "Back", Keyboard.Numeric);
             if (TypeChecker.IntegerCheck(sets, "Sets", 1, 20, out int checkedSets) is string setsError)
             {
                 await DisplayAlert("Input Error", setsError, "Close");
@@ -126,7 +126,7 @@ public class EmptyWorkoutPage : ContentPage
             }
             exercise.Sets = Convert.ToInt32(checkedSets);
 
-            string rest = await Application.Current!.MainPage!.DisplayPromptAsync("Rest", "How much rest do you want for this exercise", "Confirm", "Back");
+            string rest = await Application.Current!.MainPage!.DisplayPromptAsync("Rest", "How much rest do you want for this exercise", "Confirm", "Back", Keyboard.Numeric);
             if (TypeChecker.IntegerCheck(rest, "Rest", 0, 600, out int checkedRest) is string restError)
             {
                 await DisplayAlert("Input Error", restError, "Close");

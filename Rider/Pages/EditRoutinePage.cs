@@ -68,8 +68,41 @@ public class EditRoutinePage : ContentPage
         }
     }
 
-    private void OnSaveClicked(object? sender, EventArgs e)
+    private async void OnSaveClicked(object? sender, EventArgs e)
     {
+        var errors = new List<string>();
+
+        if (TypeChecker.StringCheck(nameBox.Text, "Name") is string nameError) { errors.Add(nameError); }
+
+        foreach (RoutineDataPasser exercise in _routineExerciseList)
+        {
+            if (TypeChecker.IntegerIndexCheck(exercise.SetEntry.Text, "Sets", exercise.Name, 1, 20, out int sets) is string setsError) { errors.Add(setsError); }
+            if (TypeChecker.IntegerIndexCheck(exercise.RestEntry.Text, "Rest", exercise.Name, 0, 600, out int rest) is string restError) { errors.Add(restError); }
+            if (exercise.EquipmentPicker.SelectedItem is null) { errors.Add("Please select equipment for " + exercise.Name); }
+        }
+
+        if (errors.Count > 0)
+        {
+            await DisplayAlert("Input Error", string.Join("\n", errors), "Close");
+            return;
+        }
+
+        RoutinePasser routineObject = new RoutinePasser();
+        routineObject.UserId = MainPage.User.UserId;
+        routineObject.Name = nameBox.Text.Trim();
+        int routineId = Routine.CreateRoutine(routineObject);
+
+        foreach (RoutineDataPasser exercise in _routineExerciseList)
+        {
+            RoutineExercisesPasser routineExercisesObject = new RoutineExercisesPasser();
+            routineExercisesObject.RoutineId = routineId;
+            routineExercisesObject.ExerciseId = Exercise.GetExerciseByName(exercise.Name).ExerciseId;
+            routineExercisesObject.Sets = Convert.ToInt32(exercise.SetEntry.Text);
+            routineExercisesObject.Rest = Convert.ToInt32(exercise.RestEntry.Text);
+            routineExercisesObject.EquipmentId = Equipment.GetEquipmentByName((string)exercise.EquipmentPicker.SelectedItem).EquipmentId;
+            RoutineExercises.AddRoutineExercises(routineExercisesObject);
+        }
+
         GeneralControls.GoHome();
     }
 
@@ -86,10 +119,12 @@ public class EditRoutinePage : ContentPage
             if (exercise.Name == name)
             {
                 await DisplayAlert("Picker Error", "You cannot select two of the same exercise", "Close");
+                picker.SelectedIndex = -1;
                 return;
             }
         }
 
         _layout.Children.Add(UIControls.BuildRoutineCard(name, _routineExerciseList));
+        picker.SelectedIndex = -1;
     }
 }

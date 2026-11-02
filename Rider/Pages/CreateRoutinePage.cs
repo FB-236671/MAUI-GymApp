@@ -99,6 +99,7 @@ public class CreateRoutinePage : ContentPage
             if (exercise.Name == name)
             {
                 await DisplayAlert("Picker Error", "You cannot select two of the same exercise", "Close");
+                picker.SelectedIndex = -1;
                 return;
             }
         }
