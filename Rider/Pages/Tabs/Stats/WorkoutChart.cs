@@ -36,9 +36,15 @@ public class WorkoutChart : ContentView
         };
     }
 
-    private ChartEntry[] BuildEntries(int weeksBack, List<WorkoutPasser> workoutList)
+    private ChartEntry[] BuildEntries(int numOfWeeks, List<WorkoutPasser> workoutList)
     {
-        ChartEntry[] entries = new ChartEntry[weeksBack];
+        ChartEntry[] entries = new ChartEntry[numOfWeeks];
+
+        for (int i = 0; i < numOfWeeks; i++)
+        {
+
+        }
+
 
         foreach (WorkoutPasser workout in workoutList)
         {
