@@ -1,10 +1,14 @@
-using MAUI_GymApp.Rider.Database.Objects;
+﻿using MAUI_GymApp.Rider.Database.Objects;
 using Microcharts;
 using SkiaSharp;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace MAUI_GymApp.Views;
-
-public class StatsTab : ContentView
+namespace MAUI_GymApp.Rider.Pages.Tabs.Stats;
+public class MuscleCharts : ContentView
 {
     private string[,] CategoryTotals =
     {
@@ -17,12 +21,12 @@ public class StatsTab : ContentView
         { "Chest", "0" }, { "Quadriceps", "0" }, {"Hamstrings", "0"}, {"Traps", "0"}, {"Abs", "0"}, {"Upper Back", "0"}, {"Lower Back", "0"}
     };
 
-    private Switch _switch = new Switch() { OnColor = Colors.White, ThumbColor = Colors.Black};
+    private Switch _switch = new Switch() { OnColor = Colors.White, ThumbColor = Colors.Black };
     private Label _label = UIElements.MakeLabel("Category Chart", 20);
     private VerticalStackLayout _layout;
     private VerticalStackLayout _card;
 
-    public StatsTab()
+    public MuscleCharts()
     {
         _card = new VerticalStackLayout()
         {
@@ -97,7 +101,7 @@ public class StatsTab : ContentView
 
         return entries;
     }
-    
+
     void OnToggled(object sender, ToggledEventArgs e)
     {
         if (_switch.IsToggled)

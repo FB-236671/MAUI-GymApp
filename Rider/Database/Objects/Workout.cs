@@ -3,11 +3,11 @@
 namespace MAUI_GymApp.Rider.Database;
 
 public class Workout
-{ 
+{
     public static void SaveWorkout(WorkoutPasser workoutObject, List<WorkoutExercisesPasser> workoutExercisesList, List<List<WorkoutSetsPasser>> workoutSetsListList)
     {
         string workoutSql = "INSERT INTO workout (UserId, Duration, Volume, Date) VALUES (@UserId, @Duration, @Volume, @Date); SELECT last_insert_rowid();";
-        
+
         int workoutId = GeneralQueries.GetOne(workoutSql, reader => reader.GetInt32(0), command =>
         {
             command.Parameters.AddWithValue("@UserId", workoutObject.UserId);
@@ -15,7 +15,7 @@ public class Workout
             command.Parameters.AddWithValue("@Volume", workoutObject.Volume);
             command.Parameters.AddWithValue("@Date", workoutObject.Date);
         });
-        
+
         string exercisesSql = "INSERT INTO workoutexercises (WorkoutId, ExerciseId, Sets) VALUES (@WorkoutId, @ExerciseId, @Sets); SELECT last_insert_rowid();";
 
         List<int> workoutExercisesIdList = new List<int>();
@@ -29,7 +29,7 @@ public class Workout
             });
             workoutExercisesIdList.Add(workoutExercisesId);
         }
-        
+
         string setssql = "INSERT INTO workoutsets (WorkoutExercisesId, SetNumber, Weight, Reps) VALUES (@WorkoutExercisesId, @SetNumber, @Weight, @Reps)";
 
         for (int exerciseCount = 0; exerciseCount < workoutSetsListList.Count; exerciseCount++)
@@ -46,8 +46,27 @@ public class Workout
                     command.Parameters.AddWithValue("@Weight", workoutSetsObject.Weight);
                     command.Parameters.AddWithValue("@Reps", workoutSetsObject.Reps);
                 });
-            }            
+            }
         }
+    }
+
+    public static List<WorkoutPasser> GetWorkoutsUntilDate(int userId, long dateTo)
+    {
+        string sql = "SELECT * FROM workout WHERE Date > @dateTo";
+
+        return GeneralQueries.GetAll(sql, reader => new WorkoutPasser
+            {
+                WorkoutId = reader.GetInt32(0),
+                UserId = reader.GetInt32(1),
+                Duration = reader.GetInt32(2),
+                Volume = reader.GetInt32(3),
+                Date = reader.GetInt32(4)
+            },
+            command =>
+            {
+                command.Parameters.AddWithValue("@dateTo", dateTo);
+            }
+        );
     }
 }
 

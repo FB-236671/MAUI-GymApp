@@ -114,6 +114,18 @@ public class UIElements
         }
     };
 
+    public static ChartView MakeBarChart(int height, ChartEntry[] entries, int textSize) => new()
+    {
+        HeightRequest = height,
+        Chart = new BarChart
+        {
+            Entries = entries,
+            LabelTextSize = textSize,
+            IsAnimated = false,
+            BackgroundColor = SKColors.Transparent
+        }
+    };
+
     public static Border MakeCard(Color backgroundColor, View inner) => new()
     {
         BackgroundColor = backgroundColor,

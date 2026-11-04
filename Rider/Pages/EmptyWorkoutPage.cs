@@ -109,13 +109,16 @@ public class EmptyWorkoutPage : ContentPage
             if (Exercise.GetExerciseById(exercise.ExerciseId).Name == (string)picker.ItemsSource[selectedIndex])
             {
                 await DisplayAlert("Picker Error", "You cannot select two of the same exercise", "Close");
+                return;
             }
         }
+
+        picker.SelectedIndex = -1;
 
         if (selectedIndex != -1)
         {
             RoutineExercisesPasser exercise = new RoutineExercisesPasser();
-            
+
             exercise.ExerciseId = Exercise.GetExerciseByName((string)picker.ItemsSource[selectedIndex]).ExerciseId;
 
             string sets = await Application.Current!.MainPage!.DisplayPromptAsync("Sets", "How many sets for this exercise", "Confirm", "Back", Keyboard.Numeric);
@@ -130,6 +133,7 @@ public class EmptyWorkoutPage : ContentPage
             if (TypeChecker.IntegerCheck(rest, "Rest", 0, 600, out int checkedRest) is string restError)
             {
                 await DisplayAlert("Input Error", restError, "Close");
+                return;
             }
             exercise.Rest = Convert.ToInt32(checkedRest);
 
@@ -140,11 +144,9 @@ public class EmptyWorkoutPage : ContentPage
             {
                 exercise.EquipmentId = Equipment.GetEquipmentByName(chosenEquipment).EquipmentId;
             }
-            
+
             _layout.Children.Add(UIControls.BuildWorkoutCard(exercise, _setListList));
             _routineExerciseList.Add(exercise);
         }
-
-        picker.SelectedIndex = -1;
     }
 }

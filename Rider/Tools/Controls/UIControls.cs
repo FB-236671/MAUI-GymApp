@@ -1,5 +1,6 @@
 ﻿using MAUI_GymApp.Rider.Database;
 using MAUI_GymApp.Rider.Database.Objects;
+using Microcharts.Maui;
 
 namespace MAUI_GymApp;
 
@@ -91,5 +92,21 @@ public class UIControls
         routineExerciseList.Add(routineData);
 
         return UIElements.MakeCard(Colors.LightGray, workoutLayout);
+    }
+
+    public static View BuildChartCard(string name, ChartView chart)
+    {
+        VerticalStackLayout chartLayout = new VerticalStackLayout()
+        {
+            Padding = new Thickness(16, 12),
+            Spacing = 16,
+            Children =
+            {
+                UIElements.MakeLabel(name, 20),
+                chart
+            }
+        };
+
+        return UIElements.MakeCard(Colors.LightGrey, chartLayout);
     }
 }
