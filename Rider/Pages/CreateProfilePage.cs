@@ -9,13 +9,14 @@ public class CreateProfilePage : ContentPage
     private Entry _weightEntry;
     private Picker _sexPicker;
 
-    public CreateProfilePage()
+    public CreateProfilePage(UserParser? user = null)
     {
         BackgroundColor = Colors.White;
         Button createButton = UIElements.MakeButton("Create Profile", Colors.Black, Colors.White, Colors.Black, 2, 6, 18, 0);
         Label nameLabel = UIElements.MakeLabel("Name:", 18, Colors.Black, LayoutOptions.Center);
         Label ageLabel = UIElements.MakeLabel("Age:", 18, Colors.Black, LayoutOptions.Center);
         Label weightLabel = UIElements.MakeLabel("Weight:", 18, Colors.Black, LayoutOptions.Center);
+        Label kilogramsLabel = UIElements.MakeLabel("kg", 18, Colors.Black, LayoutOptions.Center);
         Label sexLabel = UIElements.MakeLabel("Sex:", 18, Colors.Black, LayoutOptions.Center);
 
         _nameEntry = UIElements.MakeTextBox("Name", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
@@ -23,6 +24,21 @@ public class CreateProfilePage : ContentPage
         _weightEntry = UIElements.MakeIntBox("Weight", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
         _sexPicker = UIElements.MakeSelector("Sex", new List<string> { "Male", "Female" }, 18);
         _sexPicker.WidthRequest = 180;
+
+        if (user != null)
+        {
+            _nameEntry.Text = user.Name;
+            _ageEntry.Text = Convert.ToString(user.Age);
+            _weightEntry.Text = Convert.ToString(user.Weight);
+            if (user.Sex == "male")
+            {
+                _sexPicker.SelectedIndex = 0;
+            }
+            else
+            {
+                _sexPicker.SelectedIndex = 1;
+            }
+        }
         
         VerticalStackLayout layout = new VerticalStackLayout
         {
@@ -34,7 +50,7 @@ public class CreateProfilePage : ContentPage
         
         layout.Add(BuildProfileCard(nameLabel, _nameEntry));
         layout.Add(BuildProfileCard(ageLabel, _ageEntry));
-        layout.Add(BuildProfileCard(weightLabel, _weightEntry));
+        layout.Add(BuildProfileCard(weightLabel, _weightEntry, kilogramsLabel));
         layout.Add(BuildProfileCard(sexLabel, _sexPicker));
         layout.Add(createButton);
 
@@ -69,7 +85,7 @@ public class CreateProfilePage : ContentPage
         GeneralControls.GoHome();
     }
     
-    private static View BuildProfileCard(Label label, View entry)
+    private static View BuildProfileCard(Label label, View entry, Label? extraLabel = null)
     {
         Border textBox = new Border
         {
@@ -99,6 +115,10 @@ public class CreateProfilePage : ContentPage
 
         inner.Add(label, 0);
         inner.Add(textBox, 1);
+        if (extraLabel != null)
+        {
+            inner.Add(extraLabel, 2);
+        }
 
         return new Border
         {

@@ -38,6 +38,12 @@ public class StatsTab : ContentView
             _layout.Children.Add(chart);
         }
 
+        editButton.Clicked += OnEditButtonClick;
         Content = new ScrollView { Content = _layout };
+    }
+
+    private async void OnEditButtonClick(object? sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new CreateProfilePage(MainPage.User));
     }
 }

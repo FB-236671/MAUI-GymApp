@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using MAUI_GymApp.Rider.Database.Objects;
 
 namespace MAUI_GymApp;
@@ -61,5 +62,20 @@ public class WorkoutPage : ContentPage
         _stopwatch.Stop();
 
         GeneralControls.GoHome();
+    }
+
+    protected override async bool OnBackButtonPressed()
+    {
+        bool confirmed = await Application.Current!.MainPage!.DisplayAlert("Quite Workout", "Are you sure you want to quite, all your progress will be lost", "Confirm", "Cancel");
+        if (confirmed)
+        {
+            _timer.Stop();
+            _stopwatch.Stop();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

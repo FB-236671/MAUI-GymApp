@@ -154,4 +154,19 @@ public class EmptyWorkoutPage : ContentPage
             _routineExerciseList.Add(exercise);
         }
     }
+
+    protected override async bool OnBackButtonPressed()
+    {
+        bool confirmed = await Application.Current!.MainPage!.DisplayAlert("Quite Workout", "Are you sure you want to quite, all your progress will be lost", "Confirm", "Cancel");
+        if (confirmed)
+        {
+            _timer.Stop();
+            _stopwatch.Stop();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

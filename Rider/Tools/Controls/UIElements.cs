@@ -63,7 +63,7 @@ public class UIElements
         WidthRequest = width,
         VerticalOptions = layout
     };
-    
+
     public static Entry MakeIntBox(string placeHolder, Color placeHolderColor, Color textColor, int fontSize, int width, LayoutOptions layout) => new()
     {
         Placeholder = placeHolder,

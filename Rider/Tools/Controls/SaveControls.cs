@@ -39,14 +39,14 @@ public class SaveControls
 
                 else
                 {
-                    double weight = Convert.ToDouble(set.Weight.Text);
+                    double weight = Convert.ToDouble(set.Weight.Text) * set.EquipmentMultiplier;
                     int reps = Convert.ToInt32(set.Reps.Text);
 
                     totalVolume += Calculator.GeneralStrength(Convert.ToInt32(Math.Round(weight * reps)));
 
                     WorkoutSetsParser workoutSetsObject = new WorkoutSetsParser();
                     workoutSetsObject.SetNumber = set.SetNumber + drawback;
-                    workoutSetsObject.Weight = Math.Round(weight * set.EquipmentMultiplier, 1);
+                    workoutSetsObject.Weight = Math.Round(weight, 1);
                     workoutSetsObject.Reps = reps;
                     workoutSetsList.Add(workoutSetsObject);
 
