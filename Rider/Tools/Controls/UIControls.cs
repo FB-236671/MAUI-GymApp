@@ -1,12 +1,10 @@
-﻿using MAUI_GymApp.Rider.Database;
-using MAUI_GymApp.Rider.Database.Objects;
-using Microcharts.Maui;
+﻿using MAUI_GymApp.Rider.Database.Objects;
 
 namespace MAUI_GymApp;
 
 public class UIControls
 {
-    public static View BuildWorkoutCard(RoutineExercisesPasser routineExercisesObject, List<List<SetPasser>> setListList)
+    public static View BuildWorkoutCard(RoutineExercisesParser routineExercisesObject, List<List<SetParser>> setListList)
     {
         VerticalStackLayout workoutLayout = new VerticalStackLayout()
         {
@@ -27,7 +25,7 @@ public class UIControls
             }
         };
 
-        List<SetPasser> setList = new();
+        List<SetParser> setList = new();
         
         for (int i = 1; i <= routineExercisesObject.Sets; i++)
         {
@@ -44,7 +42,7 @@ public class UIControls
                 }
             });
 
-            SetPasser set = new SetPasser();
+            SetParser set = new SetParser();
             set.SetNumber = i;
             set.Weight = weight;
             set.Reps = reps;
@@ -58,7 +56,7 @@ public class UIControls
         return UIElements.MakeCard(Colors.LightGray, workoutLayout);
     }
 
-    public static View BuildRoutineCard(string name, List<RoutineDataPasser> routineExerciseList)
+    public static View BuildRoutineCard(string name, List<RoutineDataParser> routineExerciseList)
     {
         Entry setEntry = UIElements.MakeIntBox("Sets", Colors.White, Colors.Black, 12, 35, LayoutOptions.End);
         Entry restEntry = UIElements.MakeIntBox("Rest", Colors.White, Colors.Black, 12, 50, LayoutOptions.End);
@@ -84,7 +82,7 @@ public class UIControls
             }
         };
 
-        RoutineDataPasser routineData = new RoutineDataPasser();
+        RoutineDataParser routineData = new RoutineDataParser();
         routineData.Name = name;
         routineData.SetEntry = setEntry;
         routineData.RestEntry = restEntry;
@@ -92,21 +90,5 @@ public class UIControls
         routineExerciseList.Add(routineData);
 
         return UIElements.MakeCard(Colors.LightGray, workoutLayout);
-    }
-
-    public static View BuildChartCard(string name, ChartView chart)
-    {
-        VerticalStackLayout chartLayout = new VerticalStackLayout()
-        {
-            Padding = new Thickness(16, 12),
-            Spacing = 16,
-            Children =
-            {
-                UIElements.MakeLabel(name, 20),
-                chart
-            }
-        };
-
-        return UIElements.MakeCard(Colors.LightGrey, chartLayout);
     }
 }

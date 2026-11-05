@@ -102,30 +102,6 @@ public class UIElements
         HeightRequest = height,
     };
 
-    public static ChartView MakeRadarChart(int height, ChartEntry[] entries, int textSize) => new()
-    {
-        HeightRequest = height,
-        Chart = new RadarChart
-        {
-            Entries = entries,
-            LabelTextSize = textSize,
-            IsAnimated = false,
-            BackgroundColor = SKColors.Transparent
-        }
-    };
-
-    public static ChartView MakeBarChart(int height, ChartEntry[] entries, int textSize) => new()
-    {
-        HeightRequest = height,
-        Chart = new BarChart
-        {
-            Entries = entries,
-            LabelTextSize = textSize,
-            IsAnimated = false,
-            BackgroundColor = SKColors.Transparent
-        }
-    };
-
     public static Border MakeCard(Color backgroundColor, View inner) => new()
     {
         BackgroundColor = backgroundColor,
@@ -137,4 +113,28 @@ public class UIElements
         HeightRequest = height,
         Color = color
     };
+    
+    public static ChartView MakeChart(ChartType type, int height, ChartEntry[] entries, int textSize)
+    {
+        Microcharts.Chart chart;
+
+        if (type == ChartType.Radar)
+        {
+            chart = new RadarChart { Entries = entries };
+        }
+        else if (type == ChartType.Bar)
+        {
+            chart = new BarChart { Entries = entries };
+        }
+        else
+        {
+            chart = new LineChart { Entries = entries };
+        }
+
+        chart.LabelTextSize = textSize;
+        chart.IsAnimated = false;
+        chart.BackgroundColor = SKColors.Transparent;
+
+        return new ChartView { HeightRequest = height, Chart = chart };
+    }
 }

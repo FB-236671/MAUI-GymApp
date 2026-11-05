@@ -6,7 +6,7 @@ public class Calculator
 {
     public static int GeneralStrength(int intialLift)
     {
-        UserPasser user = MainPage.User;
+        UserParser user = MainPage.User;
         int age = user.Age;
         double weight = user.Weight;
         string sex = user.Sex;
@@ -61,7 +61,7 @@ public class Calculator
         return resultLift;
     }
 
-    public static int OneRepMax(int weight, int reps)
+    public static int OneRepMax(double weight, int reps)
     {
         double oneRM;
 
@@ -76,11 +76,9 @@ public class Calculator
 
         if (oneRM < weight)
         {
-            return weight;
+            oneRM = weight;
         }
-        else
-        {
-            return Convert.ToInt32(Math.Round(oneRM, 0));
-        }
+
+        return Convert.ToInt32(Math.Round(oneRM, 0));
     }
 }

@@ -1,31 +1,9 @@
-﻿using MAUI_GymApp.Database;
-using Microsoft.Data.Sqlite;
+﻿using Microsoft.Data.Sqlite;
 
 namespace MAUI_GymApp.Rider.Database.Queries;
 
 public class GeneralQueries
-{ 
-    public static List<T> GetAll<T>(string sql, Func<SqliteDataReader, T> mapItem)
-    {
-        List<T> list = new List<T>();
-        using SqliteCommand command = new SqliteCommand(sql, Tables.Connection);
-        Tables.Connection.Open();
-        try
-        {
-            using SqliteDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                T obj = mapItem(reader);
-                list.Add(obj);
-            }
-        }
-        finally
-        {
-            Tables.Connection.Close();
-        }
-        return list;
-    }
-    
+{
     public static void NonQuery(string sql, Action<SqliteCommand> setParameters = null)
     {
         using SqliteCommand command = new SqliteCommand(sql, Tables.Connection);

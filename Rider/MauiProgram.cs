@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Maui.Markup;
-using MAUI_GymApp.Database;
+using MAUI_GymApp.Rider.Database;
 using Microcharts.Maui;
 
 namespace MAUI_GymApp;

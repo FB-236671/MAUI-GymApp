@@ -4,7 +4,7 @@ namespace MAUI_GymApp.Rider.Database.Objects;
 
 public class Routine
 {
-    public static int CreateRoutine(RoutinePasser routineObject)
+    public static int CreateRoutine(RoutineParser routineObject)
     {
         string sql = "INSERT INTO routine (UserId, Name) VALUES (@UserId, @Name); SELECT last_insert_rowid();";
         
@@ -15,11 +15,11 @@ public class Routine
         });
     }
 
-    public static List<RoutinePasser> GetRoutinesByUser(int userId)
+    public static List<RoutineParser> GetRoutinesByUser(int userId)
     {
         string sql = "SELECT * FROM routine WHERE userId = @userId";
 
-        return GeneralQueries.GetMultiple(sql, reader => new RoutinePasser()
+        return GeneralQueries.GetMultiple(sql, reader => new RoutineParser()
             {
                 RoutineId = reader.GetInt32(0),
                 UserId = reader.GetInt32(1),
@@ -37,7 +37,7 @@ public class Routine
     }
 }
 
-public class RoutinePasser
+public class RoutineParser
 {
     public int RoutineId { get; set; }
     public int UserId { get; set; }

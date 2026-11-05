@@ -40,7 +40,7 @@ public class WorkoutTab : ContentView
 
     private async void OnStartClick(object? sender, EventArgs e)
     {
-        if (sender is not Button button || button.CommandParameter is not RoutinePasser routineObject)
+        if (sender is not Button button || button.CommandParameter is not RoutineParser routineObject)
             return;
         
         await Navigation.PushAsync(new WorkoutPage(routineObject));
@@ -48,7 +48,7 @@ public class WorkoutTab : ContentView
 
     private async void OnEditClick(object? sender, EventArgs e)
     {
-        if (sender is not Button button || button.CommandParameter is not RoutinePasser routineObject)
+        if (sender is not Button button || button.CommandParameter is not RoutineParser routineObject)
             return;
         
         await Navigation.PushAsync(new EditRoutinePage(routineObject));
@@ -79,8 +79,8 @@ public class WorkoutTab : ContentView
 
         try
         {
-            List<RoutinePasser> routineList = Routine.GetRoutinesByUser(MainPage.User.UserId);
-            foreach (RoutinePasser routine in routineList)
+            List<RoutineParser> routineList = Routine.GetRoutinesByUser(MainPage.User.UserId);
+            foreach (RoutineParser routine in routineList)
                 _layout.Add(BuildRoutineCard(routine));
         }
         catch (Exception ex)
@@ -100,7 +100,7 @@ public class WorkoutTab : ContentView
         await Navigation.PushAsync(new EmptyWorkoutPage());
     }
 
-    private View BuildRoutineCard(RoutinePasser routineObject)
+    private View BuildRoutineCard(RoutineParser routineObject)
     {
         Grid inner = new Grid
         {

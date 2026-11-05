@@ -4,11 +4,11 @@ namespace MAUI_GymApp.Rider.Database.Objects;
 
 public class Trophy
 {
-    public static TrophyPasser GetTrophyByExercise(int exerciseId)
+    public static TrophyParser GetTrophyByExercise(int exerciseId)
     {
         string sql = "SELECT * FROM trophy WHERE ExerciseId = @ExerciseId";
 
-        return GeneralQueries.GetOne(sql, reader => new TrophyPasser()
+        return GeneralQueries.GetOne(sql, reader => new TrophyParser()
             {
                 ExerciseId = reader.GetInt32(0),
                 Platinum = reader.GetInt32(1),
@@ -24,7 +24,7 @@ public class Trophy
     }
 }
 
-public class TrophyPasser
+public class TrophyParser
 {
     public int ExerciseId { get; set; }
     public int Platinum { get; set; }

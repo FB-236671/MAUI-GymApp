@@ -2,7 +2,7 @@ using MAUI_GymApp.Rider.Database.Objects;
 using Microcharts;
 using SkiaSharp;
 
-namespace MAUI_GymApp.Rider.Pages.Tabs.Stats;
+namespace MAUI_GymApp.Views;
 
 public class StatsTab : ContentView
 {
@@ -11,7 +11,7 @@ public class StatsTab : ContentView
     public StatsTab()
     {
         Button editButton = UIElements.MakeButton("Edit", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
-        UserPasser user = MainPage.User;
+        UserParser user = MainPage.User;
 
         _layout = new VerticalStackLayout()
         {
@@ -30,9 +30,14 @@ public class StatsTab : ContentView
                 UIElements.MakeLabel("Age: " + user.Age, 10),
                 UIElements.MakeLabel("Weight: " + user.Weight, 10),
                 UIElements.MakeLabel("Sex: " + user.Sex, 10),
-
-                MuscleCharts()
             }
         };
+        
+        foreach (View chart in ChartStats.All(user.UserId))
+        {
+            _layout.Children.Add(chart);
+        }
+
+        Content = new ScrollView { Content = _layout };
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace MAUI_GymApp;
+﻿using System.Globalization;
+
+namespace MAUI_GymApp;
 
 public static class TypeChecker
 {
@@ -47,16 +49,24 @@ public static class TypeChecker
         return null;
     }
 
-    public static string? DoubleCheck(string? input, string name, out double value)
+    public static string? DecimalIndexCheck(string? input, string name, string index, decimal min, decimal max, out decimal value)
     {
         value = 0;
         if (string.IsNullOrWhiteSpace(input))
         {
-            return "Please input something for " + name;
+            return "Please input something for " + name + " at " + index;
         }
-        if (!double.TryParse(input, out value))
+        if (!decimal.TryParse(input.Trim(), NumberStyles.AllowDecimalPoint, null, out value))
         {
-            return "Please input a number for " + name;
+            return "Please input a number for " + name + " at " + index;
+        }
+        if (value > max || value < min)
+        {
+            return "Please input something between " + min + " and " + max + " at " + index;
+        }
+        if (decimal.Round(value, 1) != value)
+        {
+            return "Please use no more than 1 decimal place for " + name + " at " + index;
         }
         return null;
     }

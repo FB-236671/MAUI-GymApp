@@ -4,11 +4,11 @@ namespace MAUI_GymApp.Rider.Database.Objects;
 
 public class User
 {
-    public static List<UserPasser> GetUsers()
+    public static List<UserParser> GetUsers()
     {
         string sql = "SELECT * FROM user";
 
-        return GeneralQueries.GetAll(sql, reader => new UserPasser
+        return GeneralQueries.GetMultiple(sql, reader => new UserParser
         {
             UserId = reader.GetInt32(0),
             Name = reader.GetString(1),
@@ -18,7 +18,7 @@ public class User
         });
     }
     
-    public static int CreateUser(UserPasser userObject)
+    public static int CreateUser(UserParser userObject)
     {
         string sql = "INSERT INTO user (Name, Age, Weight, Sex) VALUES (@Name, @Age, @Weight, @Sex); SELECT last_insert_rowid();";
 
@@ -32,7 +32,7 @@ public class User
     }
 }
 
-public class UserPasser
+public class UserParser
 {
     public int UserId { get; set; }
     public string Name { get; set; }

@@ -1,10 +1,10 @@
 ﻿using MAUI_GymApp.Rider.Database.Queries;
 
-namespace MAUI_GymApp.Rider.Database;
+namespace MAUI_GymApp.Rider.Database.Objects;
 
 public class Workout
 {
-    public static void SaveWorkout(WorkoutPasser workoutObject, List<WorkoutExercisesPasser> workoutExercisesList, List<List<WorkoutSetsPasser>> workoutSetsListList)
+    public static void SaveWorkout(WorkoutParser workoutObject, List<WorkoutExercisesParser> workoutExercisesList, List<List<WorkoutSetsParser>> workoutSetsListList)
     {
         string workoutSql = "INSERT INTO workout (UserId, Duration, Volume, Date) VALUES (@UserId, @Duration, @Volume, @Date); SELECT last_insert_rowid();";
 
@@ -19,7 +19,7 @@ public class Workout
         string exercisesSql = "INSERT INTO workoutexercises (WorkoutId, ExerciseId, Sets) VALUES (@WorkoutId, @ExerciseId, @Sets); SELECT last_insert_rowid();";
 
         List<int> workoutExercisesIdList = new List<int>();
-        foreach (WorkoutExercisesPasser workoutExercisesObject in workoutExercisesList)
+        foreach (WorkoutExercisesParser workoutExercisesObject in workoutExercisesList)
         {
             int workoutExercisesId = GeneralQueries.GetOne(exercisesSql, reader => reader.GetInt32(0), command =>
             {
@@ -34,10 +34,10 @@ public class Workout
 
         for (int exerciseCount = 0; exerciseCount < workoutSetsListList.Count; exerciseCount++)
         {
-            List<WorkoutSetsPasser> workoutSetsList = workoutSetsListList[exerciseCount];
+            List<WorkoutSetsParser> workoutSetsList = workoutSetsListList[exerciseCount];
             int workoutExercisesId = workoutExercisesIdList[exerciseCount];
 
-            foreach (WorkoutSetsPasser workoutSetsObject in workoutSetsList)
+            foreach (WorkoutSetsParser workoutSetsObject in workoutSetsList)
             {
                 GeneralQueries.NonQuery(setssql, command =>
                 {
@@ -50,27 +50,28 @@ public class Workout
         }
     }
 
-    public static List<WorkoutPasser> GetWorkoutsUntilDate(int userId, long dateTo)
+    public static List<WorkoutParser> GetWorkoutsUntilDate(int userId, long dateTo)
     {
-        string sql = "SELECT * FROM workout WHERE Date > @dateTo";
+        string sql = "SELECT * FROM workout WHERE UserId = @userId AND Date > @dateTo";
 
-        return GeneralQueries.GetAll(sql, reader => new WorkoutPasser
+        return GeneralQueries.GetMultiple(sql, reader => new WorkoutParser
             {
                 WorkoutId = reader.GetInt32(0),
                 UserId = reader.GetInt32(1),
                 Duration = reader.GetInt32(2),
                 Volume = reader.GetInt32(3),
-                Date = reader.GetInt32(4)
+                Date = reader.GetInt64(4)
             },
             command =>
             {
+                command.Parameters.AddWithValue("@userId", userId);
                 command.Parameters.AddWithValue("@dateTo", dateTo);
             }
         );
     }
 }
 
-public class WorkoutPasser
+public class WorkoutParser
 {
     public int WorkoutId { get; set; }
     public int UserId { get; set; }
@@ -79,7 +80,7 @@ public class WorkoutPasser
     public long Date {get; set; }
 }
 
-public class WorkoutExercisesPasser
+public class WorkoutExercisesParser
 {
     public int WorkoutExercisesId { get; set; }
     public int WorkoutId { get; set; }
@@ -87,15 +88,15 @@ public class WorkoutExercisesPasser
     public int Sets { get; set; }
 }
 
-public class WorkoutSetsPasser
+public class WorkoutSetsParser
 {
     public int WorkoutExercisesId { get; set; }
     public int SetNumber { get; set; }
-    public int Weight { get; set; }
+    public double Weight { get; set; }
     public int Reps { get; set; }
 }
 
-public class SetPasser
+public class SetParser
 {
     public int SetNumber { get; set; }
     public Entry Weight { get; set; }

@@ -4,7 +4,7 @@ namespace MAUI_GymApp.Rider.Database.Objects;
 
 public class Record
 {
-    public static void SaveRecord(RecordPasser recordObject)
+    public static void SaveRecord(RecordParser recordObject)
     {
         string sql = "INSERT OR REPLACE INTO record (UserId, ExerciseId, BestWeight, OneRM) VALUES (@UserId, @ExerciseId, @BestWeight, @OneRM)";
         
@@ -17,15 +17,15 @@ public class Record
         });
     }
     
-    public static RecordPasser GetRecordById(int userId, int exerciseId)
+    public static RecordParser GetRecordById(int userId, int exerciseId)
     {
         string sql = "SELECT * FROM record WHERE UserId = @UserId AND ExerciseId = @ExerciseId";
 
-        return GeneralQueries.GetOne(sql, reader => new RecordPasser
+        return GeneralQueries.GetOne(sql, reader => new RecordParser
             {
                 UserId = reader.GetInt32(0),
                 ExerciseId = reader.GetInt32(1),
-                BestWeight = reader.GetInt32(2),
+                BestWeight = reader.GetDouble(2),
                 OneRM = reader.GetInt32(3)
             },
             command =>
@@ -36,15 +36,15 @@ public class Record
         );
     }
 
-    public static List<RecordPasser> GetRecordsByUser(int userId)
+    public static List<RecordParser> GetRecordsByUser(int userId)
     {
         string sql = "SELECT * FROM record WHERE userId = @userId";
 
-        return GeneralQueries.GetMultiple(sql, reader => new RecordPasser()
+        return GeneralQueries.GetMultiple(sql, reader => new RecordParser()
             {
                 UserId = reader.GetInt32(0),
                 ExerciseId = reader.GetInt32(1),
-                BestWeight = reader.GetInt32(2),
+                BestWeight = reader.GetDouble(2),
                 OneRM = reader.GetInt32(3)
             },
             command => command.Parameters.AddWithValue("@userId", userId)
@@ -52,10 +52,10 @@ public class Record
     }
 }
 
-public class RecordPasser
+public class RecordParser
 {
     public int UserId { get; set; }
     public int ExerciseId { get; set; }
-    public int BestWeight { get; set; }
+    public double BestWeight { get; set; }
     public int OneRM { get; set; }
 }

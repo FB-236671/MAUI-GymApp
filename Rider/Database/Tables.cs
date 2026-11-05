@@ -1,7 +1,7 @@
 ﻿using MAUI_GymApp.Rider.Database.Queries;
 using Microsoft.Data.Sqlite;
 
-namespace MAUI_GymApp.Database;
+namespace MAUI_GymApp.Rider.Database;
 
 public class Tables
 {
@@ -19,11 +19,11 @@ public class Tables
             "trophy (exerciseId integer PRIMARY KEY REFERENCES exercise(exerciseId), platinum integer, gold integer, silver integer, bronze integer)",
 
             "user (userId integer PRIMARY KEY AUTOINCREMENT, name text, age integer, weight integer, sex text)",
-            "record (userId integer, exerciseId integer, bestWeight integer, oneRM integer, PRIMARY KEY (userId, exerciseId))",
+            "record (userId integer, exerciseId integer, bestWeight real, oneRM integer, PRIMARY KEY (userId, exerciseId))",
 
             "workout (workoutId integer PRIMARY KEY AUTOINCREMENT, userId integer, duration integer, volume integer, date long)",
             "workoutexercises (workoutexercisesId integer PRIMARY KEY AUTOINCREMENT, workoutId integer, exerciseId integer, sets integer)",
-            "workoutsets (workoutexercisesId integer, setnumber integer, weight integer, reps integer, PRIMARY KEY (workoutexercisesId, setnumber))",
+            "workoutsets (workoutexercisesId integer, setnumber integer, weight real, reps integer, PRIMARY KEY (workoutexercisesId, setnumber))",
             "routine (routineId integer PRIMARY KEY AUTOINCREMENT, userId integer, name text)",
             "routineexercises (routineId integer, exerciseId integer, sets integer, rest integer, equipmentId integer, PRIMARY KEY (routineId, exerciseId))"
         };

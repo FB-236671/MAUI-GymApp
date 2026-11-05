@@ -4,7 +4,7 @@ namespace MAUI_GymApp.Views;
 
 public class TrophiesTab : ContentView
 {
-    private List<RecordPasser> recordList = Record.GetRecordsByUser(MainPage.User.UserId);
+    private List<RecordParser> recordList = Record.GetRecordsByUser(MainPage.User.UserId);
 
     public TrophiesTab()
     {
@@ -15,13 +15,13 @@ public class TrophiesTab : ContentView
             Children = { BuildHeaderRow() }
         };
 
-        foreach (RecordPasser record in recordList)
+        foreach (RecordParser record in recordList)
         {
             if (Trophy.GetTrophyByExercise(record.ExerciseId) == null)
             {
                 continue;
             }
-            TrophyPasser trophies = Trophy.GetTrophyByExercise(record.ExerciseId);
+            TrophyParser trophies = Trophy.GetTrophyByExercise(record.ExerciseId);
             string trophySource;
             int lift = Calculator.GeneralStrength(record.OneRM);
 
@@ -77,7 +77,7 @@ public class TrophiesTab : ContentView
         return header;
     }
 
-    private static View BuildTrophyCard(RecordPasser record, string trophySource)
+    private static View BuildTrophyCard(RecordParser record, string trophySource)
     {
         Grid inner = MakeRowGrid();
         

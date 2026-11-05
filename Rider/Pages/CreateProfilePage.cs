@@ -56,7 +56,7 @@ public class CreateProfilePage : ContentPage
             return;
         }
 
-        UserPasser userObject = new UserPasser
+        UserParser userObject = new UserParser
         {
             Name = _nameEntry.Text.Trim(),
             Age = age,
@@ -66,11 +66,7 @@ public class CreateProfilePage : ContentPage
         userObject.UserId = User.CreateUser(userObject);
         MainPage.User = userObject;
         
-        Application.Current!.MainPage = new NavigationPage(new MainPage())
-        {
-            BarBackgroundColor = Colors.White,
-            BarTextColor = Colors.Black,
-        };
+        GeneralControls.GoHome();
     }
     
     private static View BuildProfileCard(Label label, View entry)

@@ -15,8 +15,8 @@ public class LoginPage : ContentPage
             HorizontalOptions = LayoutOptions.Center,
         };
         
-        List<UserPasser> userList = User.GetUsers();
-        foreach (UserPasser userObject in userList)
+        List<UserParser> userList = User.GetUsers();
+        foreach (UserParser userObject in userList)
         {
             Button button = UIElements.MakeButton(userObject.Name, Colors.Black, Colors.White, Colors.Black, 2, 6, 18, 0);
             button.Clicked += (sender, e) => OnLoginClick(userObject);
@@ -28,7 +28,7 @@ public class LoginPage : ContentPage
         Content = layout;
     }
     
-    private void OnLoginClick(UserPasser userObject)
+    private void OnLoginClick(UserParser userObject)
     {
         MainPage.User = userObject;
         GeneralControls.GoHome();

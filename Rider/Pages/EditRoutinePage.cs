@@ -5,11 +5,11 @@ namespace MAUI_GymApp;
 public class EditRoutinePage : ContentPage
 {
     private readonly VerticalStackLayout _layout;
-    private List<RoutineDataPasser> _routineExerciseList = new();
+    private List<RoutineDataParser> _routineExerciseList = new();
     private Entry nameBox;
-    private RoutinePasser routine;
+    private RoutineParser routine;
 
-    public EditRoutinePage(RoutinePasser passedRoutine)
+    public EditRoutinePage(RoutineParser passedRoutine)
     {
         Background = Colors.White;
         routine = passedRoutine;
@@ -55,13 +55,13 @@ public class EditRoutinePage : ContentPage
     {
         nameBox.Text = routine.Name;
 
-        List<RoutineExercisesPasser> routineExercisesList = RoutineExercises.GetRoutineExercisesByRoutineId(routine.RoutineId);
+        List<RoutineExercisesParser> routineExercisesList = RoutineExercises.GetRoutineExercisesByRoutineId(routine.RoutineId);
 
-        foreach (RoutineExercisesPasser exercise in routineExercisesList)
+        foreach (RoutineExercisesParser exercise in routineExercisesList)
         {
             _layout.Children.Add(UIControls.BuildRoutineCard(Exercise.GetExerciseById(exercise.ExerciseId).Name, _routineExerciseList));
 
-            RoutineDataPasser card = _routineExerciseList[^1];
+            RoutineDataParser card = _routineExerciseList[^1];
             card.SetEntry.Text = exercise.Sets.ToString();
             card.RestEntry.Text = exercise.Rest.ToString();
             card.EquipmentPicker.SelectedItem = Equipment.GetEquipmentById(exercise.EquipmentId).Name;
@@ -74,7 +74,7 @@ public class EditRoutinePage : ContentPage
 
         if (TypeChecker.StringCheck(nameBox.Text, "Name") is string nameError) { errors.Add(nameError); }
 
-        foreach (RoutineDataPasser exercise in _routineExerciseList)
+        foreach (RoutineDataParser exercise in _routineExerciseList)
         {
             if (TypeChecker.IntegerIndexCheck(exercise.SetEntry.Text, "Sets", exercise.Name, 1, 20, out int sets) is string setsError) { errors.Add(setsError); }
             if (TypeChecker.IntegerIndexCheck(exercise.RestEntry.Text, "Rest", exercise.Name, 0, 600, out int rest) is string restError) { errors.Add(restError); }
@@ -86,15 +86,18 @@ public class EditRoutinePage : ContentPage
             await DisplayAlert("Input Error", string.Join("\n", errors), "Close");
             return;
         }
+        
+        Routine.DeleteRoutine(routine.RoutineId);
+        RoutineExercises.DeleteRoutineExercises(routine.RoutineId);
 
-        RoutinePasser routineObject = new RoutinePasser();
+        RoutineParser routineObject = new RoutineParser();
         routineObject.UserId = MainPage.User.UserId;
         routineObject.Name = nameBox.Text.Trim();
         int routineId = Routine.CreateRoutine(routineObject);
 
-        foreach (RoutineDataPasser exercise in _routineExerciseList)
+        foreach (RoutineDataParser exercise in _routineExerciseList)
         {
-            RoutineExercisesPasser routineExercisesObject = new RoutineExercisesPasser();
+            RoutineExercisesParser routineExercisesObject = new RoutineExercisesParser();
             routineExercisesObject.RoutineId = routineId;
             routineExercisesObject.ExerciseId = Exercise.GetExerciseByName(exercise.Name).ExerciseId;
             routineExercisesObject.Sets = Convert.ToInt32(exercise.SetEntry.Text);
@@ -114,7 +117,7 @@ public class EditRoutinePage : ContentPage
 
         string name = (string)picker.ItemsSource[selectedIndex]!;
 
-        foreach (RoutineDataPasser exercise in _routineExerciseList)
+        foreach (RoutineDataParser exercise in _routineExerciseList)
         {
             if (exercise.Name == name)
             {

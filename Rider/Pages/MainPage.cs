@@ -8,7 +8,7 @@ public class MainPage : ContentPage
     private readonly ContentView _contentHost;
     private readonly List<TabButton> _tabs = new();
 
-    public static UserPasser User;
+    public static UserParser User;
 
     public MainPage()
     {

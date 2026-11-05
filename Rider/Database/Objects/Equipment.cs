@@ -4,11 +4,11 @@ namespace MAUI_GymApp.Rider.Database.Objects;
 
 public class Equipment
 {
-    public static List<EquipmentPasser> GetEquipment()
+    public static List<EquipmentParser> GetEquipment()
     {
         string sql = "SELECT * FROM equipment";
 
-        return GeneralQueries.GetAll(sql, reader => new EquipmentPasser
+        return GeneralQueries.GetMultiple(sql, reader => new EquipmentParser
         {
             EquipmentId = reader.GetInt32(0),
             Name = reader.GetString(1),
@@ -16,11 +16,11 @@ public class Equipment
         });
     }
     
-    public static EquipmentPasser GetEquipmentByName(string name)
+    public static EquipmentParser GetEquipmentByName(string name)
     {
         string sql = "SELECT * FROM equipment WHERE name = @name";
         
-        return GeneralQueries.GetOne(sql, reader => new EquipmentPasser
+        return GeneralQueries.GetOne(sql, reader => new EquipmentParser
             {
                 EquipmentId = reader.GetInt32(0),
                 Name = reader.GetString(1),
@@ -30,11 +30,11 @@ public class Equipment
         );
     }
 
-    public static EquipmentPasser GetEquipmentById(int id)
+    public static EquipmentParser GetEquipmentById(int id)
     {
         string sql = "SELECT * FROM equipment WHERE equipmentId = @equipmentId";
         
-        return GeneralQueries.GetOne(sql, reader => new EquipmentPasser
+        return GeneralQueries.GetOne(sql, reader => new EquipmentParser
             {
                 EquipmentId = reader.GetInt32(0),
                 Name = reader.GetString(1),
@@ -48,9 +48,9 @@ public class Equipment
     public static List<string> EquipmentNameList()
     {
         List<string> equipmentList = new List<string>();
-        List<EquipmentPasser> passerList = GetEquipment();
+        List<EquipmentParser> passerList = GetEquipment();
 
-        foreach (EquipmentPasser passer in passerList)
+        foreach (EquipmentParser passer in passerList)
         {
             equipmentList.Add(passer.Name);
         }
@@ -59,7 +59,7 @@ public class Equipment
     }
 }
 
-public class EquipmentPasser
+public class EquipmentParser
 {
     public int EquipmentId { get; set; }
     public string Name { get; set; }

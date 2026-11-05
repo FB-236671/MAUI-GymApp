@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using MAUI_GymApp.Rider.Database;
 using MAUI_GymApp.Rider.Database.Objects;
 
 namespace MAUI_GymApp;
@@ -7,14 +6,14 @@ namespace MAUI_GymApp;
 public class WorkoutPage : ContentPage
 {
     private readonly VerticalStackLayout _layout;
-    private RoutinePasser _routineObject;
+    private RoutineParser _routineObject;
     private IDispatcherTimer _timer;
     private Stopwatch _stopwatch = new();
     private Label _timerLabel = UIElements.MakeLabel("__:__:__", 30);
-    private List<List<SetPasser>> _setListList = new();
-    private List<RoutineExercisesPasser> _exercises = new();
+    private List<List<SetParser>> _setListList = new();
+    private List<RoutineExercisesParser> _exercises = new();
     
-    public WorkoutPage(RoutinePasser routineObject)
+    public WorkoutPage(RoutineParser routineObject)
     {
         _timer = GeneralControls.StartTimer(_stopwatch, _timerLabel, Dispatcher);
         
@@ -44,7 +43,7 @@ public class WorkoutPage : ContentPage
             }
         };
 
-        foreach (RoutineExercisesPasser exercise in _exercises)
+        foreach (RoutineExercisesParser exercise in _exercises)
         {
             _layout.Children.Add(UIControls.BuildWorkoutCard(exercise, _setListList));
         }
@@ -53,8 +52,9 @@ public class WorkoutPage : ContentPage
         Content = new ScrollView { Content = _layout };
     }
 
-    private void OnSaveClicked(object? sender, EventArgs e)
+    private async void OnSaveClicked(object? sender, EventArgs e)
     {   
+        if (!await SaveControls.ValidateSets(_setListList)) { return; }
         SaveControls.SaveWholeWorkout(_exercises, _setListList, _stopwatch);
 
         _timer.Stop();

@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using MAUI_GymApp.Rider.Database;
 using MAUI_GymApp.Rider.Database.Objects;
 
 namespace MAUI_GymApp;
@@ -7,11 +6,11 @@ namespace MAUI_GymApp;
 public class EmptyWorkoutPage : ContentPage
 {
     private readonly VerticalStackLayout _layout;
-    private List<RoutineExercisesPasser> _routineExerciseList = new();
+    private List<RoutineExercisesParser> _routineExerciseList = new();
     private Label _timerLabel = UIElements.MakeLabel("__:__:__", 30);
     private Stopwatch _stopwatch = new();
     private IDispatcherTimer _timer;
-    private List<List<SetPasser>> _setListList = new();
+    private List<List<SetParser>> _setListList = new();
 
     public EmptyWorkoutPage()
     {
@@ -61,8 +60,10 @@ public class EmptyWorkoutPage : ContentPage
         Content = new ScrollView { Content = _layout };
     }
 
-    private void OnFinishedClicked(object? sender, EventArgs e)
+    private async void OnFinishedClicked(object? sender, EventArgs e)
     {
+        if (!await SaveControls.ValidateSets(_setListList)) { return; }
+        
         SaveControls.SaveWholeWorkout(_routineExerciseList, _setListList, _stopwatch);
 
         _timer.Stop();
@@ -73,6 +74,8 @@ public class EmptyWorkoutPage : ContentPage
 
     private async void OnSavedClicked(object? sender, EventArgs e)
     {
+        if (!await SaveControls.ValidateSets(_setListList)) { return; }
+        
         string name = await Application.Current!.MainPage!.DisplayPromptAsync("Name", "What do you want to call your exercise", "Confirm", "Back");
         if (TypeChecker.StringCheck(name, "Name") is string nameError)
         {
@@ -80,12 +83,12 @@ public class EmptyWorkoutPage : ContentPage
             return;
         }
 
-        RoutinePasser routineObject = new RoutinePasser();
+        RoutineParser routineObject = new RoutineParser();
         routineObject.UserId = MainPage.User.UserId;
         routineObject.Name = name;
         int routineId = Routine.CreateRoutine(routineObject);
         
-        foreach (RoutineExercisesPasser routineExercisesObject in _routineExerciseList)
+        foreach (RoutineExercisesParser routineExercisesObject in _routineExerciseList)
         {
             routineExercisesObject.RoutineId = routineId;
             RoutineExercises.AddRoutineExercises(routineExercisesObject);
@@ -103,8 +106,12 @@ public class EmptyWorkoutPage : ContentPage
     {
         Picker picker = (Picker)sender;
         int selectedIndex = picker.SelectedIndex;
+        if (selectedIndex == -1)
+        {
+            return; 
+        }
 
-        foreach (RoutineExercisesPasser exercise in _routineExerciseList)
+        foreach (RoutineExercisesParser exercise in _routineExerciseList)
         {
             if (Exercise.GetExerciseById(exercise.ExerciseId).Name == (string)picker.ItemsSource[selectedIndex])
             {
@@ -117,11 +124,11 @@ public class EmptyWorkoutPage : ContentPage
 
         if (selectedIndex != -1)
         {
-            RoutineExercisesPasser exercise = new RoutineExercisesPasser();
+            RoutineExercisesParser exercise = new RoutineExercisesParser();
 
             exercise.ExerciseId = Exercise.GetExerciseByName((string)picker.ItemsSource[selectedIndex]).ExerciseId;
 
-            string sets = await Application.Current!.MainPage!.DisplayPromptAsync("Sets", "How many sets for this exercise", "Confirm", "Back", Keyboard.Numeric);
+            string sets = await Application.Current!.MainPage!.DisplayPromptAsync("Sets", "How many sets for this exercise", "Confirm", "Back", keyboard: Keyboard.Numeric);
             if (TypeChecker.IntegerCheck(sets, "Sets", 1, 20, out int checkedSets) is string setsError)
             {
                 await DisplayAlert("Input Error", setsError, "Close");
@@ -129,7 +136,7 @@ public class EmptyWorkoutPage : ContentPage
             }
             exercise.Sets = Convert.ToInt32(checkedSets);
 
-            string rest = await Application.Current!.MainPage!.DisplayPromptAsync("Rest", "How much rest do you want for this exercise", "Confirm", "Back", Keyboard.Numeric);
+            string rest = await Application.Current!.MainPage!.DisplayPromptAsync("Rest", "How much rest do you want for this exercise", "Confirm", "Back", keyboard: Keyboard.Numeric);
             if (TypeChecker.IntegerCheck(rest, "Rest", 0, 600, out int checkedRest) is string restError)
             {
                 await DisplayAlert("Input Error", restError, "Close");
@@ -140,10 +147,8 @@ public class EmptyWorkoutPage : ContentPage
             List<string> equipmentList = Equipment.EquipmentNameList();
             string chosenEquipment = await Application.Current!.MainPage!.DisplayActionSheet("Equipment", "Back", null, equipmentList.ToArray());
 
-            if (chosenEquipment != null && chosenEquipment != "Back")
-            {
-                exercise.EquipmentId = Equipment.GetEquipmentByName(chosenEquipment).EquipmentId;
-            }
+            if (chosenEquipment == null || chosenEquipment == "Back") { return; }
+            exercise.EquipmentId = Equipment.GetEquipmentByName(chosenEquipment).EquipmentId;
 
             _layout.Children.Add(UIControls.BuildWorkoutCard(exercise, _setListList));
             _routineExerciseList.Add(exercise);

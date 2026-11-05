@@ -4,11 +4,11 @@ namespace MAUI_GymApp.Rider.Database.Objects;
 
 public class Exercise
 {
-    public static List<ExercisePasser> GetExercises()
+    public static List<ExerciseParser> GetExercises()
     {
         string sql = "SELECT * FROM exercise";
         
-        return GeneralQueries.GetAll(sql, reader => new ExercisePasser()
+        return GeneralQueries.GetMultiple(sql, reader => new ExerciseParser()
         {
             ExerciseId = reader.GetInt32(0),
             Name = reader.GetString(1),
@@ -16,11 +16,11 @@ public class Exercise
         });
     }
 
-    public static ExercisePasser GetExerciseByName(string name)
+    public static ExerciseParser GetExerciseByName(string name)
     {
         string sql = "SELECT * FROM exercise WHERE name = @name";
         
-        return GeneralQueries.GetOne(sql, reader => new ExercisePasser()
+        return GeneralQueries.GetOne(sql, reader => new ExerciseParser()
             {
                 ExerciseId = reader.GetInt32(0),
                 Name = reader.GetString(1),
@@ -30,11 +30,11 @@ public class Exercise
         );
     }
 
-    public static ExercisePasser GetExerciseById(int id)
+    public static ExerciseParser GetExerciseById(int id)
     {
         string sql = "SELECT * FROM exercise WHERE exerciseId = @exerciseId";
         
-        return GeneralQueries.GetOne(sql, reader => new ExercisePasser()
+        return GeneralQueries.GetOne(sql, reader => new ExerciseParser()
             {
                 ExerciseId = reader.GetInt32(0),
                 Name = reader.GetString(1),
@@ -56,9 +56,9 @@ public class Exercise
     public static List<string> ExerciseNameList()
     {
         List<string> exerciseList = new List<string>();
-        List<ExercisePasser> passerList = GetExercises();
+        List<ExerciseParser> passerList = GetExercises();
         
-        foreach (ExercisePasser passer in passerList)
+        foreach (ExerciseParser passer in passerList)
         {
             exerciseList.Add(passer.Name);
         }
@@ -66,7 +66,7 @@ public class Exercise
     }
 }
 
-public class ExercisePasser
+public class ExerciseParser
 {
     public int ExerciseId { get; set; }
     public string Name { get; set; }

@@ -5,7 +5,7 @@ namespace MAUI_GymApp;
 public class CreateRoutinePage : ContentPage
 {
     private readonly VerticalStackLayout _layout;
-    private List<RoutineDataPasser> _routineExerciseList = new();
+    private List<RoutineDataParser> _routineExerciseList = new();
     private Entry nameBox;
     
     public CreateRoutinePage()
@@ -54,7 +54,7 @@ public class CreateRoutinePage : ContentPage
         
         if (TypeChecker.StringCheck(nameBox.Text, "Name") is string nameError) { errors.Add(nameError); }
 
-        foreach (RoutineDataPasser exercise in _routineExerciseList)
+        foreach (RoutineDataParser exercise in _routineExerciseList)
         {
             if (TypeChecker.IntegerIndexCheck(exercise.SetEntry.Text, "Sets", exercise.Name, 1, 20, out int sets) is string setsError) { errors.Add(setsError); }
             if (TypeChecker.IntegerIndexCheck(exercise.RestEntry.Text, "Rest", exercise.Name, 0, 600, out int rest) is string restError) { errors.Add(restError); }
@@ -67,14 +67,14 @@ public class CreateRoutinePage : ContentPage
             return;
         }
         
-        RoutinePasser routineObject = new RoutinePasser();
+        RoutineParser routineObject = new RoutineParser();
         routineObject.UserId = MainPage.User.UserId;
         routineObject.Name = nameBox.Text.Trim();
         int routineId = Routine.CreateRoutine(routineObject);
         
-        foreach (RoutineDataPasser exercise in _routineExerciseList)
+        foreach (RoutineDataParser exercise in _routineExerciseList)
         {
-            RoutineExercisesPasser routineExercisesObject = new RoutineExercisesPasser();
+            RoutineExercisesParser routineExercisesObject = new RoutineExercisesParser();
             routineExercisesObject.RoutineId = routineId;
             routineExercisesObject.ExerciseId = Exercise.GetExerciseByName(exercise.Name).ExerciseId;
             routineExercisesObject.Sets = Convert.ToInt32(exercise.SetEntry.Text);
@@ -94,7 +94,7 @@ public class CreateRoutinePage : ContentPage
 
         string name = (string)picker.ItemsSource[selectedIndex]!;
 
-        foreach (RoutineDataPasser exercise in _routineExerciseList)
+        foreach (RoutineDataParser exercise in _routineExerciseList)
         {
             if (exercise.Name == name)
             {
