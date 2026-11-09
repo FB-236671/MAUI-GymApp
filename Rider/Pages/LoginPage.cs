@@ -36,6 +36,6 @@ public class LoginPage : ContentPage
 
     private async void OnCreateProfileClick(object? sender, EventArgs e)
     {
-        await Navigation.PushAsync(new CreateProfilePage());
+        await Navigation.PushAsync(new ProfilePage());
     }
 }

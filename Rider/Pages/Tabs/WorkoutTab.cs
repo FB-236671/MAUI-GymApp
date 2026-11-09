@@ -51,7 +51,7 @@ public class WorkoutTab : ContentView
         if (sender is not Button button || button.CommandParameter is not RoutineParser routineObject)
             return;
         
-        await Navigation.PushAsync(new EditRoutinePage(routineObject));
+        await Navigation.PushAsync(new RoutinePage(routineObject));
     }
     
     private async void OnDeleteClick(object? sender, EventArgs e)
@@ -92,7 +92,7 @@ public class WorkoutTab : ContentView
     
     private async void OnCreateClick(object? sender, EventArgs e)
     {
-        await Navigation.PushAsync(new CreateRoutinePage());
+        await Navigation.PushAsync(new RoutinePage());
     }
 
     private async void OnStartEmptyClick(object? sender, EventArgs e)

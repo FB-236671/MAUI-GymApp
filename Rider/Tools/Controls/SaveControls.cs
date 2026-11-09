@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
+using Android.Provider;
 using MAUI_GymApp.Rider.Database.Objects;
 
 namespace MAUI_GymApp;
@@ -132,5 +133,22 @@ public class SaveControls
         }
 
         return true;
+    }
+
+    public static void LoadRoutine(Entry name, RoutineParser routine, VerticalStackLayout layout, List<RoutineDataParser> routineExerciseList)
+    {
+        name.Text = routine.Name;
+
+        List<RoutineExercisesParser> routineExercisesList = RoutineExercises.GetRoutineExercisesByRoutineId(routine.RoutineId);
+
+        foreach (RoutineExercisesParser exercise in routineExercisesList)
+        {
+            layout.Children.Add(UIControls.BuildRoutineCard(Exercise.GetExerciseById(exercise.ExerciseId).Name, _routineExerciseList));
+
+            RoutineDataParser card = routineExerciseList[^1];
+            card.SetEntry.Text = exercise.Sets.ToString();
+            card.RestEntry.Text = exercise.Rest.ToString();
+            card.EquipmentPicker.SelectedItem = Equipment.GetEquipmentById(exercise.EquipmentId).Name;
+        }
     }
 }

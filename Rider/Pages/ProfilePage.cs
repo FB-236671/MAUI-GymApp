@@ -2,14 +2,14 @@
 
 namespace MAUI_GymApp;
 
-public class CreateProfilePage : ContentPage
+public class ProfilePage : ContentPage
 {
     private Entry _nameEntry;
     private Entry _ageEntry;
     private Entry _weightEntry;
     private Picker _sexPicker;
 
-    public CreateProfilePage(UserParser? user = null)
+    public ProfilePage(UserParser? user = null)
     {
         BackgroundColor = Colors.White;
         Button createButton = UIElements.MakeButton("Create Profile", Colors.Black, Colors.White, Colors.Black, 2, 6, 18, 0);
