@@ -13,8 +13,9 @@ public class RoutinePage : ContentPage
     {
         Background = Colors.White;
         Picker picker = UIElements.MakeSelector("Add an Exercise", Exercise.ExerciseNameList(), 18);
-        Button saveButton = UIElements.MakeButton("Save", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
-        nameBox = UIElements.MakeTextBox("Name", Colors.Gray, Colors.Black, 30, 250, LayoutOptions.Center);
+        Button saveButton = UIElements.MakeButton("Save", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, 4);
+        nameBox = UIElements.MakeTextBox("Name", Colors.Gray, Colors.Black, 30, 250, LayoutOptions.Start);
+        nameBox.HorizontalOptions = LayoutOptions.Start;
 
         _layout = new VerticalStackLayout()
         {
@@ -22,22 +23,7 @@ public class RoutinePage : ContentPage
             Spacing = 16,
             Children =
             {
-                new HorizontalStackLayout()
-                {
-                    Spacing = 8,
-                    Children =
-                    {
-                        new VerticalStackLayout()
-                        {
-                            Spacing = 0,
-                            Children =
-                            {
-                                nameBox,
-                                UIElements.MakeLine(2, Colors.Black)
-                            }
-                        }
-                    }
-                },
+                nameBox,
                 UIElements.MakeLine(2, Colors.Black),
                 saveButton,
                 picker

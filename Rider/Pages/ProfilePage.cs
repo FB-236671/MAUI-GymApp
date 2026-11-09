@@ -12,11 +12,12 @@ public class ProfilePage : ContentPage
     public ProfilePage(UserParser? user = null)
     {
         BackgroundColor = Colors.White;
-        Button createButton = UIElements.MakeButton("Create Profile", Colors.Black, Colors.White, Colors.Black, 2, 6, 18, 0);
+        Button createButton = UIElements.MakeButton("Create Profile", Colors.Black, Colors.White, Colors.Black, 2, 6, 18, 4);
         Label nameLabel = UIElements.MakeLabel("Name:", 18, Colors.Black, LayoutOptions.Center);
         Label ageLabel = UIElements.MakeLabel("Age:", 18, Colors.Black, LayoutOptions.Center);
         Label weightLabel = UIElements.MakeLabel("Weight:", 18, Colors.Black, LayoutOptions.Center);
         Label kilogramsLabel = UIElements.MakeLabel("kg", 18, Colors.Black, LayoutOptions.Center);
+        Label emptyLabel = UIElements.MakeLabel("  ", 18, Colors.Black, LayoutOptions.Center);
         Label sexLabel = UIElements.MakeLabel("Sex:", 18, Colors.Black, LayoutOptions.Center);
 
         _nameEntry = UIElements.MakeTextBox("Name", Colors.Gray, Colors.Black, 18, 180, LayoutOptions.Center);
@@ -104,10 +105,9 @@ public class ProfilePage : ContentPage
         {
             ColumnDefinitions =
             {
-                new ColumnDefinition { Width = GridLength.Star },
+                new ColumnDefinition { Width = 80 },
                 new ColumnDefinition { Width = GridLength.Auto },
-                new ColumnDefinition { Width = GridLength.Auto },
-                new ColumnDefinition { Width = GridLength.Auto }
+                new ColumnDefinition { Width = 30 }
             },
             ColumnSpacing = 12,
             Padding = new Thickness(20, 14)

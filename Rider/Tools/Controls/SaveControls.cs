@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
-using Android.Provider;
 using MAUI_GymApp.Rider.Database.Objects;
 
 namespace MAUI_GymApp;
@@ -128,7 +127,7 @@ public class SaveControls
 
         if (errors.Count > 0)
         {
-            await Application.Current!.MainPage!.DisplayAlert("Input Error", string.Join("\n", errors), "Close");
+            await Application.Current!.Windows[0].Page!.DisplayAlert("Input Error", string.Join("\n", errors), "Close");
             return false;
         }
 
@@ -143,7 +142,7 @@ public class SaveControls
 
         foreach (RoutineExercisesParser exercise in routineExercisesList)
         {
-            layout.Children.Add(UIControls.BuildRoutineCard(Exercise.GetExerciseById(exercise.ExerciseId).Name, _routineExerciseList));
+            layout.Children.Add(UIControls.BuildRoutineCard(Exercise.GetExerciseById(exercise.ExerciseId).Name, routineExerciseList));
 
             RoutineDataParser card = routineExerciseList[^1];
             card.SetEntry.Text = exercise.Sets.ToString();

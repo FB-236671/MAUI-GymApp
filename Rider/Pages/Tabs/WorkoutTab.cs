@@ -59,7 +59,7 @@ public class WorkoutTab : ContentView
         if (sender is not Button button || button.CommandParameter is not int routineId)
             return;
 
-        bool confirmed = await Application.Current!.MainPage!.DisplayAlert("Delete Routine", "Are you sure you want to delete this routine", "Confirm", "Cancel");
+        bool confirmed = await Application.Current!.Windows[0].Page!.DisplayAlert("Delete Routine", "Are you sure you want to delete this routine", "Confirm", "Cancel");
         
         if (!confirmed)
             return;
@@ -97,7 +97,7 @@ public class WorkoutTab : ContentView
 
     private async void OnStartEmptyClick(object? sender, EventArgs e)
     {
-        await Navigation.PushAsync(new EmptyWorkoutPage());
+        await Navigation.PushAsync(new WorkoutPage());
     }
 
     private View BuildRoutineCard(RoutineParser routineObject)

@@ -10,7 +10,8 @@ public class StatsTab : ContentView
 
     public StatsTab()
     {
-        Button editButton = UIElements.MakeButton("Edit", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
+        Button editButton = UIElements.MakeButton("Edit", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, 4);
+        Button logoutButton = UIElements.MakeButton("Logout", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, 4);
         UserParser user = MainPage.User;
 
         _layout = new VerticalStackLayout()
@@ -24,12 +25,19 @@ public class StatsTab : ContentView
                     Spacing = 40,
                     Children =
                     {
-                        UIElements.MakeLabel(user.Name, 30), editButton
+                        UIElements.MakeLabel(user.Name, 30), editButton, logoutButton
                     }
                 },
-                UIElements.MakeLabel("Age: " + user.Age, 10),
-                UIElements.MakeLabel("Weight: " + user.Weight, 10),
-                UIElements.MakeLabel("Sex: " + user.Sex, 10),
+                new HorizontalStackLayout()
+                {
+                    Spacing = 80,
+                    Children =
+                    {
+                        UIElements.MakeLabel("Age: " + user.Age, 10),
+                        UIElements.MakeLabel("Weight: " + user.Weight, 10),
+                        UIElements.MakeLabel("Sex: " + user.Sex, 10),
+                    }
+                }
             }
         };
         
@@ -39,11 +47,17 @@ public class StatsTab : ContentView
         }
 
         editButton.Clicked += OnEditButtonClick;
+        logoutButton.Clicked += OnLogoutButtonClick;
         Content = new ScrollView { Content = _layout };
     }
 
     private async void OnEditButtonClick(object? sender, EventArgs e)
     {
         await Navigation.PushAsync(new ProfilePage(MainPage.User));
+    }
+
+    private void OnLogoutButtonClick(object? sender, EventArgs e)
+    {
+        GeneralControls.GoToLogin();
     }
 }

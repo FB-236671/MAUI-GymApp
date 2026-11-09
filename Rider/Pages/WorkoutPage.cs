@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Threading.Tasks;
 using MAUI_GymApp.Rider.Database.Objects;
 
 namespace MAUI_GymApp;
@@ -7,75 +6,171 @@ namespace MAUI_GymApp;
 public class WorkoutPage : ContentPage
 {
     private readonly VerticalStackLayout _layout;
-    private RoutineParser _routineObject;
-    private IDispatcherTimer _timer;
-    private Stopwatch _stopwatch = new();
-    private Label _timerLabel = UIElements.MakeLabel("__:__:__", 30);
-    private List<List<SetParser>> _setListList = new();
-    private List<RoutineExercisesParser> _exercises = new();
-    
-    public WorkoutPage(RoutineParser routineObject)
+    private readonly RoutineParser? _routineObject;
+    private readonly IDispatcherTimer _timer;
+    private readonly Stopwatch _stopwatch = new();
+    private readonly Label _timerLabel = UIElements.MakeLabel("__:__:__", 30);
+    private readonly List<List<SetParser>> _setListList = new();
+    private readonly List<RoutineExercisesParser> _exercises = new();
+
+    public WorkoutPage(RoutineParser? routineObject = null)
     {
-        _timer = GeneralControls.StartTimer(_stopwatch, _timerLabel, Dispatcher);
-        
-        Button saveButton = UIElements.MakeButton("Finish", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
-        
         Background = Colors.White;
         _routineObject = routineObject;
-        _exercises = RoutineExercises.GetRoutineExercisesByRoutineId(routineObject.RoutineId);
-
-        _layout = new VerticalStackLayout()
+        _timer = GeneralControls.StartTimer(_stopwatch, _timerLabel, Dispatcher);
+        
+        _layout = new VerticalStackLayout
         {
             Padding = new Thickness(16, 16, 16, 0),
             Spacing = 16,
             Children =
             {
-                new HorizontalStackLayout()
+                new HorizontalStackLayout
                 {
-                    Spacing = 40,
+                    Spacing = 30,
                     Children =
                     {
-                        UIElements.MakeLabel(_routineObject.Name, 25), 
+                        UIElements.MakeLabel(routineObject?.Name ?? "New Workout", 25),
                         _timerLabel
                     }
                 },
-                UIElements.MakeLine(2, Colors.Black),
-                saveButton
+                UIElements.MakeLine(2, Colors.Black)
             }
         };
 
-        foreach (RoutineExercisesParser exercise in _exercises)
+        Button finishButton = UIElements.MakeButton("Finish", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
+        finishButton.Clicked += OnFinishClicked;
+
+        if (routineObject is null)
         {
-            _layout.Children.Add(UIControls.BuildWorkoutCard(exercise, _setListList));
-        }
+            Button saveButton = UIElements.MakeButton("Save", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
+            saveButton.Clicked += OnSaveAsRoutineClicked;
 
-        saveButton.Clicked += OnSaveClicked;
-        Content = new ScrollView { Content = _layout };
-    }
+            Picker exercisePicker = UIElements.MakeSelector("Add an Exercise", Exercise.ExerciseNameList(), 18);
+            exercisePicker.SelectedIndexChanged += OnPickerSelectedIndexChanged;
 
-    private async void OnSaveClicked(object? sender, EventArgs e)
-    {   
-        if (!await SaveControls.ValidateSets(_setListList)) { return; }
-        SaveControls.SaveWholeWorkout(_exercises, _setListList, _stopwatch);
+            Grid buttons = new Grid
+            {
+                ColumnDefinitions =
+                {
+                    new ColumnDefinition { Width = GridLength.Star },
+                    new ColumnDefinition { Width = GridLength.Star }
+                },
+                HeightRequest = 40,
+                ColumnSpacing = 0
+            };
+            buttons.Add(saveButton, 0);
+            buttons.Add(finishButton, 1);
 
-        _timer.Stop();
-        _stopwatch.Stop();
-
-        GeneralControls.GoHome();
-    }
-
-    protected override async bool OnBackButtonPressed()
-    {
-        bool confirmed = await Application.Current!.MainPage!.DisplayAlert("Quite Workout", "Are you sure you want to quite, all your progress will be lost", "Confirm", "Cancel");
-        if (confirmed)
-        {
-            _timer.Stop();
-            _stopwatch.Stop();
-            return true;
+            _layout.Children.Add(buttons);
+            _layout.Children.Add(exercisePicker);
         }
         else
         {
-            return false;
+            _layout.Children.Add(finishButton);
+            _exercises.AddRange(RoutineExercises.GetRoutineExercisesByRoutineId(routineObject.RoutineId));
+            foreach (RoutineExercisesParser exercise in _exercises)
+                _layout.Children.Add(UIControls.BuildWorkoutCard(exercise, _setListList));
         }
+
+        Content = new ScrollView { Content = _layout };
+    }
+    
+    private async void OnFinishClicked(object? sender, EventArgs e)
+    {
+        if (_exercises.Count == 0)
+        {
+            await DisplayAlert("Empty Workout", "Add at least one exercise first", "Close");
+            return;
+        }
+        if (!await SaveControls.ValidateSets(_setListList)) return;
+
+        StopTimer();
+        SaveControls.SaveWholeWorkout(_exercises, _setListList, _stopwatch);
+        GeneralControls.GoHome();
+    }
+    
+    private async void OnSaveAsRoutineClicked(object? sender, EventArgs e)
+    {
+        if (_exercises.Count == 0) return;
+        if (!await SaveControls.ValidateSets(_setListList)) return;
+
+        string? name = await DisplayPromptAsync("Name", "What do you want to call your routine?", "Confirm", "Back");
+        if (name is null) return;
+        if (TypeChecker.StringCheck(name, "Name") is string nameError)
+        {
+            await DisplayAlert("Input Error", nameError, "Close");
+            return;
+        }
+
+        int routineId = Routine.CreateRoutine(new RoutineParser { UserId = MainPage.User.UserId, Name = name });
+        foreach (RoutineExercisesParser re in _exercises)
+        {
+            re.RoutineId = routineId;
+            RoutineExercises.AddRoutineExercises(re);
+        }
+
+        StopTimer();
+        SaveControls.SaveWholeWorkout(_exercises, _setListList, _stopwatch);
+        GeneralControls.GoHome();
+    }
+
+    private async void OnPickerSelectedIndexChanged(object? sender, EventArgs e)
+    {
+        if (sender is not Picker picker || picker.SelectedIndex == -1) return;
+
+        string selectedName = (string)picker.ItemsSource[picker.SelectedIndex];
+        picker.SelectedIndex = -1;
+
+        if (_exercises.Any(x => Exercise.GetExerciseById(x.ExerciseId).Name == selectedName))
+        {
+            await DisplayAlert("Picker Error", "You cannot select two of the same exercise", "Close");
+            return;
+        }
+
+        string? sets = await DisplayPromptAsync("Sets", "How many sets for this exercise", "Confirm", "Back", keyboard: Keyboard.Numeric);
+        if (sets is null) return;
+        if (TypeChecker.IntegerCheck(sets, "Sets", 1, 20, out int checkedSets) is string setsError)
+        {
+            await DisplayAlert("Input Error", setsError, "Close");
+            return;
+        }
+
+        string? rest = await DisplayPromptAsync("Rest", "How much rest do you want for this exercise", "Confirm", "Back", keyboard: Keyboard.Numeric);
+        if (rest is null) return;
+        if (TypeChecker.IntegerCheck(rest, "Rest", 0, 600, out int checkedRest) is string restError)
+        {
+            await DisplayAlert("Input Error", restError, "Close");
+            return;
+        }
+
+        string? chosenEquipment = await DisplayActionSheet("Equipment", "Back", null, Equipment.EquipmentNameList().ToArray());
+        if (chosenEquipment is null || chosenEquipment == "Back") return;
+
+        RoutineExercisesParser exercise = new()
+        {
+            ExerciseId = Exercise.GetExerciseByName(selectedName).ExerciseId,
+            Sets = checkedSets,
+            Rest = checkedRest,
+            EquipmentId = Equipment.GetEquipmentByName(chosenEquipment).EquipmentId
+        };
+
+        _layout.Children.Add(UIControls.BuildWorkoutCard(exercise, _setListList));
+        _exercises.Add(exercise);
+    }
+
+    protected override bool OnBackButtonPressed() =>
+        GeneralControls.ConfirmQuitWorkout(this, _timer, _stopwatch);
+    
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        StopTimer();
+    }
+
+    private void StopTimer()
+    {
+        _timer.Stop();
+        _stopwatch.Stop();
     }
 }
