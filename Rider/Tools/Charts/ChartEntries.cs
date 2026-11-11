@@ -54,11 +54,11 @@ public class ChartEntries
 
             if (weeksAgo == 0)
             {
-                label = "Now";
+                label = "This week";
             }
             else
             {
-                label = weeksAgo + "w";
+                label = weeksAgo + "week";
             }
 
             entries[i] = MakeEntry(label, totals[i]);

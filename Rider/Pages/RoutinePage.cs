@@ -71,7 +71,7 @@ public class RoutinePage : ContentPage
         foreach (RoutineDataParser exercise in _routineExerciseList)
         {
             if (TypeChecker.IntegerIndexCheck(exercise.SetEntry.Text, "Sets", exercise.Name, 1, 20, out int sets) is string setsError) { errors.Add(setsError); }
-            if (TypeChecker.IntegerIndexCheck(exercise.RestEntry.Text, "Rest", exercise.Name, 0, 600, out int rest) is string restError) { errors.Add(restError); }
+            if (exercise.RestPicker.SelectedItem is null) { errors.Add("Please select rest for " + exercise.Name); }
             if (exercise.EquipmentPicker.SelectedItem is null) { errors.Add("Please select equipment for " + exercise.Name); }
         }
 
@@ -81,8 +81,11 @@ public class RoutinePage : ContentPage
             return;
         }
 
-        Routine.DeleteRoutine(routine.RoutineId);
-        RoutineExercises.DeleteRoutineExercises(routine.RoutineId);
+        if (routine != null)
+        {
+            Routine.DeleteRoutine(routine.RoutineId);
+            RoutineExercises.DeleteRoutineExercises(routine.RoutineId);
+        }
 
         RoutineParser routineObject = new RoutineParser();
         routineObject.UserId = MainPage.User.UserId;
@@ -95,7 +98,7 @@ public class RoutinePage : ContentPage
             routineExercisesObject.RoutineId = routineId;
             routineExercisesObject.ExerciseId = Exercise.GetExerciseByName(exercise.Name).ExerciseId;
             routineExercisesObject.Sets = Convert.ToInt32(exercise.SetEntry.Text);
-            routineExercisesObject.Rest = Convert.ToInt32(exercise.RestEntry.Text);
+            routineExercisesObject.Rest = Convert.ToInt32(exercise.RestPicker.SelectedItem);
             routineExercisesObject.EquipmentId = Equipment.GetEquipmentByName((string)exercise.EquipmentPicker.SelectedItem).EquipmentId;
             RoutineExercises.AddRoutineExercises(routineExercisesObject);
         }

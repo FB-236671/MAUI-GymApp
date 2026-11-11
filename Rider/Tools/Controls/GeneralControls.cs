@@ -4,6 +4,20 @@ namespace MAUI_GymApp;
 
 public class GeneralControls
 {
+    public static List<string> GetRestList()
+    {
+        List<string> restList = new List<string>();
+        Stream stream = FileSystem.OpenAppPackageFileAsync("RestList.txt").GetAwaiter().GetResult();
+        StreamReader reader = new StreamReader(stream);
+        string line = reader.ReadLine();
+        while (line != null)
+        {
+            restList.Add(line);
+            line = reader.ReadLine();
+        }
+        return restList;
+    }
+
     public static IDispatcherTimer StartTimer(Stopwatch stopwatch, Label timerLabel, IDispatcher dispatcher)
     {
         stopwatch.Start();
@@ -22,9 +36,7 @@ public class GeneralControls
             BarTextColor = Colors.Black,
         };
     }
-    
-    // Call from a page's OnBackButtonPressed override. Always returns true so the page
-    // handles back itself; pops the page only if the user confirms.
+
     public static bool ConfirmQuitWorkout(Page page, IDispatcherTimer timer, Stopwatch stopwatch)
     {
         page.Dispatcher.Dispatch(async () =>

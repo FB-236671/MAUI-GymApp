@@ -146,7 +146,7 @@ public class SaveControls
 
             RoutineDataParser card = routineExerciseList[^1];
             card.SetEntry.Text = exercise.Sets.ToString();
-            card.RestEntry.Text = exercise.Rest.ToString();
+            card.RestPicker.SelectedItem = exercise.Rest.ToString();
             card.EquipmentPicker.SelectedItem = Equipment.GetEquipmentById(exercise.EquipmentId).Name;
         }
     }

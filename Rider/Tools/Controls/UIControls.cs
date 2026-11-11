@@ -59,7 +59,7 @@ public class UIControls
     public static View BuildRoutineCard(string name, List<RoutineDataParser> routineExerciseList)
     {
         Entry setEntry = UIElements.MakeIntBox("Sets", Colors.White, Colors.Black, 12, 35, LayoutOptions.End);
-        Entry restEntry = UIElements.MakeIntBox("Rest", Colors.White, Colors.Black, 12, 50, LayoutOptions.End);
+        Picker restPicker = UIElements.MakeSelector("Rest", GeneralControls.GetRestList(), 12);
         Picker equipmentPicker = UIElements.MakeSelector("Equipment", Equipment.EquipmentNameList(), 12);
 
         VerticalStackLayout workoutLayout = new VerticalStackLayout()
@@ -75,7 +75,7 @@ public class UIControls
                     Children =
                     {
                         setEntry,
-                        restEntry,
+                        restPicker,
                         equipmentPicker
                     }
                 }
@@ -85,7 +85,7 @@ public class UIControls
         RoutineDataParser routineData = new RoutineDataParser();
         routineData.Name = name;
         routineData.SetEntry = setEntry;
-        routineData.RestEntry = restEntry;
+        routineData.RestEntry = restPicker;
         routineData.EquipmentPicker = equipmentPicker;
         routineExerciseList.Add(routineData);
 

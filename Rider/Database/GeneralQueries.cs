@@ -76,7 +76,9 @@ public class GeneralQueries
                 {
                     using SqliteCommand command = new SqliteCommand(query, Tables.Connection);
                     for (int i = 0; i < fields.Length; i++)
+                    {
                         command.Parameters.AddWithValue(fields[i], words[i]);
+                    }
                     command.ExecuteNonQuery();
                 }
 

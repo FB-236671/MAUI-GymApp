@@ -55,6 +55,6 @@ public class RoutineDataParser
 {
     public string Name { get; set; }
     public Entry SetEntry { get; set; }
-    public Entry RestEntry { get; set; }
+    public Picker RestPicker { get; set; }
     public Picker EquipmentPicker { get; set; }
 }
