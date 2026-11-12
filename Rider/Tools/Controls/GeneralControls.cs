@@ -31,7 +31,7 @@ public class GeneralControls
     public static IDispatcherTimer StartRest(Stopwatch stopwatch, Label timerLabel, IDispatcher dispatcher, TimeSpan duration)
     {
         timerLabel.Text = stopwatch.Elapsed.ToString(@"mm\:ss");
-        stopwatch.Start();
+        stopwatch.Restart();
 
         IDispatcherTimer timer = dispatcher.CreateTimer();
         timer.Interval = TimeSpan.FromSeconds(1);

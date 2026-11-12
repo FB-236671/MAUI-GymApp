@@ -9,7 +9,7 @@ public class WorkoutPage : ContentPage
     private readonly VerticalStackLayout _restBar;
     private readonly RoutineParser? _routineObject;
     private readonly IDispatcherTimer _timer;
-    private static IDispatcherTimer _restTimer;
+    private IDispatcherTimer _restTimer;
     private readonly Stopwatch _stopwatch = new();
     private readonly Stopwatch _restStopWatch = new();
     private readonly Label _restLabel = UIElements.MakeLabel("__:__", 24);
@@ -34,7 +34,7 @@ public class WorkoutPage : ContentPage
                     Spacing = 30,
                     Children =
                     {
-                        UIElements.MakeLabel(routineObject.Name, 25),
+                        UIElements.MakeLabel(routineObject?.Name ?? "Empty Workout", 25),
                         _timerLabel
                     }
                 },
@@ -75,7 +75,7 @@ public class WorkoutPage : ContentPage
             _exercises.AddRange(RoutineExercises.GetRoutineExercisesByRoutineId(routineObject.RoutineId));
             foreach (RoutineExercisesParser exercise in _exercises)
             {
-                _layout.Children.Add(UIControls.BuildWorkoutCard(exercise, _setListList));
+                _layout.Children.Add(UIControls.BuildWorkoutCard(exercise, _setListList, OnCheckChanged));
             }
         }
 
@@ -84,11 +84,17 @@ public class WorkoutPage : ContentPage
             Spacing = 0,
             Children =
             {
+                UIElements.MakeLine(2, Colors.Black),
                 new HorizontalStackLayout
                 {
-                    Padding = new Thickness(16, 16, 16, 0),
+                    Padding = new Thickness(16, 8),
                     Spacing = 10,
-
+                    HorizontalOptions = LayoutOptions.Center,
+                    Children =
+                    {
+                        UIElements.MakeLabel("Rest:", 24),
+                        _restLabel
+                    }
                 }
             }
         };
@@ -101,10 +107,10 @@ public class WorkoutPage : ContentPage
                 new RowDefinition { Height = GridLength.Auto }
             }
         };
-        root.Add(_layout, 0);
+        root.Add(new ScrollView { Content = _layout }, 0);
         root.Add(_restBar, 0, 1);
 
-        Content = new ScrollView { Content = _layout };
+        Content = root;
     }
     
     private async void OnFinishClicked(object? sender, EventArgs e)
@@ -183,14 +189,17 @@ public class WorkoutPage : ContentPage
             EquipmentId = Equipment.GetEquipmentByName(chosenEquipment).EquipmentId
         };
 
-        _layout.Children.Add(UIControls.BuildWorkoutCard(exercise, _setListList));
+        _layout.Children.Add(UIControls.BuildWorkoutCard(exercise, _setListList, OnCheckChanged));
         _exercises.Add(exercise);
     }
 
-    public void OnCheckChanged(object? sender, EventArgs e)
+    public void OnCheckChanged(object? sender, CheckedChangedEventArgs e)
     {
+        if (!e.Value) return;
         if (sender is not CheckBox checkBox || checkBox.BindingContext is not RoutineExercisesParser routineObject) return;
-        _restTimer = GeneralControls.StartRest(_stopwatch, _restLabel, Dispatcher, TimeSpan.FromSeconds(routineObject.Rest));
+
+        _restTimer?.Stop();
+        _restTimer = GeneralControls.StartRest(_restStopWatch, _restLabel, Dispatcher, TimeSpan.FromSeconds(routineObject.Rest));
     }
 
     protected override bool OnBackButtonPressed() => GeneralControls.ConfirmQuitWorkout(this, _timer, _stopwatch);

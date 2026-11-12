@@ -31,7 +31,7 @@ public class ProfilePage : ContentPage
             _nameEntry.Text = user.Name;
             _ageEntry.Text = Convert.ToString(user.Age);
             _weightEntry.Text = Convert.ToString(user.Weight);
-            if (user.Sex == "male")
+            if (user.Sex == "Male")
             {
                 _sexPicker.SelectedIndex = 0;
             }

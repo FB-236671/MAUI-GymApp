@@ -4,7 +4,7 @@ namespace MAUI_GymApp;
 
 public class UIControls
 {
-    public static View BuildWorkoutCard(RoutineExercisesParser routineExercisesObject, List<List<SetParser>> setListList)
+    public static View BuildWorkoutCard(RoutineExercisesParser routineExercisesObject, List<List<SetParser>> setListList, EventHandler<CheckedChangedEventArgs> onCheckChanged)
     {
         VerticalStackLayout workoutLayout = new VerticalStackLayout()
         {
@@ -34,7 +34,7 @@ public class UIControls
             CheckBox checkBox = new CheckBox();
 
             checkBox.BindingContext = routineExercisesObject;
-            checkBox.CheckedChanged += OnCheckChange;
+            checkBox.CheckedChanged += onCheckChanged;
             
             workoutLayout.Children.Add(new HorizontalStackLayout()
             {

@@ -18,6 +18,10 @@ public class TabButton : VerticalStackLayout
 
         _icon = UIElements.MakeImage(source, 34, 34);
         _text = UIElements.MakeLabel(text, 14, Colors.Black, LayoutOptions.Center);
+        
+        _icon.HorizontalOptions = LayoutOptions.Center;
+        _text.HorizontalOptions = LayoutOptions.Center;
+        _text.HorizontalTextAlignment = TextAlignment.Center;
 
         Children.Add(_icon);
         Children.Add(_text);
