@@ -40,48 +40,47 @@ public class WorkoutTab : ContentView
 
     private async void OnStartClick(object? sender, EventArgs e)
     {
-        if (sender is not Button button || button.CommandParameter is not RoutineParser routineObject)
-            return;
-        
+        if (sender is not Button button || button.CommandParameter is not RoutineParser routineObject) return;
+
         await Navigation.PushAsync(new WorkoutPage(routineObject));
     }
 
     private async void OnEditClick(object? sender, EventArgs e)
     {
-        if (sender is not Button button || button.CommandParameter is not RoutineParser routineObject)
-            return;
+        if (sender is not Button button || button.CommandParameter is not RoutineParser routineObject) return;
         
         await Navigation.PushAsync(new RoutinePage(routineObject));
     }
     
     private async void OnDeleteClick(object? sender, EventArgs e)
     {
-        if (sender is not Button button || button.CommandParameter is not int routineId)
-            return;
+        if (sender is not Button button || button.CommandParameter is not int routineId) return;
 
         bool confirmed = await Application.Current!.Windows[0].Page!.DisplayAlert("Delete Routine", "Are you sure you want to delete this routine", "Confirm", "Cancel");
         
-        if (!confirmed)
-            return;
+        if (!confirmed) return;
         
         Routine.DeleteRoutine(routineId);
         RoutineExercises.DeleteRoutineExercises(routineId);
 
         if (button.Parent?.Parent is View card)
+        {
             _layout.Remove(card);
+        }
     }
 
     private void OnLoaded(object? sender, EventArgs e)
     {
-        if (_routinesLoaded)
-            return;
+        if (_routinesLoaded) return;
         _routinesLoaded = true;
 
         try
         {
             List<RoutineParser> routineList = Routine.GetRoutinesByUser(MainPage.User.UserId);
             foreach (RoutineParser routine in routineList)
-                _layout.Add(BuildRoutineCard(routine));
+            {
+                _layout.Add(BuildRoutineBar(routine));
+            }
         }
         catch (Exception ex)
         {
@@ -100,7 +99,7 @@ public class WorkoutTab : ContentView
         await Navigation.PushAsync(new WorkoutPage());
     }
 
-    private View BuildRoutineCard(RoutineParser routineObject)
+    private View BuildRoutineBar(RoutineParser routineObject)
     {
         Grid inner = new Grid
         {

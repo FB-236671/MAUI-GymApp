@@ -68,6 +68,8 @@ public class MainPage : ContentPage
     {
         _contentHost.Content = view;
         for (var i = 0; i < _tabs.Count; i++)
+        {
             _tabs[i].SetSelected(i == index);
+        }
     }
 }

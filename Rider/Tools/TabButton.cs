@@ -17,14 +17,7 @@ public class TabButton : VerticalStackLayout
         BackgroundColor = Colors.White;
 
         _icon = UIElements.MakeImage(source, 34, 34);
-
-        _text = new Label
-        {
-            Text = text,
-            FontSize = 14,
-            FontFamily = "OrbitronBold",
-            HorizontalOptions = LayoutOptions.Center
-        };
+        _text = UIElements.MakeLabel(text, 14, Colors.Black, LayoutOptions.Center);
 
         Children.Add(_icon);
         Children.Add(_text);

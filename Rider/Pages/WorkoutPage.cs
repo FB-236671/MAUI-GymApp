@@ -6,9 +6,13 @@ namespace MAUI_GymApp;
 public class WorkoutPage : ContentPage
 {
     private readonly VerticalStackLayout _layout;
+    private readonly VerticalStackLayout _restBar;
     private readonly RoutineParser? _routineObject;
     private readonly IDispatcherTimer _timer;
+    private static IDispatcherTimer _restTimer;
     private readonly Stopwatch _stopwatch = new();
+    private readonly Stopwatch _restStopWatch = new();
+    private readonly Label _restLabel = UIElements.MakeLabel("__:__", 24);
     private readonly Label _timerLabel = UIElements.MakeLabel("__:__:__", 30);
     private readonly List<List<SetParser>> _setListList = new();
     private readonly List<RoutineExercisesParser> _exercises = new();
@@ -30,7 +34,7 @@ public class WorkoutPage : ContentPage
                     Spacing = 30,
                     Children =
                     {
-                        UIElements.MakeLabel(routineObject?.Name ?? "New Workout", 25),
+                        UIElements.MakeLabel(routineObject.Name, 25),
                         _timerLabel
                     }
                 },
@@ -70,8 +74,35 @@ public class WorkoutPage : ContentPage
             _layout.Children.Add(finishButton);
             _exercises.AddRange(RoutineExercises.GetRoutineExercisesByRoutineId(routineObject.RoutineId));
             foreach (RoutineExercisesParser exercise in _exercises)
+            {
                 _layout.Children.Add(UIControls.BuildWorkoutCard(exercise, _setListList));
+            }
         }
+
+        _restBar = new VerticalStackLayout
+        {
+            Spacing = 0,
+            Children =
+            {
+                new HorizontalStackLayout
+                {
+                    Padding = new Thickness(16, 16, 16, 0),
+                    Spacing = 10,
+
+                }
+            }
+        };
+
+        Grid root = new Grid
+        {
+            RowDefinitions =
+            {
+                new RowDefinition { Height = GridLength.Star },
+                new RowDefinition { Height = GridLength.Auto }
+            }
+        };
+        root.Add(_layout, 0);
+        root.Add(_restBar, 0, 1);
 
         Content = new ScrollView { Content = _layout };
     }
@@ -124,24 +155,21 @@ public class WorkoutPage : ContentPage
 
         if (_exercises.Any(x => Exercise.GetExerciseById(x.ExerciseId).Name == selectedName))
         {
-            await DisplayAlert("Picker Error", "You cannot select two of the same exercise", "Close");
-            return;
+            await DisplayAlert("Picker Error", "You cannot select two of the same exercise", "Close"); return;
         }
 
         string? sets = await DisplayPromptAsync("Sets", "How many sets for this exercise", "Confirm", "Back", keyboard: Keyboard.Numeric);
         if (sets is null) return;
         if (TypeChecker.IntegerCheck(sets, "Sets", 1, 20, out int checkedSets) is string setsError)
         {
-            await DisplayAlert("Input Error", setsError, "Close");
-            return;
+            await DisplayAlert("Input Error", setsError, "Close"); return;
         }
 
         string? rest = await DisplayPromptAsync("Rest", "How much rest do you want for this exercise", "Confirm", "Back", keyboard: Keyboard.Numeric);
         if (rest is null) return;
         if (TypeChecker.IntegerCheck(rest, "Rest", 0, 600, out int checkedRest) is string restError)
         {
-            await DisplayAlert("Input Error", restError, "Close");
-            return;
+            await DisplayAlert("Input Error", restError, "Close"); return;
         }
 
         string? chosenEquipment = await DisplayActionSheet("Equipment", "Back", null, Equipment.EquipmentNameList().ToArray());
@@ -159,8 +187,13 @@ public class WorkoutPage : ContentPage
         _exercises.Add(exercise);
     }
 
-    protected override bool OnBackButtonPressed() =>
-        GeneralControls.ConfirmQuitWorkout(this, _timer, _stopwatch);
+    public void OnCheckChanged(object? sender, EventArgs e)
+    {
+        if (sender is not CheckBox checkBox || checkBox.BindingContext is not RoutineExercisesParser routineObject) return;
+        _restTimer = GeneralControls.StartRest(_stopwatch, _restLabel, Dispatcher, TimeSpan.FromSeconds(routineObject.Rest));
+    }
+
+    protected override bool OnBackButtonPressed() => GeneralControls.ConfirmQuitWorkout(this, _timer, _stopwatch);
     
     protected override void OnDisappearing()
     {

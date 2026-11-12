@@ -27,6 +27,7 @@ public static class ChartStats
                 Type = ChartType.Radar,
                 GetEntries = () => ChartEntries.FromLabels(Muscles, Chart.GetMuscleChartStats(userId))
             }),
+
         new ChartCard(
             new ChartDefinition()
             {

@@ -69,8 +69,7 @@ public class ProfilePage : ContentPage
 
         if (errors.Count > 0)
         {
-            await DisplayAlert("Input Error", string.Join("\n", errors), "Close");
-            return;
+            await DisplayAlert("Input Error", string.Join("\n", errors), "Close"); return;
         }
 
         UserParser userObject = new UserParser

@@ -44,7 +44,7 @@ public class RoutinePage : ContentPage
     {
         Picker picker = (Picker)sender!;
         int selectedIndex = picker.SelectedIndex;
-        if (selectedIndex == -1) { return; }
+        if (selectedIndex == -1) return;
 
         string name = (string)picker.ItemsSource[selectedIndex]!;
 

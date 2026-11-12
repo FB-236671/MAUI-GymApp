@@ -28,6 +28,32 @@ public class GeneralControls
         return timer;
     }
 
+    public static IDispatcherTimer StartRest(Stopwatch stopwatch, Label timerLabel, IDispatcher dispatcher, TimeSpan duration)
+    {
+        timerLabel.Text = stopwatch.Elapsed.ToString(@"mm\:ss");
+        stopwatch.Start();
+
+        IDispatcherTimer timer = dispatcher.CreateTimer();
+        timer.Interval = TimeSpan.FromSeconds(1);
+        timer.Tick += (sender, args) =>
+        {
+            TimeSpan remainingTime = duration - stopwatch.Elapsed;
+
+            if (remainingTime <= TimeSpan.Zero)
+            {
+                stopwatch.Stop();
+                timer.Stop();
+                timerLabel.Text = "00:00";
+                return;
+            }
+
+            remainingTime = TimeSpan.FromSeconds(Math.Ceiling(remainingTime.TotalSeconds));
+            timerLabel.Text = remainingTime.ToString(@"mm\:ss");
+        };
+        timer.Start();
+        return timer;
+    }
+
     public static void GoHome()
     {
         Application.Current!.Windows[0].Page = new NavigationPage(new MainPage())

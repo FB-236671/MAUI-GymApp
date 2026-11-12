@@ -32,6 +32,9 @@ public class UIControls
             Entry reps = UIElements.MakeIntBox("_", Colors.Gray, Colors.Black, 12, 50, LayoutOptions.End);
             Entry weight = UIElements.MakeIntBox("_", Colors.Gray, Colors.Black, 12, 50, LayoutOptions.End);
             CheckBox checkBox = new CheckBox();
+
+            checkBox.BindingContext = routineExercisesObject;
+            checkBox.CheckedChanged += OnCheckChange;
             
             workoutLayout.Children.Add(new HorizontalStackLayout()
             {
@@ -85,7 +88,7 @@ public class UIControls
         RoutineDataParser routineData = new RoutineDataParser();
         routineData.Name = name;
         routineData.SetEntry = setEntry;
-        routineData.RestEntry = restPicker;
+        routineData.RestPicker = restPicker;
         routineData.EquipmentPicker = equipmentPicker;
         routineExerciseList.Add(routineData);
 

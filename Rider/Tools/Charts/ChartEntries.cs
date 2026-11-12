@@ -22,10 +22,8 @@ public class ChartEntries
                     total += item.Value;
                 }
             }
-
             entries[i] = MakeEntry(labels[i], total);
         }
-
         return entries;
     }
 
