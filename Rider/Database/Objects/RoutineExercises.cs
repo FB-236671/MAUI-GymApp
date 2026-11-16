@@ -4,7 +4,7 @@ namespace MAUI_GymApp.Rider.Database.Objects;
 
 public class RoutineExercises
 {
-    public static void AddRoutineExercises(RoutineExercisesParser routineExercisesObject)
+    public static void AddRoutineExercises(RoutineExercisesRepository routineExercisesObject)
     {
         string sql = "INSERT INTO routineexercises (RoutineId, ExerciseId, Sets, Rest, EquipmentId) VALUES (@RoutineId, @ExerciseId, @Sets, @Rest, @EquipmentId)";
 
@@ -25,11 +25,11 @@ public class RoutineExercises
         GeneralQueries.NonQuery(sql, command => command.Parameters.AddWithValue("@routineId", routineId));
     }
 
-    public static List<RoutineExercisesParser> GetRoutineExercisesByRoutineId(int routineId)
+    public static List<RoutineExercisesRepository> GetRoutineExercisesByRoutineId(int routineId)
     {
         string sql = "SELECT * FROM routineexercises WHERE routineId = @routineId";
         
-        return GeneralQueries.GetMultiple(sql, reader => new RoutineExercisesParser()
+        return GeneralQueries.GetMultiple(sql, reader => new RoutineExercisesRepository()
             {
                 RoutineId = reader.GetInt32(0),
                 ExerciseId = reader.GetInt32(1),
@@ -42,7 +42,7 @@ public class RoutineExercises
     }
 }
 
-public class RoutineExercisesParser
+public class RoutineExercisesRepository
 {
     public int RoutineId { get; set; }
     public int ExerciseId { get; set; }
@@ -51,7 +51,7 @@ public class RoutineExercisesParser
     public int EquipmentId { get; set; }
 }
 
-public class RoutineDataParser
+public class RoutineDataRepository
 {
     public string Name { get; set; }
     public Entry SetEntry { get; set; }

@@ -8,7 +8,7 @@ public class MainPage : ContentPage
     private readonly ContentView _contentHost;
     private readonly List<TabButton> _tabs = new();
 
-    public static UserParser User;
+    public static UserRepository User;
 
     public MainPage()
     {
@@ -16,10 +16,12 @@ public class MainPage : ContentPage
         NavigationPage.SetHasNavigationBar(this, false);
         _contentHost = new ContentView();
 
-        TabButton workoutTab = new TabButton("dumbbell.png", "Workout", () => Show(0, new WorkoutTab()));
-        TabButton trophiesTab = new TabButton("goldtrophy.png", "Trophies", () => Show(1, new TrophiesTab()));
-        TabButton statsTab = new TabButton("stats.png", "Stats", () => Show(2, new StatsTab()));
+        TabButton workoutTab = new TabButton("dumbbell.png", "Workouts", () => Show(0, new WorkoutTab()));
+        TabButton routineTab = new TabButton("", "Routines", () => Show(1, new RoutineTab()));
+        TabButton trophiesTab = new TabButton("goldtrophy.png", "Trophies", () => Show(2, new TrophiesTab()));
+        TabButton statsTab = new TabButton("stats.png", "Stats", () => Show(3, new StatsTab()));
         _tabs.Add(workoutTab);
+        _tabs.Add(routineTab);
         _tabs.Add(trophiesTab);
         _tabs.Add(statsTab);
 
@@ -35,8 +37,9 @@ public class MainPage : ContentPage
             BackgroundColor = Colors.White
         };
         tabBarGrid.Add(workoutTab, 0);
-        tabBarGrid.Add(trophiesTab, 1);
-        tabBarGrid.Add(statsTab, 2);
+        tabBarGrid.Add(routineTab, 1);
+        tabBarGrid.Add(trophiesTab, 2);
+        tabBarGrid.Add(statsTab, 3);
         
         VerticalStackLayout tabBar = new VerticalStackLayout
         {
@@ -61,7 +64,7 @@ public class MainPage : ContentPage
 
         Content = root;
 
-        Show(0, new WorkoutTab());
+        Show(0, new RoutineTab());
     }
 
     private void Show(int index, View view)

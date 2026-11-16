@@ -4,11 +4,11 @@ namespace MAUI_GymApp.Rider.Database.Objects;
 
 public class User
 {
-    public static List<UserParser> GetUsers()
+    public static List<UserRepository> GetUsers()
     {
         string sql = "SELECT * FROM user";
 
-        return GeneralQueries.GetMultiple(sql, reader => new UserParser
+        return GeneralQueries.GetMultiple(sql, reader => new UserRepository
         {
             UserId = reader.GetInt32(0),
             Name = reader.GetString(1),
@@ -18,7 +18,7 @@ public class User
         });
     }
     
-    public static int CreateUser(UserParser userObject)
+    public static int CreateUser(UserRepository userObject)
     {
         string sql = "INSERT INTO user (Name, Age, Weight, Sex) VALUES (@Name, @Age, @Weight, @Sex); SELECT last_insert_rowid();";
 
@@ -30,9 +30,30 @@ public class User
             command.Parameters.AddWithValue("@Sex", userObject.Sex);
         });
     }
+
+    public static int EditUser(UserRepository userObject)
+    {
+        string sql = "UPDATE user SET Name = @Name, Age = @Age, Weight = @Weight, Sex = @Sex WHERE userId = @userId";
+
+        return GeneralQueries.GetOne(sql, command =>
+        {
+            command.Parameters.AddWithValue("@Name", userObject.Name);
+            command.Parameters.AddWithValue("@Age", userObject.Age);
+            command.Parameters.AddWithValue("@Weight", userObject.Weight);
+            command.Parameters.AddWithValue("@Sex", userObject.Sex);
+            command.Parameters.AddWithValue("@userId", userObject.UserId);
+        });
+    }
+
+    public static void DeleteUser(int userId)
+    {
+        string sql = "DELTE FROM user WHERE userId = @userId";
+
+        GeneralQueries.NonQuery(sql, command => command.Parameters.AddWithValue("@userId", userId));
+    }
 }
 
-public class UserParser
+public class UserRepository
 {
     public int UserId { get; set; }
     public string Name { get; set; }

@@ -7,12 +7,14 @@ namespace MAUI_GymApp.Views;
 public class StatsTab : ContentView
 {
     private readonly VerticalStackLayout _layout;
+    private UserRepository _user;
 
     public StatsTab()
     {
         Button editButton = UIElements.MakeButton("Edit", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, 4);
         Button logoutButton = UIElements.MakeButton("Logout", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, 4);
-        UserParser user = MainPage.User;
+        Button deleteButton = UIElements.MakeButton("Delete", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, 4);
+        _user = MainPage.User;
 
         _layout = new VerticalStackLayout()
         {
@@ -25,7 +27,7 @@ public class StatsTab : ContentView
                     Spacing = 40,
                     Children =
                     {
-                        UIElements.MakeLabel(user.Name, 30), editButton, logoutButton
+                        UIElements.MakeLabel(_user.Name, 30), editButton, logoutButton, deleteButton
                     }
                 },
                 new HorizontalStackLayout()
@@ -33,21 +35,22 @@ public class StatsTab : ContentView
                     Spacing = 80,
                     Children =
                     {
-                        UIElements.MakeLabel("Age: " + user.Age, 10),
-                        UIElements.MakeLabel("Weight: " + user.Weight, 10),
-                        UIElements.MakeLabel("Sex: " + user.Sex, 10),
+                        UIElements.MakeLabel("Age: " + _user.Age, 10),
+                        UIElements.MakeLabel("Weight: " + _user.Weight, 10),
+                        UIElements.MakeLabel("Sex: " + _user.Sex, 10),
                     }
                 }
             }
         };
         
-        foreach (View chart in ChartStats.All(user.UserId))
+        foreach (View chart in ChartStats.All(_user.UserId))
         {
             _layout.Children.Add(chart);
         }
 
         editButton.Clicked += OnEditButtonClick;
         logoutButton.Clicked += OnLogoutButtonClick;
+        deleteButton.Clicked += OnDeleteButtonClick;
         Content = new ScrollView { Content = _layout };
     }
 
@@ -58,6 +61,12 @@ public class StatsTab : ContentView
 
     private void OnLogoutButtonClick(object? sender, EventArgs e)
     {
+        GeneralControls.GoToLogin();
+    }
+
+    private void OnDeleteButtonClick(object? sender, EventArgs e)
+    {
+        User.DeleteUser(_user.UserId);
         GeneralControls.GoToLogin();
     }
 }

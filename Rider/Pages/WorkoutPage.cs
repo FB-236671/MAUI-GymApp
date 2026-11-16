@@ -7,7 +7,7 @@ public class WorkoutPage : ContentPage
 {
     private readonly VerticalStackLayout _layout;
     private readonly VerticalStackLayout _restBar;
-    private readonly RoutineParser? _routineObject;
+    private readonly RoutineRepository? _routineObject;
     private readonly IDispatcherTimer _timer;
     private IDispatcherTimer _restTimer;
     private readonly Stopwatch _stopwatch = new();
@@ -15,9 +15,9 @@ public class WorkoutPage : ContentPage
     private readonly Label _restLabel = UIElements.MakeLabel("__:__", 24);
     private readonly Label _timerLabel = UIElements.MakeLabel("__:__:__", 30);
     private readonly List<List<SetParser>> _setListList = new();
-    private readonly List<RoutineExercisesParser> _exercises = new();
+    private readonly List<RoutineExercisesRepository> _exercises = new();
 
-    public WorkoutPage(RoutineParser? routineObject = null)
+    public WorkoutPage(RoutineRepository? routineObject = null)
     {
         Background = Colors.White;
         _routineObject = routineObject;
@@ -73,7 +73,7 @@ public class WorkoutPage : ContentPage
         {
             _layout.Children.Add(finishButton);
             _exercises.AddRange(RoutineExercises.GetRoutineExercisesByRoutineId(routineObject.RoutineId));
-            foreach (RoutineExercisesParser exercise in _exercises)
+            foreach (RoutineExercisesRepository exercise in _exercises)
             {
                 _layout.Children.Add(UIControls.BuildWorkoutCard(exercise, _setListList, OnCheckChanged));
             }
@@ -140,8 +140,8 @@ public class WorkoutPage : ContentPage
             return;
         }
 
-        int routineId = Routine.CreateRoutine(new RoutineParser { UserId = MainPage.User.UserId, Name = name });
-        foreach (RoutineExercisesParser re in _exercises)
+        int routineId = Routine.CreateRoutine(new RoutineRepository { UserId = MainPage.User.UserId, Name = name });
+        foreach (RoutineExercisesRepository re in _exercises)
         {
             re.RoutineId = routineId;
             RoutineExercises.AddRoutineExercises(re);
@@ -181,7 +181,7 @@ public class WorkoutPage : ContentPage
         string? chosenEquipment = await DisplayActionSheet("Equipment", "Back", null, Equipment.EquipmentNameList().ToArray());
         if (chosenEquipment is null || chosenEquipment == "Back") return;
 
-        RoutineExercisesParser exercise = new()
+        RoutineExercisesRepository exercise = new()
         {
             ExerciseId = Exercise.GetExerciseByName(selectedName).ExerciseId,
             Sets = checkedSets,
@@ -196,7 +196,7 @@ public class WorkoutPage : ContentPage
     public void OnCheckChanged(object? sender, CheckedChangedEventArgs e)
     {
         if (!e.Value) return;
-        if (sender is not CheckBox checkBox || checkBox.BindingContext is not RoutineExercisesParser routineObject) return;
+        if (sender is not CheckBox checkBox || checkBox.BindingContext is not RoutineExercisesRepository routineObject) return;
 
         _restTimer?.Stop();
         _restTimer = GeneralControls.StartRest(_restStopWatch, _restLabel, Dispatcher, TimeSpan.FromSeconds(routineObject.Rest));

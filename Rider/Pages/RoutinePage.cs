@@ -5,11 +5,11 @@ namespace MAUI_GymApp;
 public class RoutinePage : ContentPage
 {
     private readonly VerticalStackLayout _layout;
-    private List<RoutineDataParser> _routineExerciseList = new();
+    private List<RoutineDataRepository> _routineExerciseList = new();
     private Entry nameBox;
-    private RoutineParser? routine;
+    private RoutineRepository? routine;
 
-    public RoutinePage(RoutineParser? parsedRoutine = null)
+    public RoutinePage(RoutineRepository? parsedRoutine = null)
     {
         Background = Colors.White;
         Picker picker = UIElements.MakeSelector("Add an Exercise", Exercise.ExerciseNameList(), 18);
@@ -48,7 +48,7 @@ public class RoutinePage : ContentPage
 
         string name = (string)picker.ItemsSource[selectedIndex]!;
 
-        foreach (RoutineDataParser exercise in _routineExerciseList)
+        foreach (RoutineDataRepository exercise in _routineExerciseList)
         {
             if (exercise.Name == name)
             {
@@ -68,7 +68,7 @@ public class RoutinePage : ContentPage
 
         if (TypeChecker.StringCheck(nameBox.Text, "Name") is string nameError) { errors.Add(nameError); }
 
-        foreach (RoutineDataParser exercise in _routineExerciseList)
+        foreach (RoutineDataRepository exercise in _routineExerciseList)
         {
             if (TypeChecker.IntegerIndexCheck(exercise.SetEntry.Text, "Sets", exercise.Name, 1, 20, out int sets) is string setsError) { errors.Add(setsError); }
             if (exercise.RestPicker.SelectedItem is null) { errors.Add("Please select rest for " + exercise.Name); }
@@ -87,14 +87,30 @@ public class RoutinePage : ContentPage
             RoutineExercises.DeleteRoutineExercises(routine.RoutineId);
         }
 
+
+<<<<<<< TODO: Unmerged change from project 'MAUI-GymApp (net9.0-windows10.0.19041.0)', Before:
         RoutineParser routineObject = new RoutineParser();
+        routineObject.UserId = MainPage.User.UserId;
+=======
+        RoutineRepository routineObject = new RoutineParser();
+        routineObject.UserId = MainPage.User.UserId;
+>>>>>>> After
+        RoutineRepository routineObject = new RoutineRepository();
         routineObject.UserId = MainPage.User.UserId;
         routineObject.Name = nameBox.Text.Trim();
         int routineId = Routine.CreateRoutine(routineObject);
 
-        foreach (RoutineDataParser exercise in _routineExerciseList)
+        foreach (RoutineDataRepository exercise in _routineExerciseList)
         {
+
+<<<<<<< TODO: Unmerged change from project 'MAUI-GymApp (net9.0-windows10.0.19041.0)', Before:
             RoutineExercisesParser routineExercisesObject = new RoutineExercisesParser();
+            routineExercisesObject.RoutineId = routineId;
+=======
+            RoutineExercisesRepository routineExercisesObject = new RoutineExercisesParser();
+            routineExercisesObject.RoutineId = routineId;
+>>>>>>> After
+            RoutineExercisesRepository routineExercisesObject = new RoutineExercisesRepository();
             routineExercisesObject.RoutineId = routineId;
             routineExercisesObject.ExerciseId = Exercise.GetExerciseByName(exercise.Name).ExerciseId;
             routineExercisesObject.Sets = Convert.ToInt32(exercise.SetEntry.Text);

@@ -4,11 +4,11 @@ namespace MAUI_GymApp.Rider.Database.Objects;
 
 public class Equipment
 {
-    public static List<EquipmentParser> GetEquipment()
+    public static List<EquipmentRepository> GetEquipment()
     {
         string sql = "SELECT * FROM equipment";
 
-        return GeneralQueries.GetMultiple(sql, reader => new EquipmentParser
+        return GeneralQueries.GetMultiple(sql, reader => new EquipmentRepository
         {
             EquipmentId = reader.GetInt32(0),
             Name = reader.GetString(1),
@@ -16,11 +16,11 @@ public class Equipment
         });
     }
     
-    public static EquipmentParser GetEquipmentByName(string name)
+    public static EquipmentRepository GetEquipmentByName(string name)
     {
         string sql = "SELECT * FROM equipment WHERE name = @name";
         
-        return GeneralQueries.GetOne(sql, reader => new EquipmentParser
+        return GeneralQueries.GetOne(sql, reader => new EquipmentRepository
             {
                 EquipmentId = reader.GetInt32(0),
                 Name = reader.GetString(1),
@@ -30,11 +30,11 @@ public class Equipment
         );
     }
 
-    public static EquipmentParser GetEquipmentById(int id)
+    public static EquipmentRepository GetEquipmentById(int id)
     {
         string sql = "SELECT * FROM equipment WHERE equipmentId = @equipmentId";
         
-        return GeneralQueries.GetOne(sql, reader => new EquipmentParser
+        return GeneralQueries.GetOne(sql, reader => new EquipmentRepository
             {
                 EquipmentId = reader.GetInt32(0),
                 Name = reader.GetString(1),
@@ -48,9 +48,9 @@ public class Equipment
     public static List<string> EquipmentNameList()
     {
         List<string> equipmentList = new List<string>();
-        List<EquipmentParser> passerList = GetEquipment();
+        List<EquipmentRepository> passerList = GetEquipment();
 
-        foreach (EquipmentParser passer in passerList)
+        foreach (EquipmentRepository passer in passerList)
         {
             equipmentList.Add(passer.Name);
         }
@@ -59,7 +59,7 @@ public class Equipment
     }
 }
 
-public class EquipmentParser
+public class EquipmentRepository
 {
     public int EquipmentId { get; set; }
     public string Name { get; set; }

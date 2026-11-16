@@ -7,7 +7,7 @@ namespace MAUI_GymApp;
 
 public class ChartEntries
 {
-    public static ChartEntry[] FromLabels(string[] labels, List<Chart.ChartParser> data)
+    public static ChartEntry[] FromLabels(string[] labels, List<Chart.ChartRepository> data)
     {
         ChartEntry[] entries = new ChartEntry[labels.Length];
 
@@ -15,7 +15,7 @@ public class ChartEntries
         {
             int total = 0;
 
-            foreach (Chart.ChartParser item in data)
+            foreach (Chart.ChartRepository item in data)
             {
                 if (item.Name == labels[i])
                 {
@@ -27,13 +27,13 @@ public class ChartEntries
         return entries;
     }
 
-    public static ChartEntry[] ByWeek(int numOfWeeks, List<WorkoutParser> workouts, Func<WorkoutParser, int> getValue)
+    public static ChartEntry[] ByWeek(int numOfWeeks, List<WorkoutRepository> workouts, Func<WorkoutRepository, int> getValue)
     {
         long secondsInWeek = 604800;
         long now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         int[] totals = new int[numOfWeeks];
 
-        foreach (WorkoutParser workout in workouts)
+        foreach (WorkoutRepository workout in workouts)
         {
             int weeksAgo = (int)((now - workout.Date) / secondsInWeek);
 

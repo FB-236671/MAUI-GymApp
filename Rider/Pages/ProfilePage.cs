@@ -8,8 +8,9 @@ public class ProfilePage : ContentPage
     private Entry _ageEntry;
     private Entry _weightEntry;
     private Picker _sexPicker;
+    private UserRepository _user;
 
-    public ProfilePage(UserParser? user = null)
+    public ProfilePage(UserRepository? user = null)
     {
         BackgroundColor = Colors.White;
         Button createButton = UIElements.MakeButton("Create Profile", Colors.Black, Colors.White, Colors.Black, 2, 6, 18, 4);
@@ -28,6 +29,7 @@ public class ProfilePage : ContentPage
 
         if (user != null)
         {
+            _user = user;
             _nameEntry.Text = user.Name;
             _ageEntry.Text = Convert.ToString(user.Age);
             _weightEntry.Text = Convert.ToString(user.Weight);
@@ -72,13 +74,30 @@ public class ProfilePage : ContentPage
             await DisplayAlert("Input Error", string.Join("\n", errors), "Close"); return;
         }
 
+
+<<<<<<< TODO: Unmerged change from project 'MAUI-GymApp (net9.0-windows10.0.19041.0)', Before:
         UserParser userObject = new UserParser
+        {
+=======
+        UserRepository userObject = new UserParser
+        {
+>>>>>>> After
+        UserRepository userObject = new UserRepository
         {
             Name = _nameEntry.Text.Trim(),
             Age = age,
             Weight = weight,
             Sex = (string)_sexPicker.SelectedItem,
         };
+
+        if (_user != null)
+        {
+            userObject.UserId = User.EditUser(userObject);
+            MainPage.User = userObject;
+
+            GeneralControls.GoHome();
+        }
+
         userObject.UserId = User.CreateUser(userObject);
         MainPage.User = userObject;
         

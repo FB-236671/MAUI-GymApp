@@ -1,0 +1,135 @@
+using MAUI_GymApp.Rider.Database.Objects;
+
+namespace MAUI_GymApp.Views;
+
+public class RoutineTab : ContentView
+{
+    private readonly VerticalStackLayout _layout;
+    private bool _routinesLoaded;
+
+    public RoutineTab()
+    {
+        Button startEmpty = UIElements.MakeButton("Start Empty Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 12, new Thickness(8));
+        Button createNew = UIElements.MakeButton("Create New Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 12, new Thickness(8));
+        Grid.SetColumn(createNew, 1);
+
+        createNew.Clicked += OnCreateClick;
+        startEmpty.Clicked += OnStartEmptyClick;
+
+        Grid topRow = new Grid
+        {
+            ColumnDefinitions =
+            {
+                new ColumnDefinition { Width = GridLength.Star },
+                new ColumnDefinition { Width = GridLength.Star }
+            },
+            HeightRequest = 70,
+            Children = { startEmpty, createNew }
+        };
+
+        _layout = new VerticalStackLayout
+        {
+            Padding = new Thickness(16, 16, 16, 0),
+            Spacing = 16,
+            Children = { topRow }
+        };
+        
+        Content = new ScrollView { Content = _layout };
+        Loaded += OnLoaded;
+    }
+
+    private async void OnStartClick(object? sender, EventArgs e)
+    {
+        if (sender is not Button button || button.CommandParameter is not RoutineRepository routineObject) return;
+
+        await Navigation.PushAsync(new WorkoutPage(routineObject));
+    }
+
+    private async void OnEditClick(object? sender, EventArgs e)
+    {
+        if (sender is not Button button || button.CommandParameter is not RoutineRepository routineObject) return;
+        
+        await Navigation.PushAsync(new RoutinePage(routineObject));
+    }
+    
+    private async void OnDeleteClick(object? sender, EventArgs e)
+    {
+        if (sender is not Button button || button.CommandParameter is not int routineId) return;
+
+        bool confirmed = await Application.Current!.Windows[0].Page!.DisplayAlert("Delete Routine", "Are you sure you want to delete this routine", "Confirm", "Cancel");
+        
+        if (!confirmed) return;
+        
+        Routine.DeleteRoutine(routineId);
+        RoutineExercises.DeleteRoutineExercises(routineId);
+
+        if (button.Parent?.Parent is View card)
+        {
+            _layout.Remove(card);
+        }
+    }
+
+    private void OnLoaded(object? sender, EventArgs e)
+    {
+        if (_routinesLoaded) return;
+        _routinesLoaded = true;
+
+        try
+        {
+            List<RoutineRepository> routineList = Routine.GetRoutinesByUser(MainPage.User.UserId);
+            foreach (RoutineRepository routine in routineList)
+            {
+                _layout.Add(BuildRoutineBar(routine));
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Failed to load routines: {ex}");
+            _layout.Add(UIElements.MakeLabel("Couldn't load routines.", 16));
+        }
+    }
+    
+    private async void OnCreateClick(object? sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new RoutinePage());
+    }
+
+    private async void OnStartEmptyClick(object? sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new WorkoutPage());
+    }
+
+    private View BuildRoutineBar(RoutineRepository routineObject)
+    {
+        Grid inner = new Grid
+        {
+            ColumnDefinitions =
+            {
+                new ColumnDefinition { Width = GridLength.Star },
+                new ColumnDefinition { Width = GridLength.Auto },
+                new ColumnDefinition { Width = GridLength.Auto },
+                new ColumnDefinition { Width = GridLength.Auto }
+            },
+            ColumnSpacing = 12,
+            Padding = new Thickness(20, 14)
+        };
+
+        Button start = UIElements.MakeButton("▶", Colors.Black, Colors.White, Colors.White, 2, 6, 18, 48, 48, 0);
+        Button edit = UIElements.MakeButton("✎", Colors.Black, Colors.White, Colors.White, 2, 6, 18, 48, 48, 0);
+        Button delete = UIElements.MakeButton("🗑", Colors.Black, Colors.White, Colors.White, 2, 6, 18, 48, 48, 0);
+
+        start.CommandParameter = routineObject;
+        edit.CommandParameter = routineObject;
+        delete.CommandParameter = routineObject.RoutineId;
+        start.Clicked += OnStartClick;
+        edit.Clicked += OnEditClick;
+        delete.Clicked += OnDeleteClick;
+        
+        inner.Add(UIElements.MakeLabel(routineObject.Name, 24), 0);
+        inner.Add(start, 1);
+        inner.Add(edit, 2);
+        inner.Add(delete, 3);
+
+        return UIElements.MakeCard(Colors.LightGray, inner);
+    }
+}

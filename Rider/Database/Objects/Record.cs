@@ -4,7 +4,7 @@ namespace MAUI_GymApp.Rider.Database.Objects;
 
 public class Record
 {
-    public static void SaveRecord(RecordParser recordObject)
+    public static void SaveRecord(RecordRepository recordObject)
     {
         string sql = "INSERT OR REPLACE INTO record (UserId, ExerciseId, BestWeight, OneRM) VALUES (@UserId, @ExerciseId, @BestWeight, @OneRM)";
         
@@ -17,11 +17,11 @@ public class Record
         });
     }
     
-    public static RecordParser GetRecordById(int userId, int exerciseId)
+    public static RecordRepository GetRecordById(int userId, int exerciseId)
     {
         string sql = "SELECT * FROM record WHERE UserId = @UserId AND ExerciseId = @ExerciseId";
 
-        return GeneralQueries.GetOne(sql, reader => new RecordParser
+        return GeneralQueries.GetOne(sql, reader => new RecordRepository
             {
                 UserId = reader.GetInt32(0),
                 ExerciseId = reader.GetInt32(1),
@@ -36,11 +36,11 @@ public class Record
         );
     }
 
-    public static List<RecordParser> GetRecordsByUser(int userId)
+    public static List<RecordRepository> GetRecordsByUser(int userId)
     {
         string sql = "SELECT * FROM record WHERE userId = @userId";
 
-        return GeneralQueries.GetMultiple(sql, reader => new RecordParser()
+        return GeneralQueries.GetMultiple(sql, reader => new RecordRepository()
             {
                 UserId = reader.GetInt32(0),
                 ExerciseId = reader.GetInt32(1),
@@ -52,7 +52,7 @@ public class Record
     }
 }
 
-public class RecordParser
+public class RecordRepository
 {
     public int UserId { get; set; }
     public int ExerciseId { get; set; }

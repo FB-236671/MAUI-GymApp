@@ -6,15 +6,31 @@ namespace MAUI_GymApp;
 
 public class SaveControls
 {
-    public static void SaveWholeWorkout(List<RoutineExercisesParser> routineExerciseList, List<List<SetParser>> setListList, Stopwatch stopwatch)
+    public static void SaveWholeWorkout(List<RoutineExercisesRepository> routineExerciseList, List<List<SetParser>> setListList, Stopwatch stopwatch)
     {
-        WorkoutParser workoutObject = new WorkoutParser();
-        List<WorkoutExercisesParser> workoutExercisesList = new List<WorkoutExercisesParser>();
-        List<List<WorkoutSetsParser>> workoutSetsListList = new List<List<WorkoutSetsParser>>();
 
-        foreach (RoutineExercisesParser exercise in routineExerciseList)
+<<<<<<< TODO: Unmerged change from project 'MAUI-GymApp (net9.0-windows10.0.19041.0)', Before:
+        WorkoutParser workoutObject = new WorkoutParser();
+        List<WorkoutExercisesRepository> workoutExercisesList = new List<WorkoutExercisesRepository>();
+=======
+        WorkoutRepository workoutObject = new WorkoutParser();
+        List<WorkoutExercisesParser> workoutExercisesList = new List<WorkoutExercisesParser>();
+>>>>>>> After
+        WorkoutRepository workoutObject = new WorkoutRepository();
+        List<WorkoutExercisesRepository> workoutExercisesList = new List<WorkoutExercisesRepository>();
+        List<List<WorkoutSetsRepository>> workoutSetsListList = new List<List<WorkoutSetsRepository>>();
+
+        foreach (RoutineExercisesRepository exercise in routineExerciseList)
         {
+
+<<<<<<< TODO: Unmerged change from project 'MAUI-GymApp (net9.0-windows10.0.19041.0)', Before:
             WorkoutExercisesParser workoutExercisesObject = new WorkoutExercisesParser();
+            workoutExercisesObject.ExerciseId = exercise.ExerciseId;
+=======
+            WorkoutExercisesRepository workoutExercisesObject = new WorkoutExercisesParser();
+            workoutExercisesObject.ExerciseId = exercise.ExerciseId;
+>>>>>>> After
+            WorkoutExercisesRepository workoutExercisesObject = new WorkoutExercisesRepository();
             workoutExercisesObject.ExerciseId = exercise.ExerciseId;
             workoutExercisesObject.Sets = exercise.Sets;
             workoutExercisesList.Add(workoutExercisesObject);
@@ -25,7 +41,7 @@ public class SaveControls
 
         foreach (List<SetParser> setList in setListList)
         {
-            List<WorkoutSetsParser> workoutSetsList = new List<WorkoutSetsParser>();
+            List<WorkoutSetsRepository> workoutSetsList = new List<WorkoutSetsRepository>();
             int drawback = 0;
             double heaviestWeight = 0;
             int best1RM = 0;
@@ -44,7 +60,15 @@ public class SaveControls
 
                     totalVolume += Calculator.GeneralStrength(Convert.ToInt32(Math.Round(weight * reps)));
 
+
+<<<<<<< TODO: Unmerged change from project 'MAUI-GymApp (net9.0-windows10.0.19041.0)', Before:
                     WorkoutSetsParser workoutSetsObject = new WorkoutSetsParser();
+                    workoutSetsObject.SetNumber = set.SetNumber + drawback;
+=======
+                    WorkoutSetsRepository workoutSetsObject = new WorkoutSetsParser();
+                    workoutSetsObject.SetNumber = set.SetNumber + drawback;
+>>>>>>> After
+                    WorkoutSetsRepository workoutSetsObject = new WorkoutSetsRepository();
                     workoutSetsObject.SetNumber = set.SetNumber + drawback;
                     workoutSetsObject.Weight = Math.Round(weight, 1);
                     workoutSetsObject.Reps = reps;
@@ -81,7 +105,7 @@ public class SaveControls
 
         for (int i = 0; i < routineExerciseList.Count; i++)
         {
-            RecordParser bestRecordObject = Record.GetRecordById(workoutObject.UserId, routineExerciseList[i].ExerciseId);
+            RecordRepository bestRecordObject = Record.GetRecordById(workoutObject.UserId, routineExerciseList[i].ExerciseId);
 
             double previousBestWeight;
             int previousOneRM;
@@ -99,7 +123,15 @@ public class SaveControls
 
             if (previousBestWeight < records[i].bestWeight || previousOneRM < records[i].oneRM)
             {
+
+<<<<<<< TODO: Unmerged change from project 'MAUI-GymApp (net9.0-windows10.0.19041.0)', Before:
                 RecordParser recordObject = new RecordParser();
+                recordObject.UserId = workoutObject.UserId;
+=======
+                RecordRepository recordObject = new RecordParser();
+                recordObject.UserId = workoutObject.UserId;
+>>>>>>> After
+                RecordRepository recordObject = new RecordRepository();
                 recordObject.UserId = workoutObject.UserId;
                 recordObject.ExerciseId = routineExerciseList[i].ExerciseId;
                 recordObject.BestWeight = Math.Max(previousBestWeight, records[i].bestWeight);
@@ -134,17 +166,17 @@ public class SaveControls
         return true;
     }
 
-    public static void LoadRoutine(Entry name, RoutineParser routine, VerticalStackLayout layout, List<RoutineDataParser> routineExerciseList)
+    public static void LoadRoutine(Entry name, RoutineRepository routine, VerticalStackLayout layout, List<RoutineDataRepository> routineExerciseList)
     {
         name.Text = routine.Name;
 
-        List<RoutineExercisesParser> routineExercisesList = RoutineExercises.GetRoutineExercisesByRoutineId(routine.RoutineId);
+        List<RoutineExercisesRepository> routineExercisesList = RoutineExercises.GetRoutineExercisesByRoutineId(routine.RoutineId);
 
-        foreach (RoutineExercisesParser exercise in routineExercisesList)
+        foreach (RoutineExercisesRepository exercise in routineExercisesList)
         {
             layout.Children.Add(UIControls.BuildRoutineCard(Exercise.GetExerciseById(exercise.ExerciseId).Name, routineExerciseList));
 
-            RoutineDataParser card = routineExerciseList[^1];
+            RoutineDataRepository card = routineExerciseList[^1];
             card.SetEntry.Text = exercise.Sets.ToString();
             card.RestPicker.SelectedItem = exercise.Rest.ToString();
             card.EquipmentPicker.SelectedItem = Equipment.GetEquipmentById(exercise.EquipmentId).Name;

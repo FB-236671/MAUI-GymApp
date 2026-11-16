@@ -4,7 +4,7 @@ namespace MAUI_GymApp;
 
 public class UIControls
 {
-    public static View BuildWorkoutCard(RoutineExercisesParser routineExercisesObject, List<List<SetParser>> setListList, EventHandler<CheckedChangedEventArgs> onCheckChanged)
+    public static View BuildWorkoutCard(RoutineExercisesRepository routineExercisesObject, List<List<SetParser>> setListList, EventHandler<CheckedChangedEventArgs> onCheckChanged)
     {
         VerticalStackLayout workoutLayout = new VerticalStackLayout()
         {
@@ -18,7 +18,7 @@ public class UIControls
                     Children =
                     {
                         UIElements.MakeLabel(Exercise.GetExerciseById(routineExercisesObject.ExerciseId).Name, 22, Colors.Black, LayoutOptions.Center),
-                        UIElements.MakeButton(Equipment.GetEquipmentById(routineExercisesObject.EquipmentId).Name[0].ToString(), Colors.White, Colors.Black, Colors.Black, 5, 2, 22, new Thickness())
+                        UIElements.MakeButton(Equipment.GetEquipmentById(routineExercisesObject.EquipmentId).Name[0].ToString(), Colors.White, Colors.Black, Colors.Black, 5, 2, 22, 5)
                     }
                 },
                 UIElements.MakeLine(2, Colors.Black),
@@ -59,7 +59,7 @@ public class UIControls
         return UIElements.MakeCard(Colors.LightGray, workoutLayout);
     }
 
-    public static View BuildRoutineCard(string name, List<RoutineDataParser> routineExerciseList)
+    public static View BuildRoutineCard(string name, List<RoutineDataRepository> routineExerciseList)
     {
         Entry setEntry = UIElements.MakeIntBox("Sets", Colors.White, Colors.Black, 12, 35, LayoutOptions.End);
         Picker restPicker = UIElements.MakeSelector("Rest", GeneralControls.GetRestList(), 12);
@@ -85,7 +85,7 @@ public class UIControls
             }
         };
 
-        RoutineDataParser routineData = new RoutineDataParser();
+        RoutineDataRepository routineData = new RoutineDataRepository();
         routineData.Name = name;
         routineData.SetEntry = setEntry;
         routineData.RestPicker = restPicker;

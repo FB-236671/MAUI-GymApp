@@ -4,7 +4,7 @@ namespace MAUI_GymApp.Rider.Database.Objects;
 
 public class Workout
 {
-    public static void SaveWorkout(WorkoutParser workoutObject, List<WorkoutExercisesParser> workoutExercisesList, List<List<WorkoutSetsParser>> workoutSetsListList)
+    public static void SaveWorkout(WorkoutRepository workoutObject, List<WorkoutExercisesRepository> workoutExercisesList, List<List<WorkoutSetsRepository>> workoutSetsListList)
     {
         string workoutSql = "INSERT INTO workout (UserId, Duration, Volume, Date) VALUES (@UserId, @Duration, @Volume, @Date); SELECT last_insert_rowid();";
 
@@ -19,7 +19,7 @@ public class Workout
         string exercisesSql = "INSERT INTO workoutexercises (WorkoutId, ExerciseId, Sets) VALUES (@WorkoutId, @ExerciseId, @Sets); SELECT last_insert_rowid();";
 
         List<int> workoutExercisesIdList = new List<int>();
-        foreach (WorkoutExercisesParser workoutExercisesObject in workoutExercisesList)
+        foreach (WorkoutExercisesRepository workoutExercisesObject in workoutExercisesList)
         {
             int workoutExercisesId = GeneralQueries.GetOne(exercisesSql, reader => reader.GetInt32(0), command =>
             {
@@ -34,10 +34,10 @@ public class Workout
 
         for (int exerciseCount = 0; exerciseCount < workoutSetsListList.Count; exerciseCount++)
         {
-            List<WorkoutSetsParser> workoutSetsList = workoutSetsListList[exerciseCount];
+            List<WorkoutSetsRepository> workoutSetsList = workoutSetsListList[exerciseCount];
             int workoutExercisesId = workoutExercisesIdList[exerciseCount];
 
-            foreach (WorkoutSetsParser workoutSetsObject in workoutSetsList)
+            foreach (WorkoutSetsRepository workoutSetsObject in workoutSetsList)
             {
                 GeneralQueries.NonQuery(setssql, command =>
                 {
@@ -50,11 +50,11 @@ public class Workout
         }
     }
 
-    public static List<WorkoutParser> GetWorkoutsUntilDate(int userId, long dateTo)
+    public static List<WorkoutRepository> GetWorkoutsUntilDate(int userId, long dateTo)
     {
         string sql = "SELECT * FROM workout WHERE UserId = @userId AND Date > @dateTo";
 
-        return GeneralQueries.GetMultiple(sql, reader => new WorkoutParser
+        return GeneralQueries.GetMultiple(sql, reader => new WorkoutRepository
             {
                 WorkoutId = reader.GetInt32(0),
                 UserId = reader.GetInt32(1),
@@ -71,7 +71,7 @@ public class Workout
     }
 }
 
-public class WorkoutParser
+public class WorkoutRepository
 {
     public int WorkoutId { get; set; }
     public int UserId { get; set; }
@@ -80,7 +80,7 @@ public class WorkoutParser
     public long Date {get; set; }
 }
 
-public class WorkoutExercisesParser
+public class WorkoutExercisesRepository
 {
     public int WorkoutExercisesId { get; set; }
     public int WorkoutId { get; set; }
@@ -88,7 +88,7 @@ public class WorkoutExercisesParser
     public int Sets { get; set; }
 }
 
-public class WorkoutSetsParser
+public class WorkoutSetsRepository
 {
     public int WorkoutExercisesId { get; set; }
     public int SetNumber { get; set; }

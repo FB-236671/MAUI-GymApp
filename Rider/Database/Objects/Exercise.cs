@@ -4,11 +4,11 @@ namespace MAUI_GymApp.Rider.Database.Objects;
 
 public class Exercise
 {
-    public static List<ExerciseParser> GetExercises()
+    public static List<ExerciseRepository> GetExercises()
     {
         string sql = "SELECT * FROM exercise";
         
-        return GeneralQueries.GetMultiple(sql, reader => new ExerciseParser()
+        return GeneralQueries.GetMultiple(sql, reader => new ExerciseRepository()
         {
             ExerciseId = reader.GetInt32(0),
             Name = reader.GetString(1),
@@ -16,11 +16,11 @@ public class Exercise
         });
     }
 
-    public static ExerciseParser GetExerciseByName(string name)
+    public static ExerciseRepository GetExerciseByName(string name)
     {
         string sql = "SELECT * FROM exercise WHERE name = @name";
         
-        return GeneralQueries.GetOne(sql, reader => new ExerciseParser()
+        return GeneralQueries.GetOne(sql, reader => new ExerciseRepository()
             {
                 ExerciseId = reader.GetInt32(0),
                 Name = reader.GetString(1),
@@ -30,11 +30,11 @@ public class Exercise
         );
     }
 
-    public static ExerciseParser GetExerciseById(int id)
+    public static ExerciseRepository GetExerciseById(int id)
     {
         string sql = "SELECT * FROM exercise WHERE exerciseId = @exerciseId";
         
-        return GeneralQueries.GetOne(sql, reader => new ExerciseParser()
+        return GeneralQueries.GetOne(sql, reader => new ExerciseRepository()
             {
                 ExerciseId = reader.GetInt32(0),
                 Name = reader.GetString(1),
@@ -56,9 +56,9 @@ public class Exercise
     public static List<string> ExerciseNameList()
     {
         List<string> exerciseList = new List<string>();
-        List<ExerciseParser> passerList = GetExercises();
+        List<ExerciseRepository> passerList = GetExercises();
         
-        foreach (ExerciseParser passer in passerList)
+        foreach (ExerciseRepository passer in passerList)
         {
             exerciseList.Add(passer.Name);
         }
@@ -66,7 +66,7 @@ public class Exercise
     }
 }
 
-public class ExerciseParser
+public class ExerciseRepository
 {
     public int ExerciseId { get; set; }
     public string Name { get; set; }
