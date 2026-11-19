@@ -9,7 +9,7 @@ public class RoutinePage : ContentPage
     private Entry nameBox;
     private RoutineRepository? routine;
 
-    public RoutinePage(RoutineRepository? parsedRoutine = null)
+    public RoutinePage(UserRepository user, RoutineRepository? parsedRoutine = null)
     {
         Background = Colors.White;
         Picker picker = UIElements.MakeSelector("Add an Exercise", Exercise.ExerciseNameList(), 18);
@@ -88,13 +88,6 @@ public class RoutinePage : ContentPage
         }
 
 
-<<<<<<< TODO: Unmerged change from project 'MAUI-GymApp (net9.0-windows10.0.19041.0)', Before:
-        RoutineParser routineObject = new RoutineParser();
-        routineObject.UserId = MainPage.User.UserId;
-=======
-        RoutineRepository routineObject = new RoutineParser();
-        routineObject.UserId = MainPage.User.UserId;
->>>>>>> After
         RoutineRepository routineObject = new RoutineRepository();
         routineObject.UserId = MainPage.User.UserId;
         routineObject.Name = nameBox.Text.Trim();

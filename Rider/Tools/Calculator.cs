@@ -4,9 +4,8 @@ namespace MAUI_GymApp;
 
 public class Calculator
 {
-    public static int GeneralStrength(int intialLift)
+    public static int GeneralStrength(UserRepository user, int intialLift)
     {
-        UserRepository user = MainPage.User;
         int age = user.Age;
         double weight = user.Weight;
         string sex = user.Sex;

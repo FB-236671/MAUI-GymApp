@@ -43,6 +43,7 @@ public class GeneralControls
             {
                 stopwatch.Stop();
                 timer.Stop();
+                Vibration.Default.Vibrate(1);
                 timerLabel.Text = "00:00";
                 return;
             }

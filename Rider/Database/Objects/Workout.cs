@@ -95,12 +95,3 @@ public class WorkoutSetsRepository
     public double Weight { get; set; }
     public int Reps { get; set; }
 }
-
-public class SetParser
-{
-    public int SetNumber { get; set; }
-    public Entry Weight { get; set; }
-    public Entry Reps { get; set; }
-    public CheckBox CheckBox { get; set; }
-    public double EquipmentMultiplier { get; set; }
-}

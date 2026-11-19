@@ -7,7 +7,7 @@ public class RoutineTab : ContentView
     private readonly VerticalStackLayout _layout;
     private bool _routinesLoaded;
 
-    public RoutineTab()
+    public RoutineTab(UserRepository user)
     {
         Button startEmpty = UIElements.MakeButton("Start Empty Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 12, new Thickness(8));
         Button createNew = UIElements.MakeButton("Create New Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 12, new Thickness(8));

@@ -16,10 +16,10 @@ public class MainPage : ContentPage
         NavigationPage.SetHasNavigationBar(this, false);
         _contentHost = new ContentView();
 
-        TabButton workoutTab = new TabButton("dumbbell.png", "Workouts", () => Show(0, new WorkoutTab()));
-        TabButton routineTab = new TabButton("", "Routines", () => Show(1, new RoutineTab()));
-        TabButton trophiesTab = new TabButton("goldtrophy.png", "Trophies", () => Show(2, new TrophiesTab()));
-        TabButton statsTab = new TabButton("stats.png", "Stats", () => Show(3, new StatsTab()));
+        TabButton workoutTab = new TabButton("dumbbell.png", "Workouts", () => Show(0, new WorkoutTab(User)));
+        TabButton routineTab = new TabButton("", "Routines", () => Show(1, new RoutineTab(User)));
+        TabButton trophiesTab = new TabButton("goldtrophy.png", "Trophies", () => Show(2, new TrophiesTab(User)));
+        TabButton statsTab = new TabButton("stats.png", "Stats", () => Show(3, new StatsTab(User)));
         _tabs.Add(workoutTab);
         _tabs.Add(routineTab);
         _tabs.Add(trophiesTab);
@@ -64,7 +64,7 @@ public class MainPage : ContentPage
 
         Content = root;
 
-        Show(0, new RoutineTab());
+        Show(0, new RoutineTab(User));
     }
 
     private void Show(int index, View view)

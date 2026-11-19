@@ -58,16 +58,8 @@ public class SaveControls
                     double weight = Convert.ToDouble(set.Weight.Text) * set.EquipmentMultiplier;
                     int reps = Convert.ToInt32(set.Reps.Text);
 
-                    totalVolume += Calculator.GeneralStrength(Convert.ToInt32(Math.Round(weight * reps)));
+                    totalVolume += Calculator.GeneralStrength(MainPage.User, Convert.ToInt32(Math.Round(weight * reps)));
 
-
-<<<<<<< TODO: Unmerged change from project 'MAUI-GymApp (net9.0-windows10.0.19041.0)', Before:
-                    WorkoutSetsParser workoutSetsObject = new WorkoutSetsParser();
-                    workoutSetsObject.SetNumber = set.SetNumber + drawback;
-=======
-                    WorkoutSetsRepository workoutSetsObject = new WorkoutSetsParser();
-                    workoutSetsObject.SetNumber = set.SetNumber + drawback;
->>>>>>> After
                     WorkoutSetsRepository workoutSetsObject = new WorkoutSetsRepository();
                     workoutSetsObject.SetNumber = set.SetNumber + drawback;
                     workoutSetsObject.Weight = Math.Round(weight, 1);

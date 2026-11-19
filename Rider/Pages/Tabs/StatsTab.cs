@@ -9,7 +9,7 @@ public class StatsTab : ContentView
     private readonly VerticalStackLayout _layout;
     private UserRepository _user;
 
-    public StatsTab()
+    public StatsTab(UserRepository user)
     {
         Button editButton = UIElements.MakeButton("Edit", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, 4);
         Button logoutButton = UIElements.MakeButton("Logout", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, 4);

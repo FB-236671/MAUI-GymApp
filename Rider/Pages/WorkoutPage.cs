@@ -17,7 +17,7 @@ public class WorkoutPage : ContentPage
     private readonly List<List<SetParser>> _setListList = new();
     private readonly List<RoutineExercisesRepository> _exercises = new();
 
-    public WorkoutPage(RoutineRepository? routineObject = null)
+    public WorkoutPage(UserRepository user, RoutineRepository? routineObject = null)
     {
         Background = Colors.White;
         _routineObject = routineObject;

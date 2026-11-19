@@ -6,7 +6,7 @@ public class TrophiesTab : ContentView
 {
     private List<RecordRepository> recordList = Record.GetRecordsByUser(MainPage.User.UserId);
 
-    public TrophiesTab()
+    public TrophiesTab(UserRepository user)
     {
         VerticalStackLayout layout = new VerticalStackLayout
         {
@@ -23,7 +23,7 @@ public class TrophiesTab : ContentView
             }
             TrophyRepository trophies = Trophy.GetTrophyByExercise(record.ExerciseId);
             string trophySource;
-            int lift = Calculator.GeneralStrength(record.OneRM);
+            int lift = Calculator.GeneralStrength(MainPage.User, record.OneRM);
 
             if (trophies.Platinum <= lift)
             {
