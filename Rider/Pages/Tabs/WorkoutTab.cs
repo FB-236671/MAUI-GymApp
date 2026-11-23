@@ -8,7 +8,7 @@ public class WorkoutTab : ContentView
     private List<string> filterList = new List<string>();
     private Picker filterSelector = new Picker();
 
-    public TrophiesTab(UserRepository user)
+    public WorkoutTab(UserRepository user)
     {
         filterSelector = UIElements.MakeSelector("Filter", filterList, 20);
 
@@ -48,7 +48,7 @@ public class WorkoutTab : ContentView
                         UIElements.MakeLabel(workout.Volume.ToString(), 10)
                     }
                 },
-                UIElements.MakeLine(2, Colors.Black),
+                UIElements.MakeLine(),
             }
         };
 

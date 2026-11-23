@@ -46,7 +46,7 @@ public class MainPage : ContentPage
             Spacing = 0,
             Children =
             {
-                UIElements.MakeLine(2, Colors.Black),
+                UIElements.MakeLine(),
                 tabBarGrid
             }
         };

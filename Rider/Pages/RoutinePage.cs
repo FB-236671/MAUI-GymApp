@@ -24,7 +24,7 @@ public class RoutinePage : ContentPage
             Children =
             {
                 nameBox,
-                UIElements.MakeLine(2, Colors.Black),
+                UIElements.MakeLine(),
                 saveButton,
                 picker
             }
@@ -84,9 +84,8 @@ public class RoutinePage : ContentPage
         if (routine != null)
         {
             Routine.DeleteRoutine(routine.RoutineId);
-            RoutineExercises.DeleteRoutineExercises(routine.RoutineId);
+            Routine.DeleteRoutineExercises(routine.RoutineId);
         }
-
 
         RoutineRepository routineObject = new RoutineRepository();
         routineObject.UserId = MainPage.User.UserId;
@@ -95,23 +94,14 @@ public class RoutinePage : ContentPage
 
         foreach (RoutineDataRepository exercise in _routineExerciseList)
         {
-
-<<<<<<< TODO: Unmerged change from project 'MAUI-GymApp (net9.0-windows10.0.19041.0)', Before:
-            RoutineExercisesParser routineExercisesObject = new RoutineExercisesParser();
-            routineExercisesObject.RoutineId = routineId;
-=======
-            RoutineExercisesRepository routineExercisesObject = new RoutineExercisesParser();
-            routineExercisesObject.RoutineId = routineId;
->>>>>>> After
             RoutineExercisesRepository routineExercisesObject = new RoutineExercisesRepository();
             routineExercisesObject.RoutineId = routineId;
             routineExercisesObject.ExerciseId = Exercise.GetExerciseByName(exercise.Name).ExerciseId;
             routineExercisesObject.Sets = Convert.ToInt32(exercise.SetEntry.Text);
             routineExercisesObject.Rest = Convert.ToInt32(exercise.RestPicker.SelectedItem);
             routineExercisesObject.EquipmentId = Equipment.GetEquipmentByName((string)exercise.EquipmentPicker.SelectedItem).EquipmentId;
-            RoutineExercises.AddRoutineExercises(routineExercisesObject);
+            Routine.AddRoutineExercises(routineExercisesObject);
         }
-
         GeneralControls.GoHome();
     }
 }

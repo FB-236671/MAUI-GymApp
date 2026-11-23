@@ -38,7 +38,7 @@ public class WorkoutPage : ContentPage
                         _timerLabel
                     }
                 },
-                UIElements.MakeLine(2, Colors.Black)
+                UIElements.MakeLine()
             }
         };
 
@@ -72,7 +72,7 @@ public class WorkoutPage : ContentPage
         else
         {
             _layout.Children.Add(finishButton);
-            _exercises.AddRange(RoutineExercises.GetRoutineExercisesByRoutineId(routineObject.RoutineId));
+            _exercises.AddRange(Routine.GetRoutineExercisesByRoutineId(routineObject.RoutineId));
             foreach (RoutineExercisesRepository exercise in _exercises)
             {
                 _layout.Children.Add(UIControls.BuildWorkoutCard(exercise, _setListList, OnCheckChanged));
@@ -84,7 +84,7 @@ public class WorkoutPage : ContentPage
             Spacing = 0,
             Children =
             {
-                UIElements.MakeLine(2, Colors.Black),
+                UIElements.MakeLine(),
                 new HorizontalStackLayout
                 {
                     Padding = new Thickness(16, 8),
@@ -141,10 +141,10 @@ public class WorkoutPage : ContentPage
         }
 
         int routineId = Routine.CreateRoutine(new RoutineRepository { UserId = MainPage.User.UserId, Name = name });
-        foreach (RoutineExercisesRepository re in _exercises)
+        foreach (RoutineExercisesRepository exercise in _exercises)
         {
-            re.RoutineId = routineId;
-            RoutineExercises.AddRoutineExercises(re);
+            exercise.RoutineId = routineId;
+            Routine.AddRoutineExercises(exercise);
         }
 
         StopTimer();

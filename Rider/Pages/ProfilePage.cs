@@ -74,14 +74,6 @@ public class ProfilePage : ContentPage
             await DisplayAlert("Input Error", string.Join("\n", errors), "Close"); return;
         }
 
-
-<<<<<<< TODO: Unmerged change from project 'MAUI-GymApp (net9.0-windows10.0.19041.0)', Before:
-        UserParser userObject = new UserParser
-        {
-=======
-        UserRepository userObject = new UserParser
-        {
->>>>>>> After
         UserRepository userObject = new UserRepository
         {
             Name = _nameEntry.Text.Trim(),

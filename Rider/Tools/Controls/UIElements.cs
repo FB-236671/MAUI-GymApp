@@ -108,10 +108,10 @@ public class UIElements
         Content = inner
     };
 
-    public static BoxView MakeLine(int height, Color color) => new()
+    public static BoxView MakeLine() => new()
     {
-        HeightRequest = height,
-        Color = color
+        HeightRequest = 2,
+        Color = Colors.Black
     };
     
     public static ChartView MakeChart(ChartType type, int height, ChartEntry[] entries, int textSize)

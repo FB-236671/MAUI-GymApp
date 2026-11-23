@@ -21,7 +21,7 @@ public class UIControls
                         UIElements.MakeButton(Equipment.GetEquipmentById(routineExercisesObject.EquipmentId).Name[0].ToString(), Colors.White, Colors.Black, Colors.Black, 5, 2, 22, 5)
                     }
                 },
-                UIElements.MakeLine(2, Colors.Black),
+                UIElements.MakeLine(),
             }
         };
 

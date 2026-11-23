@@ -5,14 +5,23 @@ namespace MAUI_GymApp.Views;
 public class TrophiesTab : ContentView
 {
     private List<RecordRepository> recordList = Record.GetRecordsByUser(MainPage.User.UserId);
+    private UserRepository user;
+    private Entry _testEntry;
+    private Label _testLabel;
 
     public TrophiesTab(UserRepository user)
     {
+        user = user;
+
+        _testEntry = UIElements.MakeTextBox("Inital Weight", Colors.Gray, Colors.Black, 14, 20, LayoutOptions.Center);
+        _testLabel = UIElements.MakeLabel("_", 20);
+        Button testButton = UIElements.MakeButton("Test Caculator", Colors.Black, Colors.White, Colors.Black, 2, 6, 12, 4);
+
         VerticalStackLayout layout = new VerticalStackLayout
         {
             Padding = new Thickness(16, 16, 16, 0),
             Spacing = 8,
-            Children = { BuildHeaderRow() }
+            Children = { BuildHeaderRow(), UIElements.MakeLine() }
         };
 
         foreach (RecordRepository record in recordList)
@@ -23,7 +32,7 @@ public class TrophiesTab : ContentView
             }
             TrophyRepository trophies = Trophy.GetTrophyByExercise(record.ExerciseId);
             string trophySource;
-            int lift = Calculator.GeneralStrength(MainPage.User, record.OneRM);
+            int lift = Calculator.GeneralStrength(user, record.OneRM);
 
             if (trophies.Platinum <= lift)
             {
@@ -48,6 +57,17 @@ public class TrophiesTab : ContentView
             
             layout.Add(BuildTrophyCard(record, trophySource));
         }
+
+        layout.Add(UIElements.MakeLine());
+        layout.Add(new VerticalStackLayout
+        {
+            Children =
+                {
+                    _testEntry, testButton, _testLabel
+                }
+        });
+
+        testButton.Clicked += OnTestButtonClick;
 
         Content = new ScrollView { Content = layout };
     }
@@ -81,11 +101,16 @@ public class TrophiesTab : ContentView
     {
         Grid inner = MakeRowGrid();
         
-        inner.Add(UIElements.MakeImage(trophySource, 48, 48));
-        inner.Add(UIElements.MakeCell(Exercise.GetExerciseName(record.ExerciseId), 16, TextAlignment.Start), 1);
-        inner.Add(UIElements.MakeCell($"{record.OneRM}kg", 18, TextAlignment.End), 2);
-        inner.Add(UIElements.MakeCell($"{record.BestWeight}kg", 18, TextAlignment.End), 3);
+        inner.Add(UIElements.MakeImage(trophySource, 40, 40));
+        inner.Add(UIElements.MakeCell(Exercise.GetExerciseName(record.ExerciseId), 10, TextAlignment.Start), 1);
+        inner.Add(UIElements.MakeCell($"{record.OneRM}kg", 12, TextAlignment.End), 2);
+        inner.Add(UIElements.MakeCell($"{record.BestWeight}kg", 12, TextAlignment.End), 3);
 
         return UIElements.MakeCard(Colors.LightGray, inner);
+    }
+
+    private async void OnTestButtonClick(object? sender, EventArgs e)
+    {
+        _testLabel.Text = Calculator.GeneralStrength(user, Convert.ToInt32(_testEntry.Text)).ToString();
     }
 }
