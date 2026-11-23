@@ -4,18 +4,9 @@ namespace MAUI_GymApp.Views;
 
 public class TrophiesTab : ContentView
 {
-    private List<RecordRepository> recordList = Record.GetRecordsByUser(MainPage.User.UserId);
-    private UserRepository user;
-    private Entry _testEntry;
-    private Label _testLabel;
-
     public TrophiesTab(UserRepository user)
     {
-        user = user;
-
-        _testEntry = UIElements.MakeTextBox("Inital Weight", Colors.Gray, Colors.Black, 14, 20, LayoutOptions.Center);
-        _testLabel = UIElements.MakeLabel("_", 20);
-        Button testButton = UIElements.MakeButton("Test Caculator", Colors.Black, Colors.White, Colors.Black, 2, 6, 12, 4);
+        List<RecordRepository> recordList = Record.GetRecordsByUser(user.UserId);
 
         VerticalStackLayout layout = new VerticalStackLayout
         {
@@ -58,17 +49,6 @@ public class TrophiesTab : ContentView
             layout.Add(BuildTrophyCard(record, trophySource));
         }
 
-        layout.Add(UIElements.MakeLine());
-        layout.Add(new VerticalStackLayout
-        {
-            Children =
-                {
-                    _testEntry, testButton, _testLabel
-                }
-        });
-
-        testButton.Clicked += OnTestButtonClick;
-
         Content = new ScrollView { Content = layout };
     }
 
@@ -107,10 +87,5 @@ public class TrophiesTab : ContentView
         inner.Add(UIElements.MakeCell($"{record.BestWeight}kg", 12, TextAlignment.End), 3);
 
         return UIElements.MakeCard(Colors.LightGray, inner);
-    }
-
-    private async void OnTestButtonClick(object? sender, EventArgs e)
-    {
-        _testLabel.Text = Calculator.GeneralStrength(user, Convert.ToInt32(_testEntry.Text)).ToString();
     }
 }

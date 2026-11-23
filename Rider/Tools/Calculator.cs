@@ -4,11 +4,14 @@ namespace MAUI_GymApp;
 
 public class Calculator
 {
-    public static int GeneralStrength(UserRepository user, int intialLift)
+    public static int GeneralStrength(UserRepository user, int initialLift)
     {
         int age = user.Age;
         double weight = user.Weight;
         string sex = user.Sex;
+        
+        bool isMale = string.Equals(sex, "male", StringComparison.OrdinalIgnoreCase);
+        weight = Math.Clamp(weight, 40, isMale ? 200 : 150);
 
         double[] values;
         double frostMcCoef = 0;
@@ -54,7 +57,7 @@ public class Calculator
             frostMcCoef = 0.0000021160122 * Math.Pow(age, 3) + 0.000087877648 * Math.Pow(age, 2) - 0.0078450059  * age + 1.0376323;
         }
 
-        double rawResult = intialLift * frostMcCoef * wilksCoef;
+        double rawResult = initialLift * frostMcCoef * wilksCoef;
         int resultLift = Convert.ToInt32(Math.Round(rawResult, 0));
         
         return resultLift;

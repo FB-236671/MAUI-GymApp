@@ -7,9 +7,10 @@ public class GeneralControls
     public static List<string> GetRestList()
     {
         List<string> restList = new List<string>();
-        Stream stream = FileSystem.OpenAppPackageFileAsync("RestList.txt").GetAwaiter().GetResult();
-        StreamReader reader = new StreamReader(stream);
-        string line = reader.ReadLine();
+        
+        using Stream stream = FileSystem.OpenAppPackageFileAsync("RestList.txt").GetAwaiter().GetResult();
+        using StreamReader reader = new StreamReader(stream);
+        string? line = reader.ReadLine();
         while (line != null)
         {
             restList.Add(line);
@@ -30,7 +31,7 @@ public class GeneralControls
 
     public static IDispatcherTimer StartRest(Stopwatch stopwatch, Label timerLabel, IDispatcher dispatcher, TimeSpan duration)
     {
-        timerLabel.Text = stopwatch.Elapsed.ToString(@"mm\:ss");
+        timerLabel.Text = duration.ToString(@"mm\:ss");
         stopwatch.Restart();
 
         IDispatcherTimer timer = dispatcher.CreateTimer();
@@ -43,8 +44,8 @@ public class GeneralControls
             {
                 stopwatch.Stop();
                 timer.Stop();
-                Vibration.Default.Vibrate(1);
                 timerLabel.Text = "00:00";
+                if (Vibration.Default.IsSupported) { Vibration.Default.Vibrate(500); }
                 return;
             }
 

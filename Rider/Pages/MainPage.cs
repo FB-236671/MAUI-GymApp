@@ -17,7 +17,7 @@ public class MainPage : ContentPage
         _contentHost = new ContentView();
 
         TabButton workoutTab = new TabButton("dumbbell.png", "Workouts", () => Show(0, new WorkoutTab(User)));
-        TabButton routineTab = new TabButton("", "Routines", () => Show(1, new RoutineTab(User)));
+        TabButton routineTab = new TabButton("dumbbell.png", "Routines", () => Show(1, new RoutineTab(User)));
         TabButton trophiesTab = new TabButton("goldtrophy.png", "Trophies", () => Show(2, new TrophiesTab(User)));
         TabButton statsTab = new TabButton("stats.png", "Stats", () => Show(3, new StatsTab(User)));
         _tabs.Add(workoutTab);
@@ -29,6 +29,7 @@ public class MainPage : ContentPage
         {
             ColumnDefinitions =
             {
+                new ColumnDefinition { Width = GridLength.Star },
                 new ColumnDefinition { Width = GridLength.Star },
                 new ColumnDefinition { Width = GridLength.Star },
                 new ColumnDefinition { Width = GridLength.Star }
@@ -64,7 +65,7 @@ public class MainPage : ContentPage
 
         Content = root;
 
-        Show(0, new RoutineTab(User));
+        Show(1, new RoutineTab(User));
     }
 
     private void Show(int index, View view)

@@ -1,5 +1,4 @@
-﻿using Android.Telephony;
-using MAUI_GymApp.Rider.Database.Queries;
+﻿using MAUI_GymApp.Rider.Database.Queries;
 
 namespace MAUI_GymApp.Rider.Database.Objects;
 
@@ -52,22 +51,6 @@ public class Exercise
         return GeneralQueries.GetOne(sql, reader => reader.GetString(0),
             command => command.Parameters.AddWithValue("@exerciseId", id));
     }
-
-    public static string GetExercisesByWorkout(int workoutId)
-    {
-        string sql = "SELECT * FROM exercise WHERE workoutId = @workoutId";
-
-        return GeneralQueries.GetOne(sql, reader => new ExerciseRepository()
-            {
-                ExerciseId = reader.GetInt32(0),
-                Name = reader.GetString(1),
-                MuscleId = reader.GetInt32(2),
-            },
-            command => command.Parameters.AddWithValue("@workoutId", workoutId)
-        );
-    }
-
-
 
     public static List<string> ExerciseNameList()
     {

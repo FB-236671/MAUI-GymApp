@@ -9,16 +9,18 @@ public class WorkoutPage : ContentPage
     private readonly VerticalStackLayout _restBar;
     private readonly RoutineRepository? _routineObject;
     private readonly IDispatcherTimer _timer;
-    private IDispatcherTimer _restTimer;
+    private IDispatcherTimer? _restTimer;
     private readonly Stopwatch _stopwatch = new();
     private readonly Stopwatch _restStopWatch = new();
     private readonly Label _restLabel = UIElements.MakeLabel("__:__", 24);
     private readonly Label _timerLabel = UIElements.MakeLabel("__:__:__", 30);
     private readonly List<List<SetParser>> _setListList = new();
     private readonly List<RoutineExercisesRepository> _exercises = new();
+    private UserRepository _user;
 
     public WorkoutPage(UserRepository user, RoutineRepository? routineObject = null)
     {
+        _user = user;
         Background = Colors.White;
         _routineObject = routineObject;
         _timer = GeneralControls.StartTimer(_stopwatch, _timerLabel, Dispatcher);
@@ -123,13 +125,17 @@ public class WorkoutPage : ContentPage
         if (!await SaveControls.ValidateSets(_setListList)) return;
 
         StopTimer();
-        SaveControls.SaveWholeWorkout(_exercises, _setListList, _stopwatch);
+        SaveControls.SaveWholeWorkout(_user, _exercises, _setListList, _stopwatch);
         GeneralControls.GoHome();
     }
     
     private async void OnSaveAsRoutineClicked(object? sender, EventArgs e)
     {
-        if (_exercises.Count == 0) return;
+        if (_exercises.Count == 0)
+        {
+            await DisplayAlert("Empty Workout", "Add at least one exercise first", "Close");
+            return;
+        }
         if (!await SaveControls.ValidateSets(_setListList)) return;
 
         string? name = await DisplayPromptAsync("Name", "What do you want to call your routine?", "Confirm", "Back");
@@ -139,8 +145,8 @@ public class WorkoutPage : ContentPage
             await DisplayAlert("Input Error", nameError, "Close");
             return;
         }
-
-        int routineId = Routine.CreateRoutine(new RoutineRepository { UserId = MainPage.User.UserId, Name = name });
+        
+        int routineId = Routine.CreateRoutine(new RoutineRepository { UserId = _user.UserId, Name = name.Trim() });
         foreach (RoutineExercisesRepository exercise in _exercises)
         {
             exercise.RoutineId = routineId;
@@ -148,7 +154,7 @@ public class WorkoutPage : ContentPage
         }
 
         StopTimer();
-        SaveControls.SaveWholeWorkout(_exercises, _setListList, _stopwatch);
+        SaveControls.SaveWholeWorkout(_user, _exercises, _setListList, _stopwatch);
         GeneralControls.GoHome();
     }
 
@@ -171,12 +177,8 @@ public class WorkoutPage : ContentPage
             await DisplayAlert("Input Error", setsError, "Close"); return;
         }
 
-        string? rest = await DisplayPromptAsync("Rest", "How much rest do you want for this exercise", "Confirm", "Back", keyboard: Keyboard.Numeric);
-        if (rest is null) return;
-        if (TypeChecker.IntegerCheck(rest, "Rest", 0, 600, out int checkedRest) is string restError)
-        {
-            await DisplayAlert("Input Error", restError, "Close"); return;
-        }
+        string? rest = await DisplayActionSheet("Rest", "Back", null, GeneralControls.GetRestList().ToArray());
+        if (rest is null || rest == "Back") return;
 
         string? chosenEquipment = await DisplayActionSheet("Equipment", "Back", null, Equipment.EquipmentNameList().ToArray());
         if (chosenEquipment is null || chosenEquipment == "Back") return;
@@ -185,7 +187,7 @@ public class WorkoutPage : ContentPage
         {
             ExerciseId = Exercise.GetExerciseByName(selectedName).ExerciseId,
             Sets = checkedSets,
-            Rest = checkedRest,
+            Rest = Convert.ToInt32(rest),
             EquipmentId = Equipment.GetEquipmentByName(chosenEquipment).EquipmentId
         };
 
@@ -199,6 +201,11 @@ public class WorkoutPage : ContentPage
         if (sender is not CheckBox checkBox || checkBox.BindingContext is not RoutineExercisesRepository routineObject) return;
 
         _restTimer?.Stop();
+        if (routineObject.Rest == 0)
+        {
+            _restLabel.Text = "00:00";
+            return;
+        }
         _restTimer = GeneralControls.StartRest(_restStopWatch, _restLabel, Dispatcher, TimeSpan.FromSeconds(routineObject.Rest));
     }
 
@@ -208,6 +215,7 @@ public class WorkoutPage : ContentPage
     {
         base.OnDisappearing();
         StopTimer();
+        _restTimer?.Stop();
     }
 
     private void StopTimer()

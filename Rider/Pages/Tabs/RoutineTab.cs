@@ -6,9 +6,12 @@ public class RoutineTab : ContentView
 {
     private readonly VerticalStackLayout _layout;
     private bool _routinesLoaded;
+    private UserRepository _user;
 
     public RoutineTab(UserRepository user)
     {
+        _user = user;
+        
         Button startEmpty = UIElements.MakeButton("Start Empty Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 12, new Thickness(8));
         Button createNew = UIElements.MakeButton("Create New Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 12, new Thickness(8));
         Grid.SetColumn(createNew, 1);
@@ -42,14 +45,14 @@ public class RoutineTab : ContentView
     {
         if (sender is not Button button || button.CommandParameter is not RoutineRepository routineObject) return;
 
-        await Navigation.PushAsync(new WorkoutPage(routineObject));
+        await Navigation.PushAsync(new WorkoutPage(_user, routineObject));
     }
 
     private async void OnEditClick(object? sender, EventArgs e)
     {
         if (sender is not Button button || button.CommandParameter is not RoutineRepository routineObject) return;
         
-        await Navigation.PushAsync(new RoutinePage(routineObject));
+        await Navigation.PushAsync(new RoutinePage(_user, routineObject));
     }
     
     private async void OnDeleteClick(object? sender, EventArgs e)
@@ -61,7 +64,7 @@ public class RoutineTab : ContentView
         if (!confirmed) return;
         
         Routine.DeleteRoutine(routineId);
-        RoutineExercises.DeleteRoutineExercises(routineId);
+        Routine.DeleteRoutineExercises(routineId);
 
         if (button.Parent?.Parent is View card)
         {
@@ -76,7 +79,7 @@ public class RoutineTab : ContentView
 
         try
         {
-            List<RoutineRepository> routineList = Routine.GetRoutinesByUser(MainPage.User.UserId);
+            List<RoutineRepository> routineList = Routine.GetRoutinesByUser(_user.UserId);
             foreach (RoutineRepository routine in routineList)
             {
                 _layout.Add(BuildRoutineBar(routine));
@@ -91,12 +94,12 @@ public class RoutineTab : ContentView
     
     private async void OnCreateClick(object? sender, EventArgs e)
     {
-        await Navigation.PushAsync(new RoutinePage());
+        await Navigation.PushAsync(new RoutinePage(_user));
     }
 
     private async void OnStartEmptyClick(object? sender, EventArgs e)
     {
-        await Navigation.PushAsync(new WorkoutPage());
+        await Navigation.PushAsync(new WorkoutPage(_user));
     }
 
     private View BuildRoutineBar(RoutineRepository routineObject)

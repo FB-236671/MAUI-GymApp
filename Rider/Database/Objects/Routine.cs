@@ -6,7 +6,7 @@ public class Routine
 {
     public static int CreateRoutine(RoutineRepository routineObject)
     {
-        string sql = "INSERT INTO routine (UserId, Name) VALUES (@UserId, @Name); SELECT last_insert_rowid();";
+        string sql = "INSERT INTO routine (userId, name) VALUES (@UserId, @Name); SELECT last_insert_rowid();";
         
         return GeneralQueries.GetOne(sql, reader => reader.GetInt32(0), command => 
         {
@@ -28,21 +28,7 @@ public class Routine
             command => command.Parameters.AddWithValue("@userId", userId)
         );
     }
-
-    public static List<RoutineRepository> GetRoutineByWorkout(int workoutId)
-    {
-        string sql = "SELECT * FROM routine WHERE workoutId = @workoutId";
-
-        return GeneralQueries.GetOne(sql, reader => new RoutineRepository()
-            {
-                RoutineId = reader.GetInt32(0),
-                UserId = reader.GetInt32(1),
-                Name = reader.GetString(2)
-            },
-            command => command.Parameters.AddWithValue("@workoutId", workoutId)
-        );
-    }
-
+    
     public static void DeleteRoutine(int routineId)
     {
         string sql = "DELETE FROM routine WHERE routineId = @routineId";
@@ -52,7 +38,7 @@ public class Routine
 
     public static void AddRoutineExercises(RoutineExercisesRepository routineExercisesObject)
     {
-        string sql = "INSERT INTO routineexercises (RoutineId, ExerciseId, Sets, Rest, EquipmentId) VALUES (@RoutineId, @ExerciseId, @Sets, @Rest, @EquipmentId)";
+        string sql = "INSERT INTO routineexercises (routineId, exerciseId, sets, rest, equipmentId) VALUES (@RoutineId, @ExerciseId, @Sets, @Rest, @EquipmentId)";
 
         GeneralQueries.NonQuery(sql, command =>
         {

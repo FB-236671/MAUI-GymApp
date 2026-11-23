@@ -6,30 +6,14 @@ namespace MAUI_GymApp;
 
 public class SaveControls
 {
-    public static void SaveWholeWorkout(List<RoutineExercisesRepository> routineExerciseList, List<List<SetParser>> setListList, Stopwatch stopwatch)
+    public static void SaveWholeWorkout(UserRepository user, List<RoutineExercisesRepository> routineExerciseList, List<List<SetParser>> setListList, Stopwatch stopwatch)
     {
-
-<<<<<<< TODO: Unmerged change from project 'MAUI-GymApp (net9.0-windows10.0.19041.0)', Before:
-        WorkoutParser workoutObject = new WorkoutParser();
-        List<WorkoutExercisesRepository> workoutExercisesList = new List<WorkoutExercisesRepository>();
-=======
-        WorkoutRepository workoutObject = new WorkoutParser();
-        List<WorkoutExercisesParser> workoutExercisesList = new List<WorkoutExercisesParser>();
->>>>>>> After
         WorkoutRepository workoutObject = new WorkoutRepository();
         List<WorkoutExercisesRepository> workoutExercisesList = new List<WorkoutExercisesRepository>();
         List<List<WorkoutSetsRepository>> workoutSetsListList = new List<List<WorkoutSetsRepository>>();
 
         foreach (RoutineExercisesRepository exercise in routineExerciseList)
         {
-
-<<<<<<< TODO: Unmerged change from project 'MAUI-GymApp (net9.0-windows10.0.19041.0)', Before:
-            WorkoutExercisesParser workoutExercisesObject = new WorkoutExercisesParser();
-            workoutExercisesObject.ExerciseId = exercise.ExerciseId;
-=======
-            WorkoutExercisesRepository workoutExercisesObject = new WorkoutExercisesParser();
-            workoutExercisesObject.ExerciseId = exercise.ExerciseId;
->>>>>>> After
             WorkoutExercisesRepository workoutExercisesObject = new WorkoutExercisesRepository();
             workoutExercisesObject.ExerciseId = exercise.ExerciseId;
             workoutExercisesObject.Sets = exercise.Sets;
@@ -58,7 +42,7 @@ public class SaveControls
                     double weight = Convert.ToDouble(set.Weight.Text) * set.EquipmentMultiplier;
                     int reps = Convert.ToInt32(set.Reps.Text);
 
-                    totalVolume += Calculator.GeneralStrength(MainPage.User, Convert.ToInt32(Math.Round(weight * reps)));
+                    totalVolume += Convert.ToInt32(Math.Round(weight * reps));
 
                     WorkoutSetsRepository workoutSetsObject = new WorkoutSetsRepository();
                     workoutSetsObject.SetNumber = set.SetNumber + drawback;
@@ -83,7 +67,7 @@ public class SaveControls
             records.Add((heaviestWeight, best1RM));
         }
 
-        workoutObject.UserId = MainPage.User.UserId;
+        workoutObject.UserId = user.UserId;
         workoutObject.Duration = (int)stopwatch.Elapsed.TotalSeconds;
         workoutObject.Volume = totalVolume;
         workoutObject.Date = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
@@ -115,14 +99,6 @@ public class SaveControls
 
             if (previousBestWeight < records[i].bestWeight || previousOneRM < records[i].oneRM)
             {
-
-<<<<<<< TODO: Unmerged change from project 'MAUI-GymApp (net9.0-windows10.0.19041.0)', Before:
-                RecordParser recordObject = new RecordParser();
-                recordObject.UserId = workoutObject.UserId;
-=======
-                RecordRepository recordObject = new RecordParser();
-                recordObject.UserId = workoutObject.UserId;
->>>>>>> After
                 RecordRepository recordObject = new RecordRepository();
                 recordObject.UserId = workoutObject.UserId;
                 recordObject.ExerciseId = routineExerciseList[i].ExerciseId;
@@ -148,6 +124,11 @@ public class SaveControls
                 if (TypeChecker.IntegerIndexCheck(set.Reps.Text, "Reps", set.SetNumber.ToString(), 1, 30, out int reps) is string repsError) { errors.Add(repsError); }
             }
         }
+        
+        if (!setListList.Any(setList => setList.Any(set => set.CheckBox.IsChecked)))
+        {
+            errors.Add("Tick at least one set first");
+        }
 
         if (errors.Count > 0)
         {
@@ -162,7 +143,7 @@ public class SaveControls
     {
         name.Text = routine.Name;
 
-        List<RoutineExercisesRepository> routineExercisesList = RoutineExercises.GetRoutineExercisesByRoutineId(routine.RoutineId);
+        List<RoutineExercisesRepository> routineExercisesList = Routine.GetRoutineExercisesByRoutineId(routine.RoutineId);
 
         foreach (RoutineExercisesRepository exercise in routineExercisesList)
         {

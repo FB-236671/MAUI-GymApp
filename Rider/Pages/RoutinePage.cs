@@ -6,16 +6,18 @@ public class RoutinePage : ContentPage
 {
     private readonly VerticalStackLayout _layout;
     private List<RoutineDataRepository> _routineExerciseList = new();
-    private Entry nameBox;
-    private RoutineRepository? routine;
+    private Entry _nameBox;
+    private RoutineRepository? _routine;
+    private UserRepository _user;
 
     public RoutinePage(UserRepository user, RoutineRepository? parsedRoutine = null)
     {
+        _user = user;
         Background = Colors.White;
         Picker picker = UIElements.MakeSelector("Add an Exercise", Exercise.ExerciseNameList(), 18);
         Button saveButton = UIElements.MakeButton("Save", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, 4);
-        nameBox = UIElements.MakeTextBox("Name", Colors.Gray, Colors.Black, 30, 250, LayoutOptions.Start);
-        nameBox.HorizontalOptions = LayoutOptions.Start;
+        _nameBox = UIElements.MakeTextBox("Name", Colors.Gray, Colors.Black, 30, 250, LayoutOptions.Start);
+        _nameBox.HorizontalOptions = LayoutOptions.Start;
 
         _layout = new VerticalStackLayout()
         {
@@ -23,7 +25,7 @@ public class RoutinePage : ContentPage
             Spacing = 16,
             Children =
             {
-                nameBox,
+                _nameBox,
                 UIElements.MakeLine(),
                 saveButton,
                 picker
@@ -34,8 +36,8 @@ public class RoutinePage : ContentPage
         saveButton.Clicked += OnSaveClicked;
         if (parsedRoutine != null)
         {
-            routine = parsedRoutine;
-            SaveControls.LoadRoutine(nameBox, routine, _layout, _routineExerciseList);
+            _routine = parsedRoutine;
+            SaveControls.LoadRoutine(_nameBox, _routine, _layout, _routineExerciseList);
         }
         Content = new ScrollView { Content = _layout };
     }
@@ -66,7 +68,8 @@ public class RoutinePage : ContentPage
     {
         var errors = new List<string>();
 
-        if (TypeChecker.StringCheck(nameBox.Text, "Name") is string nameError) { errors.Add(nameError); }
+        if (TypeChecker.StringCheck(_nameBox.Text, "Name") is string nameError) { errors.Add(nameError); }
+        if (_routineExerciseList.Count == 0) { errors.Add("Add at least one exercise first"); }
 
         foreach (RoutineDataRepository exercise in _routineExerciseList)
         {
@@ -81,15 +84,15 @@ public class RoutinePage : ContentPage
             return;
         }
 
-        if (routine != null)
+        if (_routine != null)
         {
-            Routine.DeleteRoutine(routine.RoutineId);
-            Routine.DeleteRoutineExercises(routine.RoutineId);
+            Routine.DeleteRoutine(_routine.RoutineId);
+            Routine.DeleteRoutineExercises(_routine.RoutineId);
         }
 
         RoutineRepository routineObject = new RoutineRepository();
-        routineObject.UserId = MainPage.User.UserId;
-        routineObject.Name = nameBox.Text.Trim();
+        routineObject.UserId = _user.UserId;
+        routineObject.Name = _nameBox.Text.Trim();
         int routineId = Routine.CreateRoutine(routineObject);
 
         foreach (RoutineDataRepository exercise in _routineExerciseList)

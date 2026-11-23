@@ -6,7 +6,7 @@ public class Workout
 {
     public static void SaveWorkout(WorkoutRepository workoutObject, List<WorkoutExercisesRepository> workoutExercisesList, List<List<WorkoutSetsRepository>> workoutSetsListList)
     {
-        string workoutSql = "INSERT INTO workout (UserId, Duration, Volume, Date) VALUES (@UserId, @Duration, @Volume, @Date); SELECT last_insert_rowid();";
+        string workoutSql = "INSERT INTO workout (userId, duration, volume, date) VALUES (@UserId, @Duration, @Volume, @Date); SELECT last_insert_rowid();";
 
         int workoutId = GeneralQueries.GetOne(workoutSql, reader => reader.GetInt32(0), command =>
         {
@@ -16,7 +16,7 @@ public class Workout
             command.Parameters.AddWithValue("@Date", workoutObject.Date);
         });
 
-        string exercisesSql = "INSERT INTO workoutexercises (WorkoutId, ExerciseId, Sets) VALUES (@WorkoutId, @ExerciseId, @Sets); SELECT last_insert_rowid();";
+        string exercisesSql = "INSERT INTO workoutexercises (workoutId, exerciseId, sets) VALUES (@WorkoutId, @ExerciseId, @Sets); SELECT last_insert_rowid();";
 
         List<int> workoutExercisesIdList = new List<int>();
         foreach (WorkoutExercisesRepository workoutExercisesObject in workoutExercisesList)
@@ -30,7 +30,7 @@ public class Workout
             workoutExercisesIdList.Add(workoutExercisesId);
         }
 
-        string setssql = "INSERT INTO workoutsets (WorkoutExercisesId, SetNumber, Weight, Reps) VALUES (@WorkoutExercisesId, @SetNumber, @Weight, @Reps)";
+        string setsSql = "INSERT INTO workoutsets (workoutexercisesId, setnumber, weight, reps) VALUES (@WorkoutExercisesId, @SetNumber, @Weight, @Reps)";
 
         for (int exerciseCount = 0; exerciseCount < workoutSetsListList.Count; exerciseCount++)
         {
@@ -39,7 +39,7 @@ public class Workout
 
             foreach (WorkoutSetsRepository workoutSetsObject in workoutSetsList)
             {
-                GeneralQueries.NonQuery(setssql, command =>
+                GeneralQueries.NonQuery(setsSql, command =>
                 {
                     command.Parameters.AddWithValue("@WorkoutExercisesId", workoutExercisesId);
                     command.Parameters.AddWithValue("@SetNumber", workoutSetsObject.SetNumber);
@@ -50,9 +50,9 @@ public class Workout
         }
     }
 
-    public static List<WorkoutRepository> GetWorkoutsUntilDate(int userId, long dateTo)
+    public static List<WorkoutRepository> GetWorkoutsSince(int userId, long dateTo)
     {
-        string sql = "SELECT * FROM workout WHERE UserId = @userId AND Date > @dateTo";
+        string sql = "SELECT * FROM workout WHERE userId = @userId AND date > @dateTo";
 
         return GeneralQueries.GetMultiple(sql, reader => new WorkoutRepository
             {
@@ -67,6 +67,21 @@ public class Workout
                 command.Parameters.AddWithValue("@userId", userId);
                 command.Parameters.AddWithValue("@dateTo", dateTo);
             }
+        );
+    }
+    
+    public static List<WorkoutExercisesRepository> GetExercisesByWorkout(int workoutId)
+    {
+        string sql = "SELECT * FROM workoutexercises WHERE workoutId = @workoutId";
+
+        return GeneralQueries.GetMultiple(sql, reader => new WorkoutExercisesRepository()
+            {
+                WorkoutExercisesId = reader.GetInt32(0),
+                WorkoutId = reader.GetInt32(1),
+                ExerciseId = reader.GetInt32(2),
+                Sets = reader.GetInt32(3)
+            },
+            command => command.Parameters.AddWithValue("@workoutId", workoutId)
         );
     }
 }

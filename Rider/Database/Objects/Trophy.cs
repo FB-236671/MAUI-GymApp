@@ -6,7 +6,7 @@ public class Trophy
 {
     public static TrophyRepository GetTrophyByExercise(int exerciseId)
     {
-        string sql = "SELECT * FROM trophy WHERE ExerciseId = @ExerciseId";
+        string sql = "SELECT * FROM trophy WHERE exerciseId = @ExerciseId";
 
         return GeneralQueries.GetOne(sql, reader => new TrophyRepository()
             {

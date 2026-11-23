@@ -20,7 +20,7 @@ public class User
     
     public static int CreateUser(UserRepository userObject)
     {
-        string sql = "INSERT INTO user (Name, Age, Weight, Sex) VALUES (@Name, @Age, @Weight, @Sex); SELECT last_insert_rowid();";
+        string sql = "INSERT INTO user (name, age, weight, sex) VALUES (@Name, @Age, @Weight, @Sex); SELECT last_insert_rowid();";
 
         return GeneralQueries.GetOne(sql, reader => reader.GetInt32(0), command =>
         {
@@ -31,11 +31,11 @@ public class User
         });
     }
 
-    public static int EditUser(UserRepository userObject)
+    public static void EditUser(UserRepository userObject)
     {
-        string sql = "UPDATE user SET Name = @Name, Age = @Age, Weight = @Weight, Sex = @Sex WHERE userId = @userId";
+        string sql = "UPDATE user SET name = @Name, age = @Age, weight = @Weight, sex = @Sex WHERE userId = @userId";
 
-        return GeneralQueries.GetOne(sql, command =>
+        GeneralQueries.NonQuery(sql, command =>
         {
             command.Parameters.AddWithValue("@Name", userObject.Name);
             command.Parameters.AddWithValue("@Age", userObject.Age);
@@ -47,7 +47,7 @@ public class User
 
     public static void DeleteUser(int userId)
     {
-        string sql = "DELTE FROM user WHERE userId = @userId";
+        string sql = "DELETE FROM workoutsets WHERE workoutexercisesId IN (SELECT we.workoutexercisesId FROM workoutexercises we JOIN workout w ON we.workoutId = w.workoutId WHERE w.userId = @userId);\n    DELETE FROM workoutexercises WHERE workoutId IN (SELECT workoutId FROM workout WHERE userId = @userId);\n    DELETE FROM workout WHERE userId = @userId;\n    DELETE FROM routineexercises WHERE routineId IN (SELECT routineId FROM routine WHERE userId = @userId);\n    DELETE FROM routine WHERE userId = @userId;\n    DELETE FROM record WHERE userId = @userId;\n    DELETE FROM user WHERE userId = @userId";
 
         GeneralQueries.NonQuery(sql, command => command.Parameters.AddWithValue("@userId", userId));
     }

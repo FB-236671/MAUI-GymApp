@@ -8,7 +8,7 @@ public class ProfilePage : ContentPage
     private Entry _ageEntry;
     private Entry _weightEntry;
     private Picker _sexPicker;
-    private UserRepository _user;
+    private UserRepository? _user;
 
     public ProfilePage(UserRepository? user = null)
     {
@@ -30,6 +30,7 @@ public class ProfilePage : ContentPage
         if (user != null)
         {
             _user = user;
+            createButton.Text = "Save Profile";
             _nameEntry.Text = user.Name;
             _ageEntry.Text = Convert.ToString(user.Age);
             _weightEntry.Text = Convert.ToString(user.Weight);
@@ -84,10 +85,12 @@ public class ProfilePage : ContentPage
 
         if (_user != null)
         {
-            userObject.UserId = User.EditUser(userObject);
+            userObject.UserId = _user.UserId;
+            User.EditUser(userObject);
             MainPage.User = userObject;
 
             GeneralControls.GoHome();
+            return;
         }
 
         userObject.UserId = User.CreateUser(userObject);

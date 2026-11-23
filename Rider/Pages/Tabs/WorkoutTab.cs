@@ -4,66 +4,53 @@ namespace MAUI_GymApp.Views;
 
 public class WorkoutTab : ContentView
 {
-    private List<WorkoutRepository> workoutList = Workout.GetWorkoutsUntilDate(MainPage.User.UserId, DateTimeOffset.UtcNow.AddDays(-56).ToUnixTimeSeconds());
-    private List<string> filterList = new List<string>();
-    private Picker filterSelector = new Picker();
-
     public WorkoutTab(UserRepository user)
     {
-        filterSelector = UIElements.MakeSelector("Filter", filterList, 20);
+        List<WorkoutRepository> workoutList = Workout.GetWorkoutsSince(user.UserId, 0);
 
         VerticalStackLayout layout = new VerticalStackLayout
         {
             Padding = new Thickness(16, 16, 16, 0),
             Spacing = 8,
-            Children =
-            {
-                UIElements.MakeLabel("Workout History", 30),
-                filterSelector
-            }
+            Children = { UIElements.MakeLabel("Workout History", 30) }
         };
+
+        if (workoutList.Count == 0)
+        {
+            layout.Children.Add(UIElements.MakeLabel("No workouts yet", 16));
+        }
 
         foreach (WorkoutRepository workout in workoutList)
         {
-
+            layout.Children.Add(BuildHistoryCard(workout));
         }
+
+        Content = new ScrollView { Content = layout };
     }
 
-    private static View BuildHistoryCard(WorkoutRepository workout, int filterNum)
+    private static View BuildHistoryCard(WorkoutRepository workout)
     {
-        VerticalStackLayout historyLayout = new VerticalStackLayout()
+        string date = DateTimeOffset.FromUnixTimeSeconds(workout.Date).LocalDateTime.ToString("dd MMM yyyy");
+        string duration = TimeSpan.FromSeconds(workout.Duration).ToString(@"hh\:mm\:ss");
+
+        VerticalStackLayout historyLayout = new VerticalStackLayout
         {
             Padding = new Thickness(20, 14),
             Spacing = 12,
             Children =
             {
-                new HorizontalStackLayout()
-                {
-                    Spacing = 20,
-                    Children =
-                    {
-                        UIElements.MakeLabel(Routine.GetRoutineByWorkout(workout.WorkoutId).Name.ToString(), 10),
-                        UIElements.MakeLabel(workout.Duration.ToString(), 10),
-                        UIElements.MakeLabel(workout.Date.ToString(), 10),
-                        UIElements.MakeLabel(workout.Volume.ToString(), 10)
-                    }
-                },
-                UIElements.MakeLine(),
+                UIElements.MakeLabel(date, 18),
+                UIElements.MakeLabel("Time: " + duration + "   Volume: " + workout.Volume, 12),
+                UIElements.MakeLine()
             }
         };
 
-        List<WorkoutExercisesRepository> exercises = Exercise.GetExercisesByWorkout(workout.WorkoutId);
-
-        for (int i = 0; i <= filterNum; i++)
+        foreach (WorkoutExercisesRepository exercise in Workout.GetExercisesByWorkout(workout.WorkoutId))
         {
-            historyLayout.Children.Add(new HorizontalStackLayout()
-            {
-                Spacing = 8,
-                Children =
-                {
-                    UIElements.MakeLabel("x " + exercises[i].Sets + " " + Exercise.GetExerciseById(exercises[i].ExerciseId).ToString, 10)
-                }
-            });
+            if (exercise.Sets == 0) continue;
+            historyLayout.Children.Add(UIElements.MakeLabel(exercise.Sets + " x " + Exercise.GetExerciseName(exercise.ExerciseId), 12));
         }
+
+        return UIElements.MakeCard(Colors.LightGray, historyLayout);
     }
 }

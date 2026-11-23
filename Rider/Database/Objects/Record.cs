@@ -6,7 +6,7 @@ public class Record
 {
     public static void SaveRecord(RecordRepository recordObject)
     {
-        string sql = "INSERT OR REPLACE INTO record (UserId, ExerciseId, BestWeight, OneRM) VALUES (@UserId, @ExerciseId, @BestWeight, @OneRM)";
+        string sql = "INSERT OR REPLACE INTO record (userId, exerciseId, bestWeight, oneRM) VALUES (@UserId, @ExerciseId, @BestWeight, @OneRM)";
         
         GeneralQueries.NonQuery(sql, command => 
         {
@@ -19,7 +19,7 @@ public class Record
     
     public static RecordRepository GetRecordById(int userId, int exerciseId)
     {
-        string sql = "SELECT * FROM record WHERE UserId = @UserId AND ExerciseId = @ExerciseId";
+        string sql = "SELECT * FROM record WHERE userId = @UserId AND exerciseId = @ExerciseId";
 
         return GeneralQueries.GetOne(sql, reader => new RecordRepository
             {

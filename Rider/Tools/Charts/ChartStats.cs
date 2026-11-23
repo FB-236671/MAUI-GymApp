@@ -33,13 +33,13 @@ public static class ChartStats
             {
                 Title = "Weekly Duration",
                 Type = ChartType.Bar,
-                GetEntries = () => ChartEntries.ByWeek(8, Workout.GetWorkoutsUntilDate(userId, DateTimeOffset.UtcNow.AddDays(-56).ToUnixTimeSeconds()), workout => workout.Duration)
+                GetEntries = () => ChartEntries.ByWeek(8, Workout.GetWorkoutsSince(userId, DateTimeOffset.UtcNow.AddDays(-56).ToUnixTimeSeconds()), workout => workout.Duration)
             },
             new ChartDefinition()
             {
                 Title = "Weekly Volume",
                 Type = ChartType.Bar,
-                GetEntries = () => ChartEntries.ByWeek(8, Workout.GetWorkoutsUntilDate(userId, DateTimeOffset.UtcNow.AddDays(-56).ToUnixTimeSeconds()), workout => workout.Volume)
+                GetEntries = () => ChartEntries.ByWeek(8, Workout.GetWorkoutsSince(userId, DateTimeOffset.UtcNow.AddDays(-56).ToUnixTimeSeconds()), workout => workout.Volume)
             })
     };
 }

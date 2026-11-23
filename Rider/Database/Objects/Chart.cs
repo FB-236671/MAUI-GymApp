@@ -1,6 +1,4 @@
 ﻿using MAUI_GymApp.Rider.Database.Queries;
-using Microcharts;
-using Microcharts.Maui;
 
 namespace MAUI_GymApp.Rider.Database.Objects;
 

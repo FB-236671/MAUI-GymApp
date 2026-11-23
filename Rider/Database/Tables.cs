@@ -42,8 +42,8 @@ public class Tables
     {
         GeneralQueries.PrePopulator("CategoryList.txt", "INSERT OR IGNORE INTO category (name) VALUES (@name)", new []{ "@name" });
         GeneralQueries.PrePopulator("EquipmentList.txt", "INSERT OR IGNORE INTO equipment (name, multiplier) VALUES (@name, @multiplier)", new [] { "@name", "@multiplier" });
-        GeneralQueries.PrePopulator("ExerciseList.txt", "INSERT OR IGNORE INTO exercise (name, muscleId) VALUES (@name, @muscleId)", new []{ "@name", "@muscleId" });
         GeneralQueries.PrePopulator("MuscleList.txt", "INSERT OR IGNORE INTO muscle (name, categoryId) VALUES (@name, @categoryId)", new [] { "@name", "@categoryId" });
+        GeneralQueries.PrePopulator("ExerciseList.txt", "INSERT OR IGNORE INTO exercise (name, muscleId) VALUES (@name, @muscleId)", new []{ "@name", "@muscleId" });
         GeneralQueries.PrePopulator("TrophyList.txt", "INSERT OR IGNORE INTO trophy (exerciseId, platinum, gold, silver, bronze) VALUES (@exerciseId, @platinum, @gold, @silver, @bronze)", new [] { "@exerciseId", "@platinum", "@gold", "@silver", "@bronze" });
     }
 }
