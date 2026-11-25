@@ -11,8 +11,8 @@ public class WorkoutTab : ContentView
         VerticalStackLayout layout = new VerticalStackLayout
         {
             Padding = new Thickness(16, 16, 16, 0),
-            Spacing = 8,
-            Children = { UIElements.MakeLabel("Workout History", 30) }
+            Spacing = 16,
+            Children = { UIElements.MakeLabel("Workout History", 30), UIElements.MakeLine() }
         };
 
         if (workoutList.Count == 0)

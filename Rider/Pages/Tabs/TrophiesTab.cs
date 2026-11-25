@@ -1,18 +1,20 @@
-using MAUI_GymApp.Rider.Database.Objects;
+﻿using MAUI_GymApp.Rider.Database.Objects;
 
 namespace MAUI_GymApp.Views;
 
 public class TrophiesTab : ContentView
 {
+    private UserRepository _user;
     public TrophiesTab(UserRepository user)
     {
+        _user = user;
         List<RecordRepository> recordList = Record.GetRecordsByUser(user.UserId);
 
         VerticalStackLayout layout = new VerticalStackLayout
         {
             Padding = new Thickness(16, 16, 16, 0),
             Spacing = 8,
-            Children = { BuildHeaderRow(), UIElements.MakeLine() }
+            Children = { UIElements.MakeLabel("Exercise Records", 30), UIElements.MakeLine(), BuildHeaderRow() }
         };
 
         foreach (RecordRepository record in recordList)
@@ -58,8 +60,8 @@ public class TrophiesTab : ContentView
         {
             new ColumnDefinition { Width = new GridLength(48) },
             new ColumnDefinition { Width = GridLength.Star },
-            new ColumnDefinition { Width = new GridLength(70) },
-            new ColumnDefinition { Width = new GridLength(70) }
+            new ColumnDefinition { Width = new GridLength(60) },
+            new ColumnDefinition { Width = new GridLength(60) }
         },
         ColumnSpacing = 12,
         Padding = new Thickness(16, 12)
@@ -77,15 +79,26 @@ public class TrophiesTab : ContentView
         return header;
     }
 
-    private static View BuildTrophyCard(RecordRepository record, string trophySource)
+    private View BuildTrophyCard(RecordRepository record, string trophySource)
     {
+        Button infoButton = UIElements.MakeButton("⋮", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness(8));
+
         Grid inner = MakeRowGrid();
         
-        inner.Add(UIElements.MakeImage(trophySource, 40, 40));
-        inner.Add(UIElements.MakeCell(Exercise.GetExerciseName(record.ExerciseId), 10, TextAlignment.Start), 1);
+        inner.Add(UIElements.MakeImage(trophySource, 48, 48));
+        inner.Add(UIElements.MakeCell(Exercise.GetExerciseName(record.ExerciseId), 12, TextAlignment.Start), 1);
         inner.Add(UIElements.MakeCell($"{record.OneRM}kg", 12, TextAlignment.End), 2);
         inner.Add(UIElements.MakeCell($"{record.BestWeight}kg", 12, TextAlignment.End), 3);
+        inner.Add(infoButton, 4);
+
+        infoButton.CommandParameter = record.ExerciseId;
+        infoButton.Clicked += OnInfoClicked;
 
         return UIElements.MakeCard(Colors.LightGray, inner);
+    }
+
+    private async void OnInfoClicked(object? sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ExerciseInfoPage(_user));
     }
 }

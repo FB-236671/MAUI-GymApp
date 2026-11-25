@@ -12,8 +12,8 @@ public class RoutineTab : ContentView
     {
         _user = user;
         
-        Button startEmpty = UIElements.MakeButton("Start Empty Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 12, new Thickness(8));
-        Button createNew = UIElements.MakeButton("Create New Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 12, new Thickness(8));
+        Button startEmpty = UIElements.MakeButton("Start Empty Workout", Colors.Black, Colors.White, Colors.Black, 2, 6, 14, new Thickness(8));
+        Button createNew = UIElements.MakeButton("Create New Routine", Colors.Black, Colors.White, Colors.Black, 2, 6, 14, new Thickness(8));
         Grid.SetColumn(createNew, 1);
 
         createNew.Clicked += OnCreateClick;
@@ -34,7 +34,7 @@ public class RoutineTab : ContentView
         {
             Padding = new Thickness(16, 16, 16, 0),
             Spacing = 16,
-            Children = { topRow }
+            Children = { UIElements.MakeLabel("Routines", 30), UIElements.MakeLine(), topRow }
         };
         
         Content = new ScrollView { Content = _layout };

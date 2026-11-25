@@ -20,6 +20,7 @@ public class StatsTab : ContentView
             Spacing = 16,
             Children =
             {
+                UIElements.MakeLabel("User Statistics", 30), UIElements.MakeLine(),
                 UIElements.MakeLabel(_user.Name, 30),
                 new HorizontalStackLayout()
                 {
@@ -39,7 +40,7 @@ public class StatsTab : ContentView
             }
         };
         
-        foreach (View chart in ChartStats.All(_user.UserId))
+        foreach (View chart in ChartStats.StatsTab(_user.UserId))
         {
             _layout.Children.Add(chart);
         }

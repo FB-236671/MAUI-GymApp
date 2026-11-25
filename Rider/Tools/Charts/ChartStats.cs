@@ -12,7 +12,7 @@ public static class ChartStats
         "Chest", "Quadriceps", "Hamstrings", "Traps", "Abs", "Upper Back", "Lower Back"
     };
 
-    public static List<View> All(int userId) => new()
+    public static List<View> StatsTab(int userId) => new()
     {
         new ChartCard(
             new ChartDefinition
@@ -40,6 +40,15 @@ public static class ChartStats
                 Title = "Weekly Volume",
                 Type = ChartType.Bar,
                 GetEntries = () => ChartEntries.ByWeek(8, Workout.GetWorkoutsSince(userId, DateTimeOffset.UtcNow.AddDays(-56).ToUnixTimeSeconds()), workout => workout.Volume)
+            })
+    };
+
+    public static List<View> ExerciseInfo(int userId) => new()
+    {
+        new ChartCard(
+            new ChartDefinition
+            {
+                Title = ""
             })
     };
 }
