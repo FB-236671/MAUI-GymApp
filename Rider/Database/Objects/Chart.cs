@@ -29,10 +29,35 @@ public class Chart
             command => command.Parameters.AddWithValue("@userId", userId)
         );
     }
-    
+
+
+    // NEED TO DO
+
+    public static List<ExerciseStatsRepository> GetExerciseStats(int exerciseId)
+    {
+        string sql = "";
+
+        return GeneralQueries.GetMultiple(sql, reader => new ExerciseStatsRepository()
+        {
+            ExerciseId = exerciseId,
+            Date = reader.GetInt32(0),
+            Weight = reader.GetInt32(1),
+            OneRM = reader.GetInt32(2)
+        },
+        command => command.Parameters.AddWithValue("@exerciseId", exerciseId));
+    }
+
     public class ChartRepository
     {
         public string Name { get; set; }
         public int Value { get; set; }
+    }
+
+    public class ExerciseStatsRepository
+    {
+        public int ExerciseId { get; set; }
+        public long Date { get; set; }
+        public double Weight { get; set; }
+        public int OneRM { get; set; }
     }
 }

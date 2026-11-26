@@ -29,12 +29,12 @@ public class StatsTab : ContentView
                 },
                 new HorizontalStackLayout()
                 {
-                    Spacing = 80,
+                    Spacing = 70,
                     Children =
                     {
-                        UIElements.MakeLabel("Age: " + _user.Age, 10),
-                        UIElements.MakeLabel("Weight: " + _user.Weight, 10),
-                        UIElements.MakeLabel("Sex: " + _user.Sex, 10),
+                        UIElements.MakeLabel("Age: " + _user.Age, 12),
+                        UIElements.MakeLabel("Weight: " + _user.Weight + " kg", 12),
+                        UIElements.MakeLabel("Sex: " + _user.Sex, 12),
                     }
                 }
             }

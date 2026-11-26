@@ -48,7 +48,9 @@ public static class ChartStats
         new ChartCard(
             new ChartDefinition
             {
-                Title = ""
+                Title = "Exercise Stats",
+                Type = ChartType.Line,
+                GetEntries = () => 
             })
     };
 }

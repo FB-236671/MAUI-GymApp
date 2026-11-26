@@ -52,7 +52,7 @@ public class WorkoutPage : ContentPage
             Button saveButton = UIElements.MakeButton("Save", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, new Thickness());
             saveButton.Clicked += OnSaveAsRoutineClicked;
 
-            Picker exercisePicker = UIElements.MakeSelector("Add an Exercise", Exercise.ExerciseNameList(), 18);
+            Picker exercisePicker = UIElements.MakeSelector("Add an Exercise", Exercise.ExerciseNameList(), Colors.Black, 18);
             exercisePicker.SelectedIndexChanged += OnPickerSelectedIndexChanged;
 
             Grid buttons = new Grid

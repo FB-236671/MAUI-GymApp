@@ -61,9 +61,13 @@ public class UIControls
 
     public static View BuildRoutineCard(string name, List<RoutineDataRepository> routineExerciseList)
     {
-        Entry setEntry = UIElements.MakeIntBox("Sets", Colors.White, Colors.Black, 12, 35, LayoutOptions.End);
-        Picker restPicker = UIElements.MakeSelector("Rest", GeneralControls.GetRestList(), 12);
-        Picker equipmentPicker = UIElements.MakeSelector("Equipment", Equipment.EquipmentNameList(), 12);
+        Entry setEntry = UIElements.MakeIntBox("Sets", Colors.White, Colors.Black, 16, 50, LayoutOptions.End);
+        Picker restPicker = UIElements.MakeSelector("Rest", GeneralControls.GetRestList(), Colors.White, 16);
+        Picker equipmentPicker = UIElements.MakeSelector("Equipment", Equipment.EquipmentNameList(), Colors.White, 16);
+        Button removeButton = UIElements.MakeButton("🗑", Colors.Black, Colors.White, Colors.White, 2, 6, 18, 48, 48, 0);
+
+        removeButton.CommandParameter = name;
+        removeButton.Clicked += onRemoveRoutineCard;
 
         VerticalStackLayout workoutLayout = new VerticalStackLayout()
         {
@@ -72,9 +76,11 @@ public class UIControls
             Children =
             {
                 UIElements.MakeLabel(name, 22, Colors.Black, LayoutOptions.Center),
+                removeButton,
                 new HorizontalStackLayout()
                 {
-                    Spacing = 8,
+                    Padding = new Thickness(20, 14),
+                    Spacing = 20,
                     Children =
                     {
                         setEntry,

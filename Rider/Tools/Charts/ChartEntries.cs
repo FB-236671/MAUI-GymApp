@@ -22,7 +22,7 @@ public class ChartEntries
                     total += item.Value;
                 }
             }
-            entries[i] = MakeEntry(labels[i], total);
+            entries[i] = MakeEntry(labels[i], total, "time");
         }
         return entries;
     }
@@ -56,19 +56,26 @@ public class ChartEntries
             }
             else
             {
-                label = weeksAgo + "week";
+                label = "week " + weeksAgo;
             }
 
-            entries[i] = MakeEntry(label, totals[i]);
+            entries[i] = MakeEntry(label, totals[i], "weight");
         }
 
         return entries;
     }
 
-    public static ChartEntry MakeEntry(string label, int value) => new(value)
+    public static ChartEntry MakeEntry(string label, int value, string type) => new(value)
     {
         Label = label,
-        ValueLabel = Convert.ToString(value),
+        if (type == "weight")
+        {
+            ValueLabel = Convert.ToString(value) + " kg"
+        },
+        else if (type == "time")
+        {
+            ValueLabel = Convert.ToString(value) + " s"
+        },
         Color = SKColor.Parse("#000000")
     };
 }

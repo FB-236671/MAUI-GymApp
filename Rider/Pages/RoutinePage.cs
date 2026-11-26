@@ -14,7 +14,7 @@ public class RoutinePage : ContentPage
     {
         _user = user;
         Background = Colors.White;
-        Picker picker = UIElements.MakeSelector("Add an Exercise", Exercise.ExerciseNameList(), 18);
+        Picker picker = UIElements.MakeSelector("Add an Exercise", Exercise.ExerciseNameList(), Colors.Black, 18);
         Button saveButton = UIElements.MakeButton("Save", Colors.Black, Colors.White, Colors.Black, 2, 6, 20, 4);
         _nameBox = UIElements.MakeTextBox("Name", Colors.Gray, Colors.Black, 30, 250, LayoutOptions.Start);
         _nameBox.HorizontalOptions = LayoutOptions.Start;
@@ -40,6 +40,12 @@ public class RoutinePage : ContentPage
             SaveControls.LoadRoutine(_nameBox, _routine, _layout, _routineExerciseList);
         }
         Content = new ScrollView { Content = _layout };
+    }
+
+    public async void onRemoveRoutineCard(object? sender, EventArgs e)
+    {
+        _layout.Children.RemoveAt();
+        // Where the name of the buildroutinecard is the same 
     }
 
     private async void OnPickerSelectedIndexChanged(object? sender, EventArgs e)

@@ -2,10 +2,10 @@
 
 namespace MAUI_GymApp;
 
-public class ExerciseInfoPage : ContentPage
+public class ExerciseStatsPage : ContentPage
 {
     VerticalStackLayout _layout;
-    public ExerciseInfoPage(UserRepository user, ExerciseRepository exercise)
+    public ExerciseStatsPage(UserRepository user, ExerciseRepository exercise)
     {
         _layout = new VerticalStackLayout()
         {

@@ -40,7 +40,18 @@ public class WorkoutTab : ContentView
             Children =
             {
                 UIElements.MakeLabel(date, 18),
-                UIElements.MakeLabel("Time: " + duration + "   Volume: " + workout.Volume, 12),
+                new HorizontalStackLayout
+                {
+                    Padding = new Thickness(20, 14),
+                    Spacing = 12,
+                    Children =
+                    { 
+                        UIElements.MakeLabel("Time:", 12),
+                        UIElements.MakeLabel(duration, 14),
+                        UIElements.MakeLabel("Volume:", 12),
+                        UIElements.MakeLabel(workout.Volume.ToString(), 14)
+                    }
+                },
                 UIElements.MakeLine()
             }
         };

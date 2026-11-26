@@ -77,13 +77,13 @@ public class UIElements
         VerticalOptions = layout
     };
 
-    public static Picker MakeSelector(string title, List<string> list, int fontSize) => new()
+    public static Picker MakeSelector(string title, List<string> list, Color titleColor, int fontSize) => new()
     {
         Title = title,
         ItemsSource = list,
         TextColor = Colors.Black,
         FontFamily = "OrbitronBold",
-        TitleColor = Colors.Black,
+        TitleColor = titleColor,
         FontSize = fontSize
     };
     

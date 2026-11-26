@@ -1,4 +1,5 @@
 ﻿Dumbbell,2
+Plate, 1
 Barbell,1
 No Pulley,1
 One Pulley,0.5
